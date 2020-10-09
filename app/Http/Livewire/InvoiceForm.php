@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\services\pdf\pdfGenerator;
 use Livewire\Component;
 
 class InvoiceForm extends Component
@@ -18,13 +19,12 @@ class InvoiceForm extends Component
     protected $rules = [
         'companyName' => 'required',
         'companyCode' => 'required',
-        'companyVat' => 'required',
-        'companyAddress' => 'required',
-        'productName' => 'required',
-        'productPrice' => 'required',
-        'productPcs' => 'required',
-        'pcsType' => 'required',
     ];
+
+    public function __construct($id = null)
+    {
+        parent::__construct($id);
+    }
 
     public function render()
     {
@@ -33,6 +33,7 @@ class InvoiceForm extends Component
 
     public function submit(){
         $this->validate();
-
+        $pdfGenerator = new pdfGenerator();
+        return $pdfGenerator->generatePdf();
     }
 }
