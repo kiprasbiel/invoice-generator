@@ -16,7 +16,7 @@ class CreateMetaTable extends Migration
         Schema::create('meta', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('value');
+            $table->text('value');
             $table->bigInteger('metable_id');
             $table->string('metable_type');
             $table->timestamps();
