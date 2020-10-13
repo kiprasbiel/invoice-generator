@@ -44,10 +44,10 @@
 </table>
 
 <div class="margin-top-normal">
-    <table style="border-spacing: unset">
+    <table style="border-spacing: unset; width: 100%">
         <thead>
         <tr>
-            <th class="border-bottom">Pavadinimas</th>
+            <th class="border-bottom full-width">Pavadinimas</th>
             <th class="border-bottom">Kiekis</th>
             <th class="border-bottom">Matas</th>
             <th class="border-bottom">Kaina</th>
@@ -58,7 +58,7 @@
         @foreach($invoiceMeta as $index => $product)
             @if($index !== 'total_invoice_price')
                 <tr>
-                    <td class="border-bottom">{{ $product->product_name }}</td>
+                    <td class="border-bottom full-width">{{ $product->product_name }}</td>
                     <td class="border-bottom text-align-center">{{ $product->product_pcs }}</td>
                     <td class="border-bottom text-align-center">{{ $product->pcs_type }}</td>
                     <td class="border-bottom text-align-center">{{ $product->product_price }} &euro;</td>
