@@ -29,39 +29,12 @@ class Invoice extends Model
         return $this->morphMany('App\Models\Meta', 'metable');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->totalCost = 0;
-    }
-
-    protected function singleServiceCost($service){
-
-    }
-
-    protected function addToTotalCost($amount){
-
-    }
-
-    protected function getCompleteData(){
-
-    }
-
-    public function getTotalInvoicePrice(){
-        return $this->totalCost;
-    }
-
     public function downloadInvoice(){
-        // New Invoice service instance
-        $completeData = $this->getCompleteData();
-
-        // new PDF instance
-        $pdf = new PdfGenerator($completeData);
-        return $pdf->downloadPdf();
+        $generator = new PdfGenerator($this, $this->meta()->where('name', 'invoiceServices')->first());
+        return $generator->downloadPdf();
     }
 }

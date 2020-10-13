@@ -84,7 +84,7 @@ class InvoiceForm extends Component
             'value' => $productListJson,
         ]);
 
-        $pdf = new PdfGenerator($invoice, $invoiceMeta);
-        return $pdf->downloadPdf();
+//        $pdf = new PdfGenerator($invoice, $invoiceMeta);
+        return $invoice->downloadInvoice();
     }
 }
