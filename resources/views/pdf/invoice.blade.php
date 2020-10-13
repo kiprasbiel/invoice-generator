@@ -26,10 +26,19 @@
         </td>
         <td class="half-width vertical-align-top">
             <div><strong>Pirkėjas</strong></div>
-            <div>Promas LT, VšĮ</div>
-            <div>Įm. kodas 304690879</div>
-            <div>PVM mokėtojo kodas LT100011469319</div>
-            <div>Beržų g. 10, Gulbiniškių k., Jonavos r. , Lietuva</div>
+            @if($invoiceData->company_name)
+                <div>{{ $invoiceData->company_name }}</div>
+            @endif
+            @if($invoiceData->company_code)
+                <div>Įm. kodas {{ $invoiceData->company_code }}</div>
+            @endif
+            @if($invoiceData->company_vat)
+                <div>PVM mokėtojo kodas {{ $invoiceData->company_vat }}</div>
+            @endif
+            @if($invoiceData->company_address)
+                <div>{{ $invoiceData->company_address }}</div>
+            @endif
+
         </td>
     </tr>
 </table>
@@ -46,28 +55,23 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="border-bottom">Sistemos darbai. Galimybė keisti jau sukurtos konsultacijos temą.</td>
-            <td class="border-bottom text-align-center">1</td>
-            <td class="border-bottom text-align-center">vnt</td>
-            <td class="border-bottom text-align-center">84.00 &euro;</td>
-            <td class="border-bottom text-align-center">84.00 &euro;</td>
-        </tr>
-        <tr>
-            <td class="border-bottom">Sistemos darbai. Duomenų bazės struktūros keitimas. Galimybė įvesti daugiau nei
-                vieną pertrauką konsultacijai. Kiti smulkūs logikos patobūlinimai.
-            </td>
-            <td class="border-bottom text-align-center">1</td>
-            <td class="border-bottom text-align-center">vnt</td>
-            <td class="border-bottom text-align-center">145.00 &euro;</td>
-            <td class="border-bottom text-align-center">145.00 &euro;</td>
-        </tr>
+        @foreach($invoiceMeta as $index => $product)
+            @if($index !== 'total_invoice_price')
+                <tr>
+                    <td class="border-bottom">{{ $product->product_name }}</td>
+                    <td class="border-bottom text-align-center">{{ $product->product_pcs }}</td>
+                    <td class="border-bottom text-align-center">{{ $product->pcs_type }}</td>
+                    <td class="border-bottom text-align-center">{{ $product->product_price }} &euro;</td>
+                    <td class="border-bottom text-align-center">{{ $product->total_price }} &euro;</td>
+                </tr>
+            @endif
+        @endforeach
         </tbody>
     </table>
 </div>
 
 <div class="text-align-right">
-    <div><strong>Bendra suma</strong> 229.00 &euro;</div>
+    <div><strong>Bendra suma</strong> {{$invoiceMeta->total_invoice_price}} &euro;</div>
 </div>
 
 <div class="margin-top-normal">

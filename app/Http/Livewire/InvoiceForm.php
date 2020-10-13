@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\services\Invoice\InvoiceService;
 use App\Http\services\pdf\PdfGenerator;
 use Livewire\Component;
 
@@ -67,9 +68,23 @@ class InvoiceForm extends Component
     public function submit()
     {
         $data = $this->validate();
-//        dd($this->productList);
-        dd($data);
-        $pdfGenerator = new PdfGenerator();
-        return $pdfGenerator->generatePdf($data);
+        $productListJson = json_encode(InvoiceService::calculateCosts($data['productList']));
+
+        $user = auth()->user();
+
+        $invoice = $user->invoices()->create([
+            'company_name' => $data['companyName'],
+            'company_code' => $data['companyCode'],
+            'company_address' => $data['companyAddress'],
+            'company_vat' => $data['companyVat'],
+        ]);
+
+        $invoiceMeta = $invoice->meta()->create([
+            'name' => 'invoiceServices',
+            'value' => $productListJson,
+        ]);
+
+        $pdf = new PdfGenerator($invoice, $invoiceMeta);
+        return $pdf->downloadPdf();
     }
 }

@@ -4,13 +4,23 @@
 namespace App\Http\services\pdf;
 
 
-class pdfGenerator
+use App\Models\Invoice;
+use App\Models\Meta;
+
+class PdfGenerator
 {
+    private $invoice;
+    private $invoiceMeta;
 
-    public function generatePdf($view = 'pdf.invoice')
+    public function __construct(Invoice $invoice, Meta $invoiceMeta)
     {
-        $html = view($view)->render();
+        $this->invoice = $invoice;
+        $this->invoiceMeta = json_decode($invoiceMeta->value);
+    }
 
+    public function downloadPdf($view = 'pdf.invoice')
+    {
+        $html = view($view, ['invoiceData' => $this->invoice, 'invoiceMeta' => $this->invoiceMeta])->render();
         $mpdf = new \Mpdf\Mpdf([
             'tempDir' => storage_path() . '/temp',
         ]);
