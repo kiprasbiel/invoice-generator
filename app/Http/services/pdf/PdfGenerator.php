@@ -25,7 +25,7 @@ class PdfGenerator
             'tempDir' => storage_path() . '/temp',
         ]);
 
-        $stylesheet = file_get_contents('css/pdf.css');
+        $stylesheet = file_get_contents(public_path('css/pdf.css'));
 
         $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
         $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
