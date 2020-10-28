@@ -17,7 +17,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
     return view('livewire.homedash');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/invoice-create', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/invoice/create', function () {
     return view('invoice.create');
 })->name('invoice.create');
 
