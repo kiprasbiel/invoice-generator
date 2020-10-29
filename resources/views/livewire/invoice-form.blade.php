@@ -5,7 +5,7 @@
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_name">
                     Įmonės pavadinimas
                 </label>
-                <input wire:model="companyName"
+                <input wire:model.defer="companyName"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                        id="company_name" type="text" placeholder="Testas, UAB">
                 @error('companyName') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -16,7 +16,7 @@
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_code">
                     Įmonės kodas
                 </label>
-                <input wire:model="companyCode"
+                <input wire:model.defer="companyCode"
                        class="appearance-none block w-full border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                        id="company_code" type="text" placeholder="123456789">
                 @error('companyCode') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -25,7 +25,7 @@
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_vat">
                     PVM kodas
                 </label>
-                <input wire:model="companyVat"
+                <input wire:model.defer="companyVat"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                        id="company_vat" type="text" placeholder="123456789">
                 @error('companyVat') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -36,7 +36,7 @@
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_address">
                     Įmonės adresas
                 </label>
-                <input wire:model="companyAddress"
+                <input wire:model.defer="companyAddress"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                        id="company_address" type="text" placeholder="Vileikos g. 8, Kaunas">
                 @error('companyAddress') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -53,7 +53,7 @@
                     <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="productList.{{ $index }}.product_name">
                         Paslaugos pavadinimas
                     </label>
-                    <input wire:model="productList.{{ $index }}.product_name" name="productList[{{ $index }}][product_name]"
+                    <input wire:model.defer="productList.{{ $index }}.product_name" name="productList[{{ $index }}][product_name]"
                            class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                            id="product_name{{ $index }}" type="text" placeholder="Produktas">
                     @error('productList.' . $index . '.product_name') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -62,7 +62,7 @@
                     <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="product_price{{ $index }}">
                         Kaina
                     </label>
-                    <input  wire:model="productList.{{ $index }}.product_price" name="productList[{{ $index }}][product_price]"
+                    <input  wire:model.defer="productList.{{ $index }}.product_price" name="productList[{{ $index }}][product_price]"
                            class="appearance-none block w-full border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                            id="product_price{{ $index }}" type="text" placeholder="125">
                     @error('productList.' . $index . '.product_price') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -71,7 +71,7 @@
                     <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="product_pcs{{ $index }}">
                         Kiekis
                     </label>
-                    <input wire:model="productList.{{ $index }}.product_pcs" name="productList[{{ $index }}][product_pcs]"
+                    <input wire:model.defer="productList.{{ $index }}.product_pcs" name="productList[{{ $index }}][product_pcs]"
                            class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                            id="product_pcs{{ $index }}" type="text" placeholder="10">
                     @error('productList.' . $index . '.product_pcs') <span class="text-red-600">{{ $message }}</span> @enderror
@@ -80,7 +80,7 @@
                     <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="productList[{{ $index }}][pcs_type]">
                         Vienetai
                     </label>
-                    <input wire:model="productList.{{ $index }}.pcs_type"
+                    <input wire:model.defer="productList.{{ $index }}.pcs_type"
                            class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                            name="productList[{{ $index }}][pcs_type]" type="text">
                     @error('productList.' . $index . '.pcs_type') <span class="text-red-600">{{ $message }}</span> @enderror
