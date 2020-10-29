@@ -12,3 +12,4 @@ npm-debug.log
 yarn-error.log
 /storage/temp
 /.idea
+/config/pretty-routes.php
