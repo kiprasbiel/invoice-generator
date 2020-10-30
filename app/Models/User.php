@@ -69,6 +69,6 @@ class User extends Authenticatable
     }
 
     public function getActivitySettings(){
-        return $this->meta()->where('')
+//        dd($this->meta()->where('name', 'userActivitySettings')->first());
     }
 }

@@ -12,6 +12,7 @@ class PdfGenerator
     private $invoice;
     private $invoiceMeta;
 
+    // TODO: issimti visa json decodinima i modeli
     public function __construct(Invoice $invoice, Meta $invoiceMeta)
     {
         $this->invoice = $invoice;
