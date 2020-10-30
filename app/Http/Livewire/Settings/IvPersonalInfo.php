@@ -66,6 +66,7 @@ class IvPersonalInfo extends Component
             $this->bank_name = $jsonMeta->bank_name;
             $this->bank_account_num = $jsonMeta->bank_account_num;
             $this->vat = $jsonMeta->vat;
+            $this->additional_info = $jsonMeta->additional_info;
         }
 
     }
