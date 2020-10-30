@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Http\services\Invoice\InvoiceService;
-use App\Http\services\pdf\PdfGenerator;
 use Livewire\Component;
 
 class InvoiceForm extends Component

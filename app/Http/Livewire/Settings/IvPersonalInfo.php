@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Settings;
 
-use App\Models\User;
 use Livewire\Component;
 
 class IvPersonalInfo extends Component
@@ -54,6 +53,8 @@ class IvPersonalInfo extends Component
 
         $meta = $user->getActivitySettings();
 
+        // TODO: Prideti zynute kuri butu rodoma kuomet vartotojas neturi dar susivedes nustatymu
+        // TODO: Jei vartotojas neturi susivedes nustatymu, tuomet atvaizduoti kai kuriuose laukeliuose info is jo paskyros
         if ($meta){
             $jsonMeta = json_decode($meta->value);
 

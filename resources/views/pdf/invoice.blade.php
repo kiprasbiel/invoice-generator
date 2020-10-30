@@ -15,14 +15,33 @@
     <tr>
         <td class="half-width">
             <div><strong>Pardavėjas</strong></div>
-            <div>Kipras Bielinskas</div>
-            <div>Individualios veiklos pažymos nr. 761707</div>
-            <div>Asmens kodas: 39808240516</div>
-            <div>Nemuno krantinė 26-6, Kaunas, LT-45273, Lietuva</div>
-            <div>+37064141272</div>
-            <div>info@anaweb.lt</div>
-            <div>www.anaweb.lt</div>
-            <div>Swedbank — LT117300010139945347</div>
+            @if($activitySettings->full_name)
+                <div>{{ $invoiceData->full_name }}</div>
+            @endif
+            @if($activitySettings->iv_code)
+                <div>Individualios veiklos pažymos nr. {{$activitySettings->iv_code}}</div>
+            @endif
+            @if($activitySettings->vat)
+                <div>PVM mokėtojo kodas {{$activitySettings->vat}}</div>
+            @endif
+            @if($activitySettings->personal_code)
+                <div>Asmens kodas {{$activitySettings->personal_code}}</div>
+            @endif
+            @if($activitySettings->address)
+                <div>{{$activitySettings->address}}</div>
+            @endif
+            @if($activitySettings->phone)
+                <div>{{$activitySettings->phone}}</div>
+            @endif
+            @if($activitySettings->email)
+                <div>{{$activitySettings->email}}</div>
+            @endif
+            @if($activitySettings->additional_info)
+                <div>{{$activitySettings->additional_info}}</div>
+            @endif
+            @if($activitySettings->bank_name && $activitySettings->bank_account_num)
+                <div>{{$activitySettings->bank_name}} — {{$activitySettings->bank_account_num}}</div>
+            @endif
         </td>
         <td class="half-width vertical-align-top">
             <div><strong>Pirkėjas</strong></div>
