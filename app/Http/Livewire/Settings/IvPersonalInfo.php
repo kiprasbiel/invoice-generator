@@ -49,6 +49,27 @@ class IvPersonalInfo extends Component
         return view('livewire.settings.iv-personal-info');
     }
 
+    public function mount(){
+        $user = auth()->user();
+
+        $meta = $user->getActivitySettings();
+
+        if ($meta){
+            $jsonMeta = json_decode($meta->value);
+
+            $this->full_name = $jsonMeta->full_name;
+            $this->iv_code = $jsonMeta->iv_code;
+            $this->personal_code = $jsonMeta->personal_code;
+            $this->address = $jsonMeta->address;
+            $this->phone = $jsonMeta->phone;
+            $this->email = $jsonMeta->email;
+            $this->bank_name = $jsonMeta->bank_name;
+            $this->bank_account_num = $jsonMeta->bank_account_num;
+            $this->vat = $jsonMeta->vat;
+        }
+
+    }
+
     public function submit(){
         $data = $this->validate();
 
