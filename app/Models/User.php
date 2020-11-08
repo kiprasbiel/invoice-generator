@@ -71,4 +71,8 @@ class User extends Authenticatable
     public function getActivitySettings(){
         return $this->meta()->where('name', 'userActivitySettings')->first();
     }
+
+    public function getSfCodeBeginning(){
+        return $this->meta()->where('name', 'sfNumberSettings')->first();
+    }
 }

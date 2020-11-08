@@ -67,7 +67,6 @@ class InvoiceForm extends Component
     public function submit()
     {
         $data = $this->validate();
-//        $productListJson = json_encode(InvoiceService::calculateCosts($data['productList']));
         $user = auth()->user();
 
         $invoice = $user->invoices()->create([
