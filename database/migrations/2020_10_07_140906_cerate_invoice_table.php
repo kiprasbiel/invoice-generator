@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddInvoiceTable extends Migration
+class CerateInvoiceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,7 @@ class AddInvoiceTable extends Migration
      */
     public function up()
     {
+        // TODO: saskaitos numeris
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');

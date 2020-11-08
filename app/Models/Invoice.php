@@ -33,8 +33,24 @@ class Invoice extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function invoiceItems(){
+        return $this->hasMany('App\Models\InvoiceItem');
+    }
+
+    public function getTotalInvoicePrice(){
+        $totalPrice = 0;
+        $this->invoiceItems->each(
+            function($item) use (&$totalPrice){
+                $totalPrice += $item->quantity * $item->price;
+            }
+        );
+
+        return $totalPrice;
+    }
+
     public function downloadInvoice(){
-        $generator = new PdfGenerator($this, $this->meta()->where('name', 'invoiceServices')->first());
+        $generator = new PdfGenerator($this, $this->invoiceItems);
         return $generator->downloadPdf();
     }
 }

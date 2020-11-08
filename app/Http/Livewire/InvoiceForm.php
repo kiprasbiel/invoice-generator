@@ -67,8 +67,7 @@ class InvoiceForm extends Component
     public function submit()
     {
         $data = $this->validate();
-        $productListJson = json_encode(InvoiceService::calculateCosts($data['productList']));
-
+//        $productListJson = json_encode(InvoiceService::calculateCosts($data['productList']));
         $user = auth()->user();
 
         $invoice = $user->invoices()->create([
@@ -78,10 +77,14 @@ class InvoiceForm extends Component
             'company_vat' => $data['companyVat'],
         ]);
 
-        $invoiceMeta = $invoice->meta()->create([
-            'name' => 'invoiceServices',
-            'value' => $productListJson,
-        ]);
+        foreach($data['productList'] as $item){
+            $invoiceItem[] = $invoice->invoiceItems()->create([
+                'name' => $item['product_name'],
+                'unit' => $item['pcs_type'],
+                'quantity' => $item['product_pcs'],
+                'price' => $item['product_price'],
+            ]);
+        }
 
         return $invoice->downloadInvoice();
     }
