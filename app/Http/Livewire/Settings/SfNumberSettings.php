@@ -25,7 +25,7 @@ class SfNumberSettings extends Component
     public function mount(){
         $user = auth()->user();
 
-        $meta = $user->getSfCodeBeginning();
+        $meta = $user->getSfCodeBeginning(true);
         if ($meta){
             $jsonMeta = json_decode($meta->value);
 
