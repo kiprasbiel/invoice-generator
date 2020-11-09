@@ -16,7 +16,7 @@
         <td class="half-width">
             <div><strong>Pardavėjas</strong></div>
             @if($activitySettings->full_name)
-                <div>{{ $invoice->full_name }}</div>
+                <div>{{ $activitySettings->full_name }}</div>
             @endif
             @if($activitySettings->iv_code)
                 <div>Individualios veiklos pažymos nr. {{$activitySettings->iv_code}}</div>
@@ -75,13 +75,13 @@
         </thead>
         <tbody>
         @foreach($invoiceItems as $item)
-                <tr>
-                    <td class="border-bottom full-width">{{ $item->name }}</td>
-                    <td class="border-bottom text-align-center">{{ $item->quantity }}</td>
-                    <td class="border-bottom text-align-center">{{ $item->unit }}</td>
-                    <td class="border-bottom text-align-center">{{ $item->price }} &euro;</td>
-                    <td class="border-bottom text-align-center">{{ $item->getTotalPrice() }} &euro;</td>
-                </tr>
+            <tr>
+                <td class="border-bottom full-width">{{ $item->name }}</td>
+                <td class="border-bottom text-align-center">{{ $item->quantity }}</td>
+                <td class="border-bottom text-align-center">{{ $item->unit }}</td>
+                <td class="border-bottom text-align-center">{{ $item->price }} &euro;</td>
+                <td class="border-bottom text-align-center">{{ $item->getTotalPrice() }} &euro;</td>
+            </tr>
         @endforeach
         </tbody>
     </table>
@@ -94,9 +94,10 @@
 <div class="margin-top-normal">
     Suma žodžiais:
 </div>
+@if($activitySettings->full_name)
 <div class="margin-top-normal">
-    Sąskaitą išrašė: Kipras Bielinskas
+        Sąskaitą išrašė: {{ $activitySettings->full_name }}
 </div>
-
+@endif
 </body>
 </html>
