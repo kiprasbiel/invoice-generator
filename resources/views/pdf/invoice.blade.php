@@ -6,8 +6,8 @@
 <div>
     <h1 class="text-align-center">
         <h4 class="super-small-margin">Sąskaita faktūra</h4>
-        <p class="no-margin">Serija ir Nr. SF 123</p>
-        <p class="no-margin">Sąskaitos data 2020-08-11</p>
+        <p class="no-margin">Serija ir Nr. {{$invoice->sf_code}}</p>
+        <p class="no-margin">Sąskaitos data {{$invoice->created_at->format('Y-m-d')}}</p>
     </h1>
 </div>
 

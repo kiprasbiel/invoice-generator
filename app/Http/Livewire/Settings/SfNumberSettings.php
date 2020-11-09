@@ -26,7 +26,6 @@ class SfNumberSettings extends Component
         $user = auth()->user();
 
         $meta = $user->getSfCodeBeginning();
-
         if ($meta){
             $jsonMeta = json_decode($meta->value);
 

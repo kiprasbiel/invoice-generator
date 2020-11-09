@@ -13,10 +13,11 @@ class CerateInvoiceTable extends Migration
      */
     public function up()
     {
-        // TODO: saskaitos numeris
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->string('sf_code');
+            $table->integer('sf_number');
             $table->string('company_name');
             $table->string('company_code');
             $table->string('company_vat')->nullable();

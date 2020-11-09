@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\services\pdf\PdfGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Invoice extends Model
 {
@@ -18,6 +19,23 @@ class Invoice extends Model
         'company_address',
         'company_vat',
     ];
+
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->sf_number = $this->calculateLatestSfNumber();
+        $this->sf_code = $this->generateSfCode();
+    }
+
+    private static function calculateLatestSfNumber(){
+        $currantNum = DB::table('invoices')->latest()->first()->sf_number;
+        return $currantNum + 1;
+    }
+
+    private static function generateSfCode(){
+        $sFBeginning = auth()->user()->getSfCodeBeginning();
+        $newNumber = self::calculateLatestSfNumber();
+        return $sFBeginning . sprintf("%05s", $newNumber);
+    }
 
     // TODO Add default values: is_payed, is_sent
 //    protected $attributes = [

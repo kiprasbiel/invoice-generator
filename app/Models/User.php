@@ -59,20 +59,28 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function invoices(){
+    public function invoices() {
         return $this->hasMany('App\Models\Invoice');
     }
 
-    public function meta()
-    {
+    public function meta() {
         return $this->morphMany('App\Models\Meta', 'metable');
     }
 
-    public function getActivitySettings(){
+    public function getActivitySettings() {
         return $this->meta()->where('name', 'userActivitySettings')->first();
     }
 
-    public function getSfCodeBeginning(){
-        return $this->meta()->where('name', 'sfNumberSettings')->first();
+    public function getSfCodeBeginning($json = false) {
+        $jsonMeta = $this->meta()->where('name', 'sfNumberSettings')->first();
+        if($json) {
+            return $jsonMeta;
+        } else {
+            if($jsonMeta) {
+                return  json_decode($jsonMeta->value)->sf_code;
+            }
+            return false;
+        }
+
     }
 }
