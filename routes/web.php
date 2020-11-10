@@ -21,6 +21,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/invoice/create', function
     return view('invoice.create');
 })->name('invoice.create');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/invoice', function () {
+    return view('invoice.index');
+})->name('invoice.index');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/activity', function () {
     return view('activity.show');
 })->name('activity.show');
