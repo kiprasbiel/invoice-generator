@@ -43,9 +43,9 @@ class Meta extends Model
         ];
     }
 
-    public static function getFieldsForValidation($fields){
+    public static function getFieldsForValidation($fields, $fill = 'nullable'){
         $methodName = 'get' . $fields . 'SettingsFields';
         $actualFields = self::$methodName();
-        return array_fill_keys($actualFields, 'nullable');
+        return array_fill_keys($actualFields, $fill);
     }
 }
