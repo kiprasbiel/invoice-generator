@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Settings;
 
+use App\Models\Meta;
 use Livewire\Component;
 
 class IvPersonalInfo extends Component
@@ -17,19 +18,26 @@ class IvPersonalInfo extends Component
     public $bank_account_num;
     public $vat;
 
+    protected $rules = [];
+
+    public function __construct($id = null) {
+        parent::__construct($id);
+        $this->rules = array_merge(Meta::getFieldsForValidation('Iv'), [
+            'full_name' => 'string|required',
+            'iv_code' => 'numeric|nullable',
+            'personal_code' => 'numeric|nullable',
+            'address' => 'string|nullable',
+            'phone' => 'string|nullable',
+            'email' => 'email|nullable',
+            'additional_info' => 'string|nullable',
+            'bank_name' => 'string|nullable',
+            'bank_account_num' => 'alpha_num|nullable',
+            'vat' => 'alpha_num|nullable',
+        ]);
+    }
+
     //TODO: prideti ivestos info ilgiu tikrinimus
-    protected $rules = [
-        'full_name' => 'string|required',
-        'iv_code' => 'numeric|nullable',
-        'personal_code' => 'numeric|nullable',
-        'address' => 'string|nullable',
-        'phone' => 'string|nullable',
-        'email' => 'email|nullable',
-        'additional_info' => 'string|nullable',
-        'bank_name' => 'string|nullable',
-        'bank_account_num' => 'alpha_num|nullable',
-        'vat' => 'alpha_num|nullable',
-    ];
+
 
     protected $messages = [
         'full_name.required' => 'Vardas ir pavardė yra privalomi.',

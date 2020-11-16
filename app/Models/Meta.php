@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\This;
 
 class Meta extends Model
 {
@@ -21,4 +22,30 @@ class Meta extends Model
         return $this->morphTo();
     }
 
+    public static function getIvSettingsFields(){
+        return [
+            'full_name',
+            'iv_code',
+            'personal_code',
+            'address',
+            'phone',
+            'email',
+            'additional_info',
+            'bank_name',
+            'bank_account_num',
+            'vat',
+        ];
+    }
+
+    public static function getSfCodeSettingsFields(){
+        return [
+            'sf_code'
+        ];
+    }
+
+    public static function getFieldsForValidation($fields){
+        $methodName = 'get' . $fields . 'SettingsFields';
+        $actualFields = self::$methodName();
+        return array_fill_keys($actualFields, 'nullable');
+    }
 }

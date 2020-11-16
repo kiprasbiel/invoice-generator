@@ -2,15 +2,21 @@
 
 namespace App\Http\Livewire\Settings;
 
+use App\Models\Meta;
 use Livewire\Component;
 
 class SfNumberSettings extends Component
 {
     public $sf_code;
 
-    protected $rules = [
-        'sf_code' => 'alpha|required',
-    ];
+    protected $rules = [];
+
+    public function __construct($id = null) {
+        parent::__construct($id);
+        $this->rules = array_merge(Meta::getFieldsForValidation('SfCode'), [
+            'sf_code' => 'alpha|required',
+        ]);
+    }
 
     protected $messages = [
         'sf_code.required' => 'Kodas yra privalomas',
