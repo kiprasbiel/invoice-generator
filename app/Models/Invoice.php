@@ -37,7 +37,7 @@ class Invoice extends Model
     private static function generateSfCode(){
         $sFBeginning = auth()->user()->getSfCodeBeginning();
         $newNumber = self::calculateLatestSfNumber();
-        return $sFBeginning . sprintf("%05s", $newNumber);
+        return "$sFBeginning $newNumber";
     }
 
     // TODO Add default values: is_payed, is_sent
