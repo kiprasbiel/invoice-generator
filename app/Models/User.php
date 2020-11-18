@@ -77,10 +77,15 @@ class User extends Authenticatable
             return $jsonMeta;
         } else {
             if($jsonMeta) {
-                return  json_decode($jsonMeta->value)->sf_code;
+                return json_decode($jsonMeta->value)->sf_code;
             }
             return false;
         }
+    }
 
+    public function getTotalRevenue() {
+        return $this->invoices()->get()->map(function($invoice) {
+            return $invoice->getTotalInvoicePrice();
+        })->sum();
     }
 }
