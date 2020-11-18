@@ -21,7 +21,8 @@ class PSD extends SodraTax
     }
 
     protected function calcMinimalPSD() {
-        return $this->minimalWage * $this->rate * 12;
+        $monthly = round($this->minimalWage * $this->rate, 2);
+        return $monthly * 12;
     }
 
     protected function calcStandardPSD() {
@@ -30,9 +31,9 @@ class PSD extends SodraTax
 
     public function getCalcPSD() {
         if($this->calcStandardPSD() >= $this->calcMinimalPSD()) {
-            return $this->calcStandardPSD();
+            return round($this->calcStandardPSD(), 2);
         } else {
-            return $this->calcMinimalPSD();
+            return round($this->calcMinimalPSD(), 2);
         }
     }
 }

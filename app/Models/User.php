@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Taxes\GPM;
+use App\Models\Taxes\SodraTaxes\PSD;
+use App\Models\Taxes\SodraTaxes\VSD;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -83,9 +86,28 @@ class User extends Authenticatable
         }
     }
 
-    public function getTotalRevenue() {
+    public function getTotalIncome() {
         return $this->invoices()->get()->map(function($invoice) {
             return $invoice->getTotalInvoicePrice();
         })->sum();
+    }
+
+    public function getTotalExpenses(){
+        return 0;
+    }
+
+    public function getGPM(){
+        $gpm = new GPM($this->getTotalIncome(), $this->getTotalExpenses());
+        return $gpm->getCalcGPM();
+    }
+
+    public function getVSD(){
+        $vsd = new VSD($this->getTotalIncome(), $this->getTotalExpenses());
+        return $vsd->getCalcVSD();
+    }
+
+    public function getPSD(){
+        $psd = new PSD($this->getTotalIncome(), $this->getTotalExpenses());
+        return $psd->getCalcPSD();
     }
 }

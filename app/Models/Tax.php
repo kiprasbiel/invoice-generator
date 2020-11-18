@@ -14,7 +14,7 @@ class Tax
     }
 
     private function calcDefaultExpenses(){
-        return $this->income * 0.3; // TODO: Perkelt i DB
+        return round($this->income * 0.3, 2); // TODO: Perkelt i DB
     }
 
     // Pelno apskaiciavimas

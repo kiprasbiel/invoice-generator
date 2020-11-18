@@ -17,6 +17,6 @@ class GPM extends Tax
 
     public function getCalcGPM()
     {
-        return $this->getPayableWage() * $this->rate;
+        return round($this->getPayableWage() * $this->rate, 2);
     }
 }

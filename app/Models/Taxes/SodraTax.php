@@ -18,6 +18,6 @@ class SodraTax extends Tax
 
     // Suma nuo kurios skaiciuojami Sodros mokesciai
     protected function calcPayableProfit(){
-        return $this->getPayableWage() * $this->payableWageRate;
+        return round($this->getPayableWage() * $this->payableWageRate, 2);
     }
 }

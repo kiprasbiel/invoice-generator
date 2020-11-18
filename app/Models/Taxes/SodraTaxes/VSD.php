@@ -31,7 +31,7 @@ class VSD extends SodraTax
 
     protected function calcVSD()
     {
-        return $this->calcPayableProfit() * $this->calcVSDRate();
+        return round($this->calcPayableProfit() * $this->calcVSDRate(), 2);
     }
 
     public function getCalcVSD()
