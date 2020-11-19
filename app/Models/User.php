@@ -110,4 +110,8 @@ class User extends Authenticatable
         $psd = new PSD($this->getTotalIncome(), $this->getTotalExpenses());
         return $psd->getCalcPSD();
     }
+
+    public function getTotalTax(){
+        return $this->getGPM() + $this->getPSD() + $this->getVSD();
+    }
 }
