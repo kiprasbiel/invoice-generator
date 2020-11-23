@@ -12,6 +12,7 @@ class Privileges extends Component
     public $isFirstTimer;
     public $isPensioner;
     public $additionalPension;
+    public $isFreeMarketActivity;
 
     public $pensionsTypes = [];
 
@@ -38,6 +39,7 @@ class Privileges extends Component
             $this->isFirstTimer = $jsonMeta->isFirstTimer;
             $this->isPensioner = $jsonMeta->isPensioner;
             $this->additionalPension = $jsonMeta->additionalPension;
+            $this->isFreeMarketActivity = $jsonMeta->isFreeMarketActivity;
         }
 
         $this->pensionsTypes = [

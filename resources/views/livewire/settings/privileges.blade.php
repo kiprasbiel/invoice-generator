@@ -9,7 +9,17 @@
 
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-4">
+
             <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    <input name="isFreeMarketActivity" value="yes" id="FreeMarker" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" wire:model.defer="isFreeMarketActivity">
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="FreeMarker" class="font-medium text-gray-700">{{ __('Jūsų profesija yra laikoma laisvąja profesija') }}</label>
+                </div>
+            </div>
+
+            <div class="flex items-start mt-4">
                 <div class="flex items-center h-5">
                     <input name="isStudent" value="yes" id="student" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" wire:model.defer="isStudent">
                 </div>

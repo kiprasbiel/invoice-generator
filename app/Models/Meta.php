@@ -48,7 +48,8 @@ class Meta extends Model
             'isStudent',
             'isFirstTimer',
             'isPensioner',
-            'additionalPension'
+            'additionalPension',
+            'isFreeMarketActivity'
         ];
     }
 
