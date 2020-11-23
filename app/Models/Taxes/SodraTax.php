@@ -7,7 +7,7 @@ use App\Models\Tax;
 
 class SodraTax extends Tax
 {
-    protected $payableWageRate;
+    private $payableWageRate;
 
     function __construct($income, $expenses)
     {
