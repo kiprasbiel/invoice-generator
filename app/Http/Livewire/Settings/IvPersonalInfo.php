@@ -59,7 +59,7 @@ class IvPersonalInfo extends Component
     public function mount(){
         $user = auth()->user();
 
-        $meta = $user->getActivitySettings();
+        $meta = $user->getUserSettings('userActivitySettings');
 
         // TODO: Prideti zynute kuri butu rodoma kuomet vartotojas neturi dar susivedes nustatymu
         // TODO: Jei vartotojas neturi susivedes nustatymu, tuomet atvaizduoti kai kuriuose laukeliuose info is jo paskyros

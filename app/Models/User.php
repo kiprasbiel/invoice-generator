@@ -70,17 +70,12 @@ class User extends Authenticatable
         return $this->morphMany('App\Models\Meta', 'metable');
     }
 
-    public function getActivitySettings() {
-        return $this->meta()->where('name', 'userActivitySettings')->first();
-    }
-
-    // TODO: Gal reiktu iskelt i Settings Modeli kur butu galima passint UserId ir vsio
-    public function getPrivilegesSettings(){
-        return $this->meta()->where('name', 'privilegesSettings')->first();
+    public function getUserSettings($settings){
+        return $this->meta()->where('name', $settings)->first();
     }
 
     public function getSfCodeBeginning($json = false) {
-        $jsonMeta = $this->meta()->where('name', 'sfNumberSettings')->first();
+        $jsonMeta = $this->getUserSettings('sfNumberSettings');
         if($json) {
             return $jsonMeta;
         } else {

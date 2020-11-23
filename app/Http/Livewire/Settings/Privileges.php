@@ -30,7 +30,7 @@ class Privileges extends Component
     public function mount(){
         $user = auth()->user();
 
-        $meta = $user->getPrivilegesSettings();
+        $meta = $user->getUserSettings('privilegesSettings');
         if($meta){
             $jsonMeta = json_decode($meta->value);
 
