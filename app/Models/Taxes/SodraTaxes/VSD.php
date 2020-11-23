@@ -9,24 +9,46 @@ class VSD extends SodraTax
 {
     protected $rate;
 
-    protected $retirementRate;
     protected $maximumPayableTax;
     protected $firstTimer;
+
+    protected $user;
 
     function __construct($income, $expenses, $firstTimer = false)
     {
         parent::__construct($income, $expenses);
         $this->rate = 0.1252; // TODO: perkelti i DB
 
-        $this->retirementRate = 0; // TODO: perkelti i db. Gali buti 0 arba 2.1% arba 3%
         $this->firstTimer = $firstTimer;
 
         $this->maximumPayableTax = 6683.20; // TODO: Perkelti i DB. Gali buti 6683.20, 7804.19, 8284.61
+
+        $this->user = auth()->user();
+    }
+
+    private function getRetirementRate(){
+//        $user = auth()->user();
+        $rate = $this->user->getPrivilege('additionalPension');
+        switch($rate){
+            case 'pens21':
+                return 0.021;
+            case 'pens3':
+                return 0.03;
+            default:
+                return 0;
+        }
+    }
+
+    private function isFirstTimer(){
+        if($this->user->getPrivilege('isFirstTimer') === 'yes'){
+            return true;
+        }
+        return false;
     }
 
     protected function calcVSDRate()
     {
-        return $this->rate + $this->retirementRate;
+        return $this->rate + $this->getRetirementRate();
     }
 
     protected function calcVSD()
@@ -36,7 +58,7 @@ class VSD extends SodraTax
 
     public function getCalcVSD()
     {
-        if ($this->firstTimer) {
+        if ($this->isFirstTimer()) {
             return 0;
         }
         // Aiskiau issiaiskinti, kokios tos VSD lengvatos
