@@ -21,9 +21,10 @@ class PdfGenerator
         // TODO: Padaryti tikrinima, jei del kazkokios priezasties neegzistuotu Meta  ar Activity info
         $this->invoice = $invoice;
         $this->invoiceItems = $invoiceItems;
-        if (!$invoice->user->getActivitySettings()) throw new \Exception("Users activity settings don't exist.");
+        if (!$invoice->user->getUserSettings('userActivitySettings')) throw new \Exception("Users activity settings don't exist.");
+        if (!$invoice->user->getUserSettings('sfNumberSettings')) throw new \Exception("Users SF code settings don't exist.");
 
-        $this->activityInfo = json_decode($invoice->user->getActivitySettings()->value);
+        $this->activityInfo = json_decode($invoice->user->getUserSettings('userActivitySettings')->value);
     }
 
     public function downloadPdf($view = 'pdf.invoice')
