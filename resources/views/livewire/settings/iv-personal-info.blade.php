@@ -78,7 +78,7 @@
             {{ __('Išsaugota.') }}
         </x-jet-action-message>
 
-        <x-jet-button wire:loading.attr="disabled" wire:target="photo">
+        <x-jet-button wire:loading.attr="enabled" wire:target="photo">
             {{ __('Išsaugoti') }}
         </x-jet-button>
     </x-slot>
