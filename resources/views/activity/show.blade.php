@@ -12,9 +12,10 @@
             <x-jet-section-border />
 
             @livewire('settings.sf-number-settings')
-{{--            <div class="mt-10 sm:mt-0">--}}
-{{--                @livewire('profile.logout-other-browser-sessions-form')--}}
-{{--            </div>--}}
+
+            <x-jet-section-border />
+
+            @livewire('settings.privileges')
 
         </div>
     </div>

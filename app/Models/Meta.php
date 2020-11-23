@@ -43,6 +43,15 @@ class Meta extends Model
         ];
     }
 
+    public static function getPrivilegesSettingsFields(){
+        return [
+            'isStudent',
+            'isFirstTimer',
+            'isPensioner',
+            'additionalPension'
+        ];
+    }
+
     public static function getFieldsForValidation($fields, $fill = 'nullable'){
         $methodName = 'get' . $fields . 'SettingsFields';
         $actualFields = self::$methodName();

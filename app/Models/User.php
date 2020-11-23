@@ -74,6 +74,11 @@ class User extends Authenticatable
         return $this->meta()->where('name', 'userActivitySettings')->first();
     }
 
+    // TODO: Gal reiktu iskelt i Settings Modeli kur butu galima passint UserId ir vsio
+    public function getPrivilegesSettings(){
+        return $this->meta()->where('name', 'privilegesSettings')->first();
+    }
+
     public function getSfCodeBeginning($json = false) {
         $jsonMeta = $this->meta()->where('name', 'sfNumberSettings')->first();
         if($json) {
