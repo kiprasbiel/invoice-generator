@@ -74,6 +74,14 @@ class User extends Authenticatable
         return $this->meta()->where('name', $settings)->first();
     }
 
+    public function getPrivilege($privilege){
+        $settings = $this->getUserSettings('privilegesSettings');
+        if($settings){
+            return json_decode($settings->value)->$privilege;
+        }
+        return false;
+    }
+
     public function getSfCodeBeginning($json = false) {
         $jsonMeta = $this->getUserSettings('sfNumberSettings');
         if($json) {
