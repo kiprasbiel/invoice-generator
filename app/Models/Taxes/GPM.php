@@ -13,6 +13,7 @@ class GPM extends Tax
         parent::__construct($income, $expenses);
     }
 
+    // TODO: itin didelese sumuose Sodra automatiskai skaiciuoja 15 proc.
     private function setGPMRate() {
         $user = auth()->user();
         $isFreeMarket = $user->getPrivilege('isFreeMarketActivity');

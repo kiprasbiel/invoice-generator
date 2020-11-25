@@ -49,6 +49,7 @@ class CreateUserDefaultSettings
         ]);
 
         // TODO: Notify the user himself to go and change these default settings
+        // TODO: Add default priveleges settings
 
     }
 }
