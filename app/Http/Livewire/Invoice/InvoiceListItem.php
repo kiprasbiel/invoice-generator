@@ -12,11 +12,16 @@ class InvoiceListItem extends Component
     public $backgroundColor;
     public $shadow;
 
+    public $hamburger;
+    public $closeSection;
+
     public function mount($invoice){
         $this->invoice = $invoice;
         $this->display = false;
         $this->backgroundColor = 'bg-white';
         $this->shadow = 'shadow-none';
+        $this->hamburger = 'inline-flex';
+        $this->closeSection = 'hidden';
     }
     public function render()
     {
@@ -27,10 +32,14 @@ class InvoiceListItem extends Component
         if($this->display){
             $this->backgroundColor = 'bg-gray-100';
             $this->shadow = 'shadow-inner';
+            $this->hamburger = 'hidden';
+            $this->closeSection = 'inline-flex';
         }
         else{
             $this->backgroundColor = 'bg-white';
             $this->shadow = 'shadow-none';
+            $this->hamburger = 'inline-flex';
+            $this->closeSection = 'hidden';
         }
     }
 
