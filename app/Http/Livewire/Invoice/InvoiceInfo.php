@@ -19,7 +19,7 @@ class InvoiceInfo extends Component
     }
 
     private function setDisplayState(bool $state){
-        $this->display = ($state) ? 'block' : 'hidden';
+        $this->display = ($state) ? 'table-row' : 'hidden';
     }
 
     public function mount($invoice){
