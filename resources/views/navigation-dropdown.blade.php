@@ -105,7 +105,7 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Pagrindinis') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('invoice.create') }}"
+            <x-jet-responsive-nav-link href="{{ route('invoice.index') }}"
                                        :active="request()->routeIs('invoice.create')">
                 {{ __('Sąskaitos') }}
             </x-jet-responsive-nav-link>
