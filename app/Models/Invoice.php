@@ -27,8 +27,9 @@ class Invoice extends Model
     }
 
     private static function calculateLatestSfNumber(){
-        if(DB::table('invoices')->where('user_id', auth()->user()->id)->latest()->first()){
-            $currantNum = DB::table('invoices')->where('user_id', auth()->user()->id)->latest()->first()->sf_number;
+        $lastInvoice = DB::table('invoices')->where('user_id', auth()->user()->id)->latest()->first();
+        if($lastInvoice){
+            $currantNum = $lastInvoice->sf_number;
             return $currantNum + 1;
         }
         return 1;
