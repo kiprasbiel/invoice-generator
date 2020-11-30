@@ -29,6 +29,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/activity', function () {
     return view('activity.show');
 })->name('activity.show');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/invoice/edit/{invoice}', function (\App\Models\Invoice $invoice) {
+Route::middleware(['auth:sanctum', 'verified'])->middleware('can:edit-invoice,invoice')->get('/invoice/edit/{invoice}', function (\App\Models\Invoice $invoice) {
     return view('invoice.edit')->with('invoice', $invoice);
 })->name('invoice.edit');
