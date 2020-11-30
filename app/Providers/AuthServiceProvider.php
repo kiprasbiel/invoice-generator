@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('edit-invoice', function ($user, $invoice) {
+            return $user->id === $invoice->user_id;
+        });
     }
 }
