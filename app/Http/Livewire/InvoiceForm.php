@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\services\Invoice\InvoiceService;
 use Livewire\Component;
 
 class InvoiceForm extends Component
@@ -85,20 +84,10 @@ class InvoiceForm extends Component
         $data = $this->validate();
         $user = auth()->user();
 
-        $invoice = $user->invoices()->create([
-            'company_name' => $data['companyName'],
-            'company_code' => $data['companyCode'],
-            'company_address' => $data['companyAddress'],
-            'company_vat' => $data['companyVat'],
-        ]);
+        $invoice = $user->invoices()->create($this->getCompanyDataArr($data));
 
         foreach($data['productList'] as $item) {
-            $invoiceItem[] = $invoice->invoiceItems()->create([
-                'name' => $item['product_name'],
-                'unit' => $item['pcs_type'],
-                'quantity' => $item['product_pcs'],
-                'price' => $item['product_price'],
-            ]);
+            $invoiceItem[] = $invoice->invoiceItems()->create($this->getItemDataArr($item));
         }
 
         return $invoice->downloadInvoice();
@@ -107,24 +96,44 @@ class InvoiceForm extends Component
     public function update() {
         $data = $this->validate();
 
-        $success = $this->invoice->update([
-            'company_name' => $data['companyName'],
-            'company_code' => $data['companyCode'],
-            'company_address' => $data['companyAddress'],
-            'company_vat' => $data['companyVat'],
-        ]);
+        $this->invoice->update($this->getCompanyDataArr($data));
 
         // Delete all items
         $this->invoice->invoiceItems()->delete();
 
         // Create new items
         foreach($data['productList'] as $item) {
-            $invoiceItem[] = $this->invoice->invoiceItems()->create([
-                'name' => $item['product_name'],
-                'unit' => $item['pcs_type'],
-                'quantity' => $item['product_pcs'],
-                'price' => $item['product_price'],
-            ]);
+            $invoiceItem[] = $this->invoice->invoiceItems()->create($this->getItemDataArr($item));
         }
+    }
+
+    /**
+     * Company data fields
+     *
+     * @param array $data
+     * @return array
+     */
+    private function getCompanyDataArr(array $data): array {
+        return [
+            'company_name' => $data['companyName'],
+            'company_code' => $data['companyCode'],
+            'company_address' => $data['companyAddress'],
+            'company_vat' => $data['companyVat'],
+        ];
+    }
+
+    /**
+     * Invoice items data fields
+     *
+     * @param $item
+     * @return array
+     */
+    private function getItemDataArr($item): array {
+        return [
+            'name' => $item['product_name'],
+            'unit' => $item['pcs_type'],
+            'quantity' => $item['product_pcs'],
+            'price' => $item['product_price'],
+        ];
     }
 }
