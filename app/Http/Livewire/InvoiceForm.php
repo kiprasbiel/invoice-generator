@@ -7,14 +7,9 @@ use Livewire\Component;
 
 class InvoiceForm extends Component
 {
-    public $companyName;
-    public $companyCode;
-    public $companyVat;
-    public $companyAddress;
+    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action;
 
     public $productList = [];
-
-    public $invoice;
 
     protected $rules = [
         'companyName' => 'required|string',
@@ -43,53 +38,50 @@ class InvoiceForm extends Component
         'productList.*.pcs_type.required_with' => 'Produkto vienetai yra privalomi.',
     ];
 
-    public function mount($invoice = null)
-    {
+    public function mount($invoice = null) {
         $this->invoice = $invoice;
 
         // Editing existing invoice
-        if($this->invoice){
+        if($this->invoice) {
+            $this->action = 'update';
+
             $this->companyName = $invoice->company_name;
             $this->companyCode = $invoice->company_code;
             $this->companyVat = $invoice->company_vat;
             $this->companyAddress = $invoice->company_address;
 
             $itemCollection = $this->invoice->invoiceItems;
-            foreach($itemCollection as $item){
+            foreach($itemCollection as $item) {
                 $this->addProduct($item);
             }
-        }
-        // New invoice
-        else{
+        } // New invoice
+        else {
+            $this->action = 'create';
             $this->addProduct();
         }
 
     }
 
-    public function render()
-    {
+    public function render() {
         return view('livewire.invoice-form');
     }
 
-    public function addProduct($item = null)
-    {
-        if($item){
+    public function addProduct($item = null) {
+        if($item) {
             $this->productList[] =
                 ['product_name' => $item->name, 'product_price' => $item->price, 'product_pcs' => $item->quantity, 'pcs_type' => $item->unit];
-        }
-        else{
+        } else {
             $this->productList[] =
                 ['product_name' => '', 'product_price' => '', 'product_pcs' => '', 'pcs_type' => 'vnt.'];
         }
     }
 
-    public function deleteProduct($index){
+    public function deleteProduct($index) {
         unset($this->productList[$index]);
         $this->productList = array_values($this->productList);
     }
 
-    public function submit()
-    {
+    public function create() {
         $data = $this->validate();
         $user = auth()->user();
 
@@ -100,7 +92,7 @@ class InvoiceForm extends Component
             'company_vat' => $data['companyVat'],
         ]);
 
-        foreach($data['productList'] as $item){
+        foreach($data['productList'] as $item) {
             $invoiceItem[] = $invoice->invoiceItems()->create([
                 'name' => $item['product_name'],
                 'unit' => $item['pcs_type'],
@@ -110,5 +102,29 @@ class InvoiceForm extends Component
         }
 
         return $invoice->downloadInvoice();
+    }
+
+    public function update() {
+        $data = $this->validate();
+
+        $success = $this->invoice->update([
+            'company_name' => $data['companyName'],
+            'company_code' => $data['companyCode'],
+            'company_address' => $data['companyAddress'],
+            'company_vat' => $data['companyVat'],
+        ]);
+
+        // Delete all items
+        $this->invoice->invoiceItems()->delete();
+
+        // Create new items
+        foreach($data['productList'] as $item) {
+            $invoiceItem[] = $this->invoice->invoiceItems()->create([
+                'name' => $item['product_name'],
+                'unit' => $item['pcs_type'],
+                'quantity' => $item['product_pcs'],
+                'price' => $item['product_price'],
+            ]);
+        }
     }
 }
