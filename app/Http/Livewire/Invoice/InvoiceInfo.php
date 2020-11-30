@@ -37,5 +37,9 @@ class InvoiceInfo extends Component
         $this->setDisplayState($state);
     }
 
+    public function delete(){
+        $this->display = 'hidden';
+        $this->emit('delete-' . $this->invoice->id);
+    }
 
 }
