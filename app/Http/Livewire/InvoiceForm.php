@@ -14,6 +14,8 @@ class InvoiceForm extends Component
 
     public $productList = [];
 
+    public $invoice;
+
     protected $rules = [
         'companyName' => 'required|string',
         'companyCode' => 'required|numeric',
@@ -41,11 +43,27 @@ class InvoiceForm extends Component
         'productList.*.pcs_type.required_with' => 'Produkto vienetai yra privalomi.',
     ];
 
-    public function mount()
+    public function mount($invoice = null)
     {
-        $this->productList = [
-            ['product_name' => '', 'product_price' => '', 'product_pcs' => '', 'pcs_type' => 'vnt.']
-        ];
+        $this->invoice = $invoice;
+
+        // Editing existing invoice
+        if($this->invoice){
+            $this->companyName = $invoice->company_name;
+            $this->companyCode = $invoice->company_code;
+            $this->companyVat = $invoice->company_vat;
+            $this->companyAddress = $invoice->company_address;
+
+            $itemCollection = $this->invoice->invoiceItems;
+            foreach($itemCollection as $item){
+                $this->addProduct($item);
+            }
+        }
+        // New invoice
+        else{
+            $this->addProduct();
+        }
+
     }
 
     public function render()
@@ -53,10 +71,16 @@ class InvoiceForm extends Component
         return view('livewire.invoice-form');
     }
 
-    public function addProduct()
+    public function addProduct($item = null)
     {
-        $this->productList[] =
-            ['product_name' => '', 'product_price' => '', 'product_pcs' => '', 'pcs_type' => 'vnt.'];
+        if($item){
+            $this->productList[] =
+                ['product_name' => $item->name, 'product_price' => $item->price, 'product_pcs' => $item->quantity, 'pcs_type' => $item->unit];
+        }
+        else{
+            $this->productList[] =
+                ['product_name' => '', 'product_price' => '', 'product_pcs' => '', 'pcs_type' => 'vnt.'];
+        }
     }
 
     public function deleteProduct($index){
