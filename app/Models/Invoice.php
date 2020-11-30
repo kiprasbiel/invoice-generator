@@ -41,6 +41,15 @@ class Invoice extends Model
         return "$sFBeginning $newNumber";
     }
 
+    protected static function boot() {
+        parent::boot();
+        self::deleting(function($invoice){
+            $invoice->invoiceItems()->get()->map(function($item){
+                $item->delete();
+            });
+        });
+    }
+
     // TODO Add default values: is_payed, is_sent
 //    protected $attributes = [
 //        'delayed' => false,
