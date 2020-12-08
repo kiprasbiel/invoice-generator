@@ -1,4 +1,5 @@
 window._ = require('lodash');
+window.Noty = require('/var/www/vendor/needim/noty/lib/noty');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

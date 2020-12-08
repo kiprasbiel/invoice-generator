@@ -18,7 +18,8 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.0",
-        "mpdf/mpdf": "^8.0"
+        "mpdf/mpdf": "^8.0",
+        "needim/noty": "^3.1"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
