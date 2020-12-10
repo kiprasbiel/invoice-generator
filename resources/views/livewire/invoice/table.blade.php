@@ -32,13 +32,18 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($invoices as $invoice)
-                        <livewire:invoice.invoice-list-item :invoice="$invoice"/>
+                        <livewire:invoice.invoice-list-item :invoice="$invoice" :key="'invoice-' . $invoice->id"/>
 
-                        <livewire:invoice.invoice-info :invoice="$invoice"/>
+                        <livewire:invoice.invoice-info :invoice="$invoice" :key="'invoice-info-' . $invoice->id"/>
                     @endforeach
+
                     </tbody>
+
                 </table>
 
+                <div class="p-5">
+                    {{ $invoices->links() }}
+                </div>
 
 
             </div>
