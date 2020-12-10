@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\services\Notifications\Notifications;
 use Livewire\Component;
 
 class InvoiceForm extends Component
 {
+    use Notifications;
+
     public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action;
 
     public $productList = [];
@@ -90,6 +93,8 @@ class InvoiceForm extends Component
             $invoiceItem[] = $invoice->invoiceItems()->create($this->getItemDataArr($item));
         }
 
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Sąskaita sėkmingai sukurta'));
+
         return $invoice->downloadInvoice();
     }
 
@@ -105,6 +110,8 @@ class InvoiceForm extends Component
         foreach($data['productList'] as $item) {
             $invoiceItem[] = $this->invoice->invoiceItems()->create($this->getItemDataArr($item));
         }
+
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Sąskaita sėkmingai atnaujinta'));
     }
 
     /**
