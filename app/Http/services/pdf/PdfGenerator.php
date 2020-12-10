@@ -41,6 +41,10 @@ class PdfGenerator
 
         return response()->streamDownload(function () use ($mpdf) {
             $mpdf->Output();
-        }, 'test.pdf');
+        }, $this->getFileName());
+    }
+
+    private function getFileName(): string {
+        return $this->invoice->created_at->format('Y-m-d') . '-' . str_replace(' ', '', $this->invoice->sf_code) . '.pdf';
     }
 }
