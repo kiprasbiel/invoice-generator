@@ -42,7 +42,7 @@
                 </table>
 
                 <div class="p-5">
-                    {{ $invoices->links() }}
+                    {{ $invoices->links('vendor.pagination.tailwind') }}
                 </div>
 
 
