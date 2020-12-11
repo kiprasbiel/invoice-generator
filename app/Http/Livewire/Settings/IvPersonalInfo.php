@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Settings;
 
+use App\Http\services\Notifications\Notifications;
 use App\Models\Meta;
 use Livewire\Component;
 
 class IvPersonalInfo extends Component
 {
+    use Notifications;
+
     public $full_name;
     public $iv_code;
     public $personal_code;
@@ -92,5 +95,7 @@ class IvPersonalInfo extends Component
             ['name' => 'userActivitySettings'],
             ['value' => $jsonData]
         );
+
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Nustatymai išsaugoti'));
     }
 }

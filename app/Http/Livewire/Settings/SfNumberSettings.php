@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Settings;
 
+use App\Http\services\Notifications\Notifications;
 use App\Models\Meta;
 use Livewire\Component;
 
 class SfNumberSettings extends Component
 {
+    use Notifications;
+
     public $sf_code;
 
     protected $rules = [];
@@ -52,5 +55,7 @@ class SfNumberSettings extends Component
             ['name' => 'sfNumberSettings'],
             ['value' => $jsonData]
         );
+
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Nustatymai išsaugoti'));
     }
 }

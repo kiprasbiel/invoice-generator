@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Settings;
 
+use App\Http\services\Notifications\Notifications;
 use App\Models\Meta;
 use Livewire\Component;
 
 class Privileges extends Component
 {
+    use Notifications;
+
     // TODO: Select'us tvarkyt kaip viena array. Taip nebus false.
     public $isStudent;
     public $isFirstTimer;
@@ -57,5 +60,7 @@ class Privileges extends Component
             ['name' => 'privilegesSettings'],
             ['value' => $jsonData]
         );
+
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Nustatymai išsaugoti'));
     }
 }

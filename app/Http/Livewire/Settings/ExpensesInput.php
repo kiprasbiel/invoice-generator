@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Settings;
 
+use App\Http\services\Notifications\Notifications;
 use App\Models\Meta;
 use Livewire\Component;
 
 class ExpensesInput extends Component
 {
+    use Notifications;
+
     public $expenses;
 
     protected $rules = [
@@ -37,5 +40,7 @@ class ExpensesInput extends Component
             ['name' => 'totalExpenses'],
             ['value' => $jsonData]
         );
+
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Nustatymai išsaugoti'));
     }
 }
