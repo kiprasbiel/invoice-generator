@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire\Invoice;
 
+use App\Http\services\Notifications\Notifications;
 use App\Models\Invoice;
 use Livewire\Component;
 
 class InvoiceListItem extends Component
 {
+    use Notifications;
+
     public $invoice;
     public $display;
     public $backgroundColor;
@@ -63,5 +66,7 @@ class InvoiceListItem extends Component
         $this->setBackgroundColor();
         $this->displayH = 'hidden';
         $this->invoice->delete();
+
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Sąskaita sėkmingai pašalinta'));
     }
 }
