@@ -63,10 +63,10 @@
 </table>
 
 <div class="margin-top-normal">
-    <table style="border-spacing: unset; width: 100%">
+    <table style="border-spacing: unset; width: 100%; table-layout: auto">
         <thead>
         <tr>
-            <th class="border-bottom full-width">Pavadinimas</th>
+            <th class="border-bottom" style="width: 60%">Pavadinimas</th>
             <th class="border-bottom">Kiekis</th>
             <th class="border-bottom">Matas</th>
             <th class="border-bottom">Kaina</th>
@@ -76,7 +76,7 @@
         <tbody>
         @foreach($invoiceItems as $item)
             <tr>
-                <td class="border-bottom full-width">{{ $item->name }}</td>
+                <td class="border-bottom" style="width: 60%">{{ $item->name }}</td>
                 <td class="border-bottom text-align-center">{{ $item->quantity }}</td>
                 <td class="border-bottom text-align-center">{{ $item->unit }}</td>
                 <td class="border-bottom text-align-center">{{ $item->price }} &euro;</td>
