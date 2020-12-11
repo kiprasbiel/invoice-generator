@@ -100,7 +100,12 @@ class User extends Authenticatable
         })->sum();
     }
 
+    // TODO: change the way expenses are handled
     public function getTotalExpenses(){
+        $jsonMeta = $this->getUserSettings('totalExpenses');
+        if($jsonMeta) {
+            return json_decode($jsonMeta->value)->expenses;
+        }
         return 0;
     }
 
