@@ -1,5 +1,5 @@
 <tr class="{{ $display }} list-item-shadow-bottom border-none bg-gray-100">
-    <td colspan="6" class="px-4">
+    <td colspan="5" class="px-4">
         <div>
             <div class="bg-gray-200 p-2 rounded-lg">
                 <h5>Produktai</h5>
