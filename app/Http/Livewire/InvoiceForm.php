@@ -93,9 +93,13 @@ class InvoiceForm extends Component
             $invoiceItem[] = $invoice->invoiceItems()->create($this->getItemDataArr($item));
         }
 
-        $this->dispatchBrowserEvent('notify', $this->newNotification('Sąskaita sėkmingai sukurta'));
+//        $this->dispatchBrowserEvent('notify', $this->newNotification('Sąskaita sėkmingai sukurta'));
 
-        return $invoice->downloadInvoice();
+        $invoice->downloadInvoice();
+
+        session()->flash('message', $this->newNotification('Sąskaita sėkmingai sukurta'));
+
+        return redirect()->to('/invoice');
     }
 
     public function update() {

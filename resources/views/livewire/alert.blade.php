@@ -1,5 +1,5 @@
 <script type="module">
-    function notification(event){
+    function notification(event) {
         new Noty({
             theme: event.detail['theme'],
             type: event.detail['type'],
@@ -9,5 +9,19 @@
         }).show();
     }
 
+    function sessionNotification(theme, type, layout, text, timeout) {
+        new Noty({
+            theme: theme,
+            type: type,
+            layout: layout,
+            text: text,
+            timeout: timeout,
+        }).show();
+    }
+
     window.addEventListener('notify', notification);
+
+    @if(session()->has('message'))
+        sessionNotification('{{session('message')['theme']}}', '{{session('message')['type']}}', '{{session('message')['layout']}}', '{{session('message')['text']}}', '{{session('message')['timeout']}}');
+    @endif
 </script>
