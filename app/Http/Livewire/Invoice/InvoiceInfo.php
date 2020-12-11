@@ -32,6 +32,7 @@ class InvoiceInfo extends Component
         return view('livewire.invoice.invoice-info');
     }
 
+    // Used for listeners
     public function getInvoice($state){
         $this->items = $this->invoice->invoiceItems;
         $this->setDisplayState($state);
@@ -40,6 +41,10 @@ class InvoiceInfo extends Component
     public function delete(){
         $this->display = 'hidden';
         $this->emit('delete-' . $this->invoice->id);
+    }
+
+    public function download(){
+        return $this->invoice->downloadInvoice();
     }
 
 }
