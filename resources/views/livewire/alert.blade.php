@@ -1,11 +1,11 @@
 <script type="module">
     function notification(event){
         new Noty({
-            theme: 'sunset',
+            theme: event.detail['theme'],
             type: event.detail['type'],
-            layout: 'topRight',
+            layout: event.detail['layout'],
             text: event.detail['text'],
-            timeout: 3000,
+            timeout: event.detail['timeout'],
         }).show();
     }
 
