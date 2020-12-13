@@ -73,7 +73,7 @@ class Invoice extends Model
         $totalPrice = 0;
         $this->invoiceItems->each(
             function($item) use (&$totalPrice){
-                $totalPrice += $item->quantity * $item->price;
+                $totalPrice += $item->getTotalPrice();
             }
         );
 
