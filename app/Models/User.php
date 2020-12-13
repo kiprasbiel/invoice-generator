@@ -95,7 +95,7 @@ class User extends Authenticatable
     }
 
     public function getTotalIncome() {
-        return $this->invoices()->get()->map(function($invoice) {
+        return $this->invoices()->with('invoiceItems')->get()->map(function($invoice) {
             return $invoice->getTotalInvoicePrice();
         })->sum();
     }
