@@ -14,7 +14,7 @@ class Table extends Component
     public function render()
     {
         return view('livewire.invoice.table', [
-            'invoices' => Auth::user()->invoices()->orderByDesc('id')->paginate(10),
+            'invoices' => Auth::user()->invoices()->with('invoiceItems')->orderByDesc('id')->paginate(10),
         ]);
     }
 }
