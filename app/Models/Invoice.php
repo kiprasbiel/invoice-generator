@@ -6,6 +6,7 @@ use App\Http\services\pdf\PdfGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\This;
 
 class Invoice extends Model
 {
@@ -20,11 +21,14 @@ class Invoice extends Model
         'company_vat',
     ];
 
-    public function __construct(array $attributes = []) {
-        parent::__construct($attributes);
-        $this->sf_number = $this->calculateLatestSfNumber();
-        $this->sf_code = $this->generateSfCode();
+    protected static function booted()
+    {
+        static::creating(function ($query) {
+            $query->sf_number = self::calculateLatestSfNumber();
+            $query->sf_code = self::generateSfCode();
+        });
     }
+
 
     private static function calculateLatestSfNumber(){
         $lastInvoice = DB::table('invoices')->where('user_id', auth()->user()->id)->latest()->first();
