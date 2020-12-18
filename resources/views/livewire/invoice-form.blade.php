@@ -94,7 +94,7 @@
         @endforeach
 
         <div>
-            <button wire:click.prevent="addProduct">Pridėti produktą</button>
+            <button wire:click.prevent="addProduct">Pridėti paslaugą</button>
         </div>
 
         <div class="float-right mb-4">
