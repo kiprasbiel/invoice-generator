@@ -85,8 +85,10 @@
                            name="productList[{{ $index }}][pcs_type]" type="text">
                     @error('productList.' . $index . '.pcs_type') <span class="text-red-600">{{ $message }}</span> @enderror
                 </div>
-                <div class="flex-1 px-3">
-                    <button wire:click.prevent="deleteProduct({{ $index }})">Pašalinti</button>
+                <div class="flex-1 px-3 mb-auto mt-auto">
+                    <div class="text-center">
+                        <button class=" bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4  rounded" wire:click.prevent="deleteProduct({{ $index }})">Pašalinti</button>
+                    </div>
                 </div>
             </div>
         @endforeach
