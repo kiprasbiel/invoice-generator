@@ -70,7 +70,7 @@
             <th class="border-bottom">Kiekis</th>
             <th class="border-bottom">Matas</th>
             <th class="border-bottom">Kaina</th>
-            <th class="border-bottom">Išviso</th>
+            <th class="border-bottom">Iš viso</th>
         </tr>
         </thead>
         <tbody>
