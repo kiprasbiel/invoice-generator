@@ -23,7 +23,6 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
-        "beyondcode/laravel-query-detector": "^1.4",
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",
         "garygreen/pretty-routes": "^1.0",
