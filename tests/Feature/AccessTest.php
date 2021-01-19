@@ -33,12 +33,5 @@ class AccessTest extends TestCase
 
         $response = $this->get('/');
         $response->assertOk();
-        $response->assertSee('Išrašytų sąskaitų suma');
-        $response->assertSee('Sąnaudų suma');
-        $response->assertSee('Mokėtini mokesčiai');
-
-        $response->assertSee('GPM');
-        $response->assertSee('VSD');
-        $response->assertSee('PSD');
     }
 }
