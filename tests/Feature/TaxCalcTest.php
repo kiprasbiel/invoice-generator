@@ -32,6 +32,21 @@ class TaxCalcTest extends TestCase
 
         $gpm = new GPM(10000, 4000);
         $this->assertEquals(240.77, $gpm->getCalcGPM());
+
+        $gpm = new GPM(24000, 0);
+        $this->assertEquals(840.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(30000, 0);
+        $this->assertEquals(1190.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(60000, 0);
+        $this->assertEquals(6300.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(100000, 0);
+        $this->assertEquals(10500.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(200000, 0);
+        $this->assertEquals(21000.00, $gpm->getCalcGPM());
     }
 
     public function testPSDCalc() {
@@ -40,6 +55,21 @@ class TaxCalcTest extends TestCase
 
         $psd = new PSD(10000, 4000);
         $this->assertEquals(508.44, $psd->getCalcPSD());
+
+        $psd = new PSD(24000, 0);
+        $this->assertEquals(1055.38, $psd->getCalcPSD());
+
+        $psd = new PSD(30000, 0);
+        $this->assertEquals(1319.22, $psd->getCalcPSD());
+
+        $psd = new PSD(60000, 0);
+        $this->assertEquals(2638.44, $psd->getCalcPSD());
+
+        $psd = new PSD(100000, 0);
+        $this->assertEquals(3725.94, $psd->getCalcPSD());
+
+        $psd = new PSD(200000, 0);
+        $this->assertEquals(3725.94, $psd->getCalcPSD());
     }
 
     public function testVSDCalc() {
@@ -48,6 +78,21 @@ class TaxCalcTest extends TestCase
 
         $vsd = new VSD(10000, 4000);
         $this->assertEquals(676.08, $vsd->getCalcVSD());
+
+        $vsd = new VSD(24000, 0);
+        $this->assertEquals(1893.02, $vsd->getCalcVSD());
+
+        $vsd = new VSD(30000, 0);
+        $this->assertEquals(2366.28, $vsd->getCalcVSD());
+
+        $vsd = new VSD(60000, 0);
+        $this->assertEquals(4732.56, $vsd->getCalcVSD());
+
+        $vsd = new VSD(100000, 0);
+        $this->assertEquals(6683.20, $vsd->getCalcVSD());
+
+        $vsd = new VSD(200000, 0);
+        $this->assertEquals(6683.20, $vsd->getCalcVSD());
     }
 
     protected function tearDown(): void {
