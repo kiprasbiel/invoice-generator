@@ -35,17 +35,4 @@ class InvoiceGenTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_can_create_invoice(){
-        $this->withoutExceptionHandling();
-        $this->login();
-
-        Livewire::test(InvoiceForm::class, $this->get_form_data())
-            ->set('productList.0.product_name', $this->faker->name)
-            ->set('productList.0.product_price', $this->faker->numberBetween(1, 10000))
-            ->set('productList.0.product_pcs', $this->faker->numberBetween(1, 100))
-            ->set('productList.0.pcs_type', $this->faker->lexify('???') . '.')
-            ->call('submit')
-            ->assertHasNoErrors();
-    }
-
 }
