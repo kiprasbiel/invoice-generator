@@ -70,6 +70,19 @@ class UITest extends TestCase
         $response->assertSee('Delete Account');
     }
 
+    public function testCanSeeActivitySettings(){
+        $response = $this->get('/activity');
+
+        $response->assertSee('Veiklos informacija');
+        $response->assertSee('Sąskaita-faktūra');
+        $response->assertSee('Lengvatos ir kiti mokesčių nustatymai');
+        $response->assertSee('Išlaidos');
+
+        // Asserting default User information is prefilled
+        $response->assertSee($this->user->name);
+        $response->assertSee($this->user->email);
+    }
+
     private function createInvoice() {
         return Invoice::factory()
             ->hasInvoiceItems(1, [
