@@ -28,6 +28,12 @@ class UITest extends TestCase
         $response->assertSee('GPM');
         $response->assertSee('VSD');
         $response->assertSee('PSD');
+
+        $this->createInvoice();
+
+        $response = $this->get('/');
+
+        $response->assertSee('182');
     }
 
     public function testCanSeeInvoicePage() {
@@ -47,7 +53,10 @@ class UITest extends TestCase
 
     private function createInvoice() {
         return Invoice::factory()
-            ->hasInvoiceItems(3)
+            ->hasInvoiceItems(1, [
+                'price' => 182,
+                'quantity' => 1
+            ])
             ->create([
                 'user_id' => $this->user->id,
                 'company_name' => 'Custom Name',
