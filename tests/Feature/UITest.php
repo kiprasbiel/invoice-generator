@@ -51,6 +51,15 @@ class UITest extends TestCase
         $response->assertSee('Custom Name');
     }
 
+    public function testCanSeeNewInvoiceForm(){
+        $response = $this->get('/invoice/create');
+
+        $response->assertSee('Įmonės pavadinimas');
+        $response->assertSee('Paslaugos pavadinimas');
+        $response->assertSee('Pašalinti');
+        $response->assertSee('Išsaugoti ir atsisiųsti');
+    }
+
     private function createInvoice() {
         return Invoice::factory()
             ->hasInvoiceItems(1, [
