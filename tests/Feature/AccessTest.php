@@ -20,9 +20,11 @@ class AccessTest extends TestCase
     public function test_open_register_and_login_pages() {
         $response = $this->get('/login');
         $response->assertOk();
+        $response->assertSee('Registruotis');
 
         $response = $this->get('/register');
         $response->assertOk();
+        $response->assertSee('Prisijungti');
     }
 
     public function test_login_and_see_dashboard() {
