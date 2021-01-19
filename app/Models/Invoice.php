@@ -12,8 +12,6 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    protected $totalCost;
-
     protected $fillable = [
         'company_name',
         'company_code',
