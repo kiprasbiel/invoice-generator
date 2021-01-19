@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,13 +10,15 @@ use Tests\TestCase;
 
 class UITest extends TestCase
 {
+    protected $user;
+
     protected function setUp(): void {
         parent::setUp();
-
-        $this->actingAs(User::factory()->create());
+        $this->user = User::factory()->create();
+        $this->actingAs($this->user);
     }
 
-    public function testCanSeeDashboard(){
+    public function testCanSeeDashboard() {
         $response = $this->get('/');
 
         $response->assertSee('Išrašytų sąskaitų suma');
@@ -25,5 +28,35 @@ class UITest extends TestCase
         $response->assertSee('GPM');
         $response->assertSee('VSD');
         $response->assertSee('PSD');
+    }
+
+    public function testCanSeeInvoicePage() {
+        $response = $this->get('/invoice');
+
+        $response->assertSee('Data');
+        $response->assertSee('Serija, numeris');
+        $response->assertSee('Klientas');
+        $response->assertSee('Suma');
+        $response->assertSee('Neturite sukūrę sąskaitų-faktūrų');
+
+        $invoice = $this->createInvoice();
+
+        $response = $this->get('/invoice');
+        $response->assertSee('Custom Name');
+    }
+
+    private function createInvoice() {
+        return Invoice::factory()
+            ->hasInvoiceItems(3)
+            ->create([
+                'user_id' => $this->user->id,
+                'company_name' => 'Custom Name',
+            ]);
+    }
+
+    protected function tearDown(): void {
+        parent::tearDown();
+
+        $this->user = NULL;
     }
 }
