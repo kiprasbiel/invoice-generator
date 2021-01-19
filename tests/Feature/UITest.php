@@ -9,9 +9,13 @@ use Tests\TestCase;
 
 class UITest extends TestCase
 {
-    public function testCanSeeDashboard(){
-        $this->actingAs(User::factory()->create());
+    protected function setUp(): void {
+        parent::setUp();
 
+        $this->actingAs(User::factory()->create());
+    }
+
+    public function testCanSeeDashboard(){
         $response = $this->get('/');
 
         $response->assertSee('Išrašytų sąskaitų suma');
