@@ -60,6 +60,16 @@ class UITest extends TestCase
         $response->assertSee('Išsaugoti ir atsisiųsti');
     }
 
+    public function testCanSeeProfile(){
+        $response = $this->get('/user/profile');
+
+        $response->assertSee('Profile Information');
+        $response->assertSee('Update Password');
+        $response->assertSee('Two Factor Authentication');
+        $response->assertSee('Browser Sessions');
+        $response->assertSee('Delete Account');
+    }
+
     private function createInvoice() {
         return Invoice::factory()
             ->hasInvoiceItems(1, [
