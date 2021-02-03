@@ -106,6 +106,14 @@ class InvoiceGenTest extends TestCase
             ->assertDontSee('Random item');
     }
 
+    public function test_can_delete_invoice_and_invoice_items(){
+        $this->create_invoice_and_invoice_item();
+
+        $this->invoice->delete();
+        $this->assertFalse(Invoice::whereCompanyName('Company, UAB')->exists());
+        $this->assertFalse(InvoiceItem::whereName('Random item')->exists());
+    }
+
     protected function tearDown(): void {
         parent::tearDown();
 
