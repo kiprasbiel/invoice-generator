@@ -21,10 +21,10 @@ class CreateUserDefaultSettings
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param object $event
      * @return void
      */
-    public function handle($event)
+    public function handle(object $event)
     {
         // Create new instance of IV settings
         $IvData = Meta::getFieldsForValidation('Iv', null);
@@ -39,6 +39,8 @@ class CreateUserDefaultSettings
             'value' =>  $jsonData
         ]);
 
+        // TODO: Needs refactoring
+
         // Create new instance of SFnumber settings
 
         $SfCodeData = Meta::getFieldsForValidation('SfCode', null);
@@ -46,6 +48,19 @@ class CreateUserDefaultSettings
         $event->user->meta()->create([
             'name' => 'sfNumberSettings',
             'value' =>  json_encode(array_merge($SfCodeData, ['sf_code' => 'SF']))
+        ]);
+
+        $PrivilegesData = Meta::getFieldsForValidation('Privileges', null);
+        $event->user->meta()->create([
+            'name' => 'privilegesSettings',
+            'value' =>  json_encode(array_merge($PrivilegesData, ['additionalPension' => 'pens0']))
+        ]);
+
+        // TODO: Temporary
+        $ExpensesData = Meta::getFieldsForValidation('Expenses', null);
+        $event->user->meta()->create([
+            'name' => 'totalExpenses',
+            'value' =>  json_encode(array_merge($ExpensesData, ['expenses' => '0']))
         ]);
 
         // TODO: Notify the user himself to go and change these default settings
