@@ -40,7 +40,6 @@ class InvoiceGenTest extends TestCase
     }
 
     public function test_can_create_invoice(){
-
         $someResponse = Livewire::test(InvoiceForm::class)
             ->set('companyName', 'UAB Test')
             ->set('companyCode', $this->faker->randomNumber(9))
@@ -54,9 +53,27 @@ class InvoiceGenTest extends TestCase
             ]);
         $someResponse->call('create');
 
-
         $someResponse->assertHasNoErrors();
         $this->assertTrue(Invoice::whereCompanyName('UAB Test')->exists());
+    }
+
+    public function test_can_see_created_invoice_in_invoice_table(){
+        $response = $this->get('/invoice');
+        $response->assertSee('Neturite sukūrę sąskaitų-faktūrų');
+
+        Invoice::factory()->hasInvoiceItems(1, [
+            'name' => 'Item',
+            'price' => 108,
+            'quantity' => 1,
+        ])->create([
+            'company_name' => 'Company, UAB',
+            'user_id' => $this->user->id,
+        ]);
+        $response = $this->get('/invoice');
+        $response->assertDontSee('Neturite sukūrę sąskaitų-faktūrų');
+
+        $response->assertSee('Company, UAB');
+        $response->assertSee('108');
     }
 
     protected function tearDown(): void {
