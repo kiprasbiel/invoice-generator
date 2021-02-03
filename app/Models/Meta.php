@@ -53,6 +53,13 @@ class Meta extends Model
         ];
     }
 
+    // TODO: Temporary
+    public static function getExpensesSettingsFields(){
+        return [
+            'expenses'
+        ];
+    }
+
     public static function getFieldsForValidation($fields, $fill = 'nullable'){
         $methodName = 'get' . $fields . 'SettingsFields';
         $actualFields = self::$methodName();
