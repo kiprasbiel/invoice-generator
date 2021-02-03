@@ -43,6 +43,7 @@ class Invoice extends Model
         return "$sFBeginning $newNumber";
     }
 
+    // TODO: Perkelt i booted, jei veikia
     protected static function boot() {
         parent::boot();
         self::deleting(function($invoice){
@@ -53,9 +54,10 @@ class Invoice extends Model
     }
 
     // TODO Add default values: is_payed, is_sent
-//    protected $attributes = [
-//        'delayed' => false,
-//    ];
+    protected $attributes = [
+        'sf_number' => 1,
+        'sf_code' => 'SF1',
+    ];
 
     public function meta()
     {
