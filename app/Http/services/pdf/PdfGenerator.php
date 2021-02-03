@@ -18,12 +18,8 @@ class PdfGenerator
     // TODO: issimti visa json decodinima i modeli
     public function __construct(Invoice $invoice, Collection $invoiceItems)
     {
-        // TODO: Padaryti tikrinima, jei del kazkokios priezasties neegzistuotu Meta  ar Activity info
         $this->invoice = $invoice;
         $this->invoiceItems = $invoiceItems;
-        if (!$invoice->user->getUserSettings('userActivitySettings')) throw new \Exception("Users activity settings don't exist.");
-        if (!$invoice->user->getUserSettings('sfNumberSettings')) throw new \Exception("Users SF code settings don't exist.");
-
         $this->activityInfo = json_decode($invoice->user->getUserSettings('userActivitySettings')->value);
     }
 

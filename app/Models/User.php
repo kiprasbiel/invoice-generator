@@ -71,7 +71,9 @@ class User extends Authenticatable
     }
 
     public function getUserSettings($settings){
-        return $this->meta()->where('name', $settings)->first();
+        return $this->meta()->where('name', $settings)->firstOr(function() use ($settings) {
+            throw new \Exception($settings . " settings don't exist.");
+        });
     }
 
     public function getPrivilege($privilege){
