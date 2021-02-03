@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\Invoice\InvoiceInfo;
 use App\Http\Livewire\InvoiceForm;
 use App\Models\Invoice;
 use App\Models\User;
@@ -17,6 +18,7 @@ class InvoiceGenTest extends TestCase
     use WithFaker;
 
     protected $user;
+    protected $invoice;
 
     protected function setUp(): void
     {
@@ -32,6 +34,18 @@ class InvoiceGenTest extends TestCase
             'companyVat' => 'LT' . $this->faker->randomNumber(9),
             'companyAddress' => $this->faker->address,
         ];
+    }
+
+    protected function create_invoice_and_invoice_item(){
+        $this->invoice = Invoice::factory()->hasInvoiceItems(1, [
+            'name' => 'Random item',
+            'price' => 18,
+            'quantity' => 14,
+            'unit' => '.khd',
+        ])->create([
+            'company_name' => 'Company, UAB',
+            'user_id' => $this->user->id,
+        ]);
     }
 
     public function test_can_open_invoice_create_page(){
@@ -57,23 +71,29 @@ class InvoiceGenTest extends TestCase
         $this->assertTrue(Invoice::whereCompanyName('UAB Test')->exists());
     }
 
-    public function test_can_see_created_invoice_in_invoice_table(){
+    public function test_can_see_message_when_no_invoices_are_created(){
         $response = $this->get('/invoice');
         $response->assertSee('Neturite sukūrę sąskaitų-faktūrų');
+    }
 
-        Invoice::factory()->hasInvoiceItems(1, [
-            'name' => 'Item',
-            'price' => 108,
-            'quantity' => 1,
-        ])->create([
-            'company_name' => 'Company, UAB',
-            'user_id' => $this->user->id,
-        ]);
+    public function test_can_see_created_invoice_in_invoice_table(){
+        $this->create_invoice_and_invoice_item();
+
         $response = $this->get('/invoice');
         $response->assertDontSee('Neturite sukūrę sąskaitų-faktūrų');
 
         $response->assertSee('Company, UAB');
-        $response->assertSee('108');
+        $response->assertSee('252');
+    }
+
+    public function test_can_see_invoice_items_in_expanded_invoice_table(){
+        $this->create_invoice_and_invoice_item();
+
+        Livewire::test(InvoiceInfo::class, ['invoice' => $this->invoice])
+            ->call('getInvoice', true)
+            ->assertSee('Random item')
+            ->assertSee('18')
+            ->assertSee('14');
     }
 
     protected function tearDown(): void {
