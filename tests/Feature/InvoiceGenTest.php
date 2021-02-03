@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Http\Livewire\Invoice\InvoiceInfo;
 use App\Http\Livewire\InvoiceForm;
 use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -94,6 +95,15 @@ class InvoiceGenTest extends TestCase
             ->assertSee('Random item')
             ->assertSee('18')
             ->assertSee('14');
+    }
+
+    public function test_delete_button_emits_delete_event_and_removes_deleted_invoice(){
+        $this->create_invoice_and_invoice_item();
+
+        Livewire::test(InvoiceInfo::class, ['invoice' => $this->invoice])
+            ->call('delete')
+            ->assertEmitted('delete-' . $this->invoice->id)
+            ->assertDontSee('Random item');
     }
 
     protected function tearDown(): void {
