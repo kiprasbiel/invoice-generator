@@ -17,6 +17,7 @@ class Invoice extends Model
         'company_code',
         'company_address',
         'company_vat',
+        'pay_by',
     ];
 
     protected static function booted()
