@@ -20,6 +20,10 @@ class Invoice extends Model
         'pay_by',
     ];
 
+    protected $casts = [
+        'pay_by' => 'datetime'
+    ];
+
     protected static function booted()
     {
         static::creating(function ($query) {
