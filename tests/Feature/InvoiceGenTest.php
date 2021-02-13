@@ -7,6 +7,7 @@ use App\Http\Livewire\InvoiceForm;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
@@ -60,6 +61,7 @@ class InvoiceGenTest extends TestCase
             ->set('companyCode', $this->faker->randomNumber(9))
             ->set('companyVat', 'LT' . $this->faker->randomNumber(9))
             ->set('companyAddress', $this->faker->streetAddress)
+            ->set('payBy', Carbon::now()->add(7, 'days')->format('Y-m-d'))
             ->set('productList', [
                 ['product_name' => $this->faker->name,
                 'product_price' => $this->faker->randomNumber(2),
