@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="flex flex-wrap -mx-3">
-            <div class="w-full px-3">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_address">
                     Įmonės adresas
                 </label>
@@ -40,6 +40,15 @@
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                        id="company_address" type="text" placeholder="Vileikos g. 8, Kaunas">
                 @error('companyAddress') <span class="text-red-600">{{ $message }}</span> @enderror
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_vat">
+                    Apmokėjimo iki
+                </label>
+                <input wire:model.defer="payBy"
+                       class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                       id="pay_by" type="date">
+                @error('payBy') <span class="text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
 

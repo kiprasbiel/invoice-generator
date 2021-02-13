@@ -9,7 +9,7 @@ class InvoiceForm extends Component
 {
     use Notifications;
 
-    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action;
+    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action, $payBy;
 
     public $productList = [];
 
@@ -18,6 +18,7 @@ class InvoiceForm extends Component
         'companyCode' => 'required|numeric',
         'companyVat' => 'alpha_num|nullable',
         'companyAddress' => 'nullable',
+        'payBy' => 'nullable|date_format:Y-m-d',
         'productList' => 'array',
         'productList.*.product_name' => 'required',
         'productList.*.product_price' => 'numeric|required_with:productList.*.product_name',
@@ -31,6 +32,8 @@ class InvoiceForm extends Component
         'companyCode.required' => 'Įmonės kodas yra privalomas.',
         'companyCode.numeric' => 'Įmonės kodas privalo būti sudarytas iš skaičių.',
         'companyVat.alpha_num' => 'PVM kodas gali būti sudarytas iš raidžių ir skaičių.',
+        'payBy.date_format' => 'Netinkamas datos formatas',
+
         'productList.*.product_name.required' => 'Produkto pavadinimas yra privalomas.',
         'productList.*.product_price.numeric' => 'Produkto kaina privalo būti sudaryta iš skaičių.',
         'productList.*.product_price.required_with' => 'Produkto kaina yra privaloma.',
@@ -40,7 +43,7 @@ class InvoiceForm extends Component
         'productList.*.pcs_type.required_with' => 'Produkto vienetai yra privalomi.',
     ];
 
-    public function mount($invoice = null) {
+    public function mount(object $invoice = null) {
         $this->invoice = $invoice;
 
         // Editing existing invoice
@@ -128,6 +131,7 @@ class InvoiceForm extends Component
             'company_code' => $data['companyCode'],
             'company_address' => $data['companyAddress'],
             'company_vat' => $data['companyVat'],
+            'pay_by' => $data['payBy'],
         ];
     }
 
