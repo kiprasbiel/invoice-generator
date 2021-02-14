@@ -54,6 +54,7 @@ class InvoiceForm extends Component
             $this->companyCode = $invoice->company_code;
             $this->companyVat = $invoice->company_vat;
             $this->companyAddress = $invoice->company_address;
+            $this->payBy = $invoice->pay_by->format('Y-m-d');
 
             $itemCollection = $this->invoice->invoiceItems;
             foreach($itemCollection as $item) {
