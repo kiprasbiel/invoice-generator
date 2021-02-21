@@ -67,11 +67,7 @@
     </x-slot>
 
     <x-slot name="actions">
-        <x-jet-action-message class="mr-3" on="saved">
-            {{ __('Išsaugota.') }}
-        </x-jet-action-message>
-
-        <x-jet-button wire:loading.attr="disabled" wire:target="photo">
+        <x-jet-button wire:loading.attr="disabled">
             {{ __('Išsaugoti') }}
         </x-jet-button>
     </x-slot>
