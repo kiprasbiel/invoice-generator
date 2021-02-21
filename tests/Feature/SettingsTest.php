@@ -42,4 +42,14 @@ class SettingsTest extends TestCase
         $meta = $this->user->meta()->where('name', 'sfNumberSettings')->get();
         $this->assertEquals('TT', json_decode($meta[0]->value)->sf_code);
     }
+
+    public function test_can_set_invoice_number(){
+        $response = Livewire::test(SfNumberSettings::class)
+            ->set('sf_number', '43');
+        $response->call('submit');
+        $response->assertHasNoErrors();
+
+        $meta = $this->user->meta()->where('name', 'sfNumberSettings')->get();
+        $this->assertEquals('43', json_decode($meta[0]->value)->sf_number);
+    }
 }
