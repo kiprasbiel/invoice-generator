@@ -3,34 +3,25 @@
 namespace App\Events;
 
 use App\Models\Invoice;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
+use App\Models\User;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
 
 class InvoiceCreated
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
 
     public $invoice;
+    public $user;
 
     /**
      * Create a new event instance.
      *
      * @param Invoice $invoice
+     * @param User $user
      */
     public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->user = auth()->user();
     }
 }
