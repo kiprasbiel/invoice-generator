@@ -47,7 +47,10 @@ class CreateUserDefaultSettings
 
         $event->user->meta()->create([
             'name' => 'sfNumberSettings',
-            'value' =>  json_encode(array_merge($SfCodeData, ['sf_code' => 'SF']))
+            'value' =>  json_encode(array_merge($SfCodeData, [
+                'sf_code' => 'SF',
+                'sf_number' => 1,
+            ]))
         ]);
 
         $PrivilegesData = Meta::getFieldsForValidation('Privileges', null);

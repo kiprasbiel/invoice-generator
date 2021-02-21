@@ -39,7 +39,8 @@ class Meta extends Model
 
     public static function getSfCodeSettingsFields(){
         return [
-            'sf_code'
+            'sf_code',
+            'sf_number',
         ];
     }
 
