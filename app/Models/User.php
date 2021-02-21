@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use phpDocumentor\Reflection\Types\Integer;
 
 class User extends Authenticatable
 {
@@ -94,6 +95,11 @@ class User extends Authenticatable
             }
             return false;
         }
+    }
+
+    public function getNextInvoiceNumber(): int{
+        return (int) json_decode($this->getUserSettings('sfNumberSettings')->value)
+            ->sf_number;
     }
 
     public function getTotalIncome() {

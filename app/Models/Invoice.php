@@ -27,24 +27,15 @@ class Invoice extends Model
     protected static function booted()
     {
         static::creating(function ($query) {
-            $query->sf_number = self::calculateLatestSfNumber();
+            $query->sf_number = auth()->user()->getNextInvoiceNumber();
             $query->sf_code = self::generateSfCode();
         });
     }
 
-
-    private static function calculateLatestSfNumber(){
-        $lastInvoice = DB::table('invoices')->where('user_id', auth()->user()->id)->latest()->first();
-        if($lastInvoice){
-            $currantNum = $lastInvoice->sf_number;
-            return $currantNum + 1;
-        }
-        return 1;
-    }
-
+    // TODO: simple refactor
     private static function generateSfCode(){
         $sFBeginning = auth()->user()->getSfCodeBeginning();
-        $newNumber = self::calculateLatestSfNumber();
+        $newNumber = auth()->user()->getNextInvoiceNumber();
         return "$sFBeginning $newNumber";
     }
 
@@ -59,6 +50,7 @@ class Invoice extends Model
     }
 
     // TODO Add default values: is_payed, is_sent
+    // TODO: These attributes are not needed
     protected $attributes = [
         'sf_number' => 1,
         'sf_code' => 'SF1',
