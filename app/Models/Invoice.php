@@ -32,10 +32,10 @@ class Invoice extends Model
         });
     }
 
-    // TODO: simple refactor
     private static function generateSfCode(){
-        $sFBeginning = auth()->user()->getSfCodeBeginning();
-        $newNumber = auth()->user()->getNextInvoiceNumber();
+        $user = auth()->user();
+        $sFBeginning = $user->getSfCodeBeginning();
+        $newNumber = $user->getNextInvoiceNumber();
         return "$sFBeginning $newNumber";
     }
 
@@ -50,11 +50,6 @@ class Invoice extends Model
     }
 
     // TODO Add default values: is_payed, is_sent
-    // TODO: These attributes are not needed
-    protected $attributes = [
-        'sf_number' => 1,
-        'sf_code' => 'SF1',
-    ];
 
     public function meta()
     {
