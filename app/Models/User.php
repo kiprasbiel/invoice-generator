@@ -80,7 +80,7 @@ class User extends Authenticatable
     public function getPrivilege($privilege){
         $settings = $this->getUserSettings('privilegesSettings');
         if($settings){
-            return json_decode($settings->value)->$privilege;
+            return json_decode($settings->value)->privilege;
         }
         return false;
     }
