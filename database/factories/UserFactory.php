@@ -43,7 +43,7 @@ class UserFactory extends Factory
             ]);
             Meta::factory()->create([
                 'name' => 'sfNumberSettings',
-                'value' => '{"sf_code":"SF"}',
+                'value' => '{"sf_code":"SF","sf_number":"1"}',
                 'metable_id' => $user->id,
             ]);
             Meta::factory()->create([
