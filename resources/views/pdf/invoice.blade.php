@@ -8,7 +8,9 @@
         <h4 class="super-small-margin">Sąskaita faktūra</h4>
         <p class="no-margin">Serija ir Nr. {{$invoice->sf_code}}</p>
         <p class="no-margin">Sąskaitos data {{$invoice->created_at->format('Y-m-d')}}</p>
+        @if($invoice->pay_by)
         <p class="no-margin">Apmokėti iki {{$invoice->pay_by->format('Y-m-d')}}</p>
+        @endif
     </h1>
 </div>
 
