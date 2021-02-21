@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\InvoiceCreated;
 use App\Http\services\Notifications\Notifications;
 use Livewire\Component;
 
@@ -98,6 +99,8 @@ class InvoiceForm extends Component
         }
 
         $invoice->downloadInvoice();
+
+        InvoiceCreated::dispatch($invoice);
 
         session()->flash('message', $this->newNotification('Sąskaita sėkmingai sukurta'));
 
