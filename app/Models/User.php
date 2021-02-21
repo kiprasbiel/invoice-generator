@@ -5,14 +5,13 @@ namespace App\Models;
 use App\Models\Taxes\GPM;
 use App\Models\Taxes\SodraTaxes\PSD;
 use App\Models\Taxes\SodraTaxes\VSD;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use phpDocumentor\Reflection\Types\Integer;
 
 class User extends Authenticatable
 {
@@ -54,11 +53,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var arrays
-     */
     protected $appends = [
         'profile_photo_url',
     ];
@@ -73,14 +67,14 @@ class User extends Authenticatable
 
     public function getUserSettings($settings){
         return $this->meta()->where('name', $settings)->firstOr(function() use ($settings) {
-            throw new \Exception($settings . " settings don't exist.");
+            throw new Exception($settings . " settings don't exist.");
         });
     }
 
     public function getPrivilege($privilege){
         $settings = $this->getUserSettings('privilegesSettings');
         if($settings){
-            return json_decode($settings->value)->privilege;
+            return json_decode($settings->value)->$privilege;
         }
         return false;
     }
