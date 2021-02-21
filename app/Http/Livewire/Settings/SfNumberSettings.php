@@ -10,7 +10,7 @@ class SfNumberSettings extends Component
 {
     use Notifications;
 
-    public $sf_code;
+    public $sf_code, $sf_number;
 
     protected $rules = [];
 
@@ -18,12 +18,15 @@ class SfNumberSettings extends Component
         parent::__construct($id);
         $this->rules = array_merge(Meta::getFieldsForValidation('SfCode'), [
             'sf_code' => 'alpha|required',
+            'sf_number' => 'integer|required',
         ]);
     }
 
     protected $messages = [
-        'sf_code.required' => 'Kodas yra privalomas',
-        'sf_code.alpha' => 'Kodas privalo būti sudarytas iš raidžių.',
+        'sf_code.required' => 'Sąskaitos kodas yra privalomas',
+        'sf_code.alpha' => 'Sąskaitos kodas privalo būti sudarytas iš raidžių.',
+        'sf_number.required' => 'Sąskaitos numeris yra privalomas',
+        'sf_number.number' => 'Sąskaitos numeris privalo būti sudarytas iš skaičių.',
     ];
 
     public function render()
@@ -39,6 +42,7 @@ class SfNumberSettings extends Component
             $jsonMeta = json_decode($meta->value);
 
             $this->sf_code = $jsonMeta->sf_code;
+            $this->sf_number = $jsonMeta->sf_number;
         }
 
     }
