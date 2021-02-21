@@ -39,7 +39,7 @@ class InvoiceGenTest extends TestCase
     }
 
     protected function create_invoice_and_invoice_item(){
-        $this->invoice = Invoice::factory()->hasInvoiceItems(1, [
+        return $this->invoice = Invoice::factory()->hasInvoiceItems(1, [
             'name' => 'Random item',
             'price' => 18,
             'quantity' => 14,
@@ -108,12 +108,19 @@ class InvoiceGenTest extends TestCase
             ->assertDontSee('Random item');
     }
 
-    public function test_can_delete_invoice_and_invoice_items(){
+    public function test_can_delete_invoice_and_invoice_items() {
         $this->create_invoice_and_invoice_item();
 
         $this->invoice->delete();
         $this->assertFalse(Invoice::whereCompanyName('Company, UAB')->exists());
         $this->assertFalse(InvoiceItem::whereName('Random item')->exists());
+    }
+
+    public function test_invoice_number_increments() {
+        $response = $this->create_invoice_and_invoice_item();
+        $this->assertEquals(1, $response->sf_number);
+        $response = $this->create_invoice_and_invoice_item();
+        $this->assertEquals(2, $response->sf_number);
     }
 
     protected function tearDown(): void {
