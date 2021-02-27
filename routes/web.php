@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,10 +26,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/invoice', function () {
     return view('invoice.index');
 })->name('invoice.index');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/activity', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/activity', function() {
     return view('activity.show');
 })->name('activity.show');
 
-Route::middleware(['auth:sanctum', 'verified'])->middleware('can:edit-invoice,invoice')->get('/invoice/edit/{invoice}', function (\App\Models\Invoice $invoice) {
+Route::middleware(['auth:sanctum', 'verified'])->middleware('can:edit-invoice,invoice')->get('/invoice/edit/{invoice}', function(Invoice $invoice) {
     return view('invoice.edit')->with('invoice', $invoice);
 })->name('invoice.edit');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/expenses', function() {
+    return view('expenses.index');
+})->name('expenses.index');
