@@ -4,12 +4,18 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AccessTest extends TestCase
 {
     use RefreshDatabase;
+
+    public $user;
+
+    private function login() {
+        $this->user = User::factory()->create();
+        $this->actingAs($this->user);
+    }
 
     public function test_redirect_for_login() {
         $response = $this->get('/');
@@ -28,10 +34,20 @@ class AccessTest extends TestCase
     }
 
     public function test_login_and_see_dashboard() {
-        $response = $this->actingAs(User::factory()->create());
-        $response->assertAuthenticated();
-
+        $this->login();
         $response = $this->get('/');
+        $response->assertOk();
+    }
+
+    public function test_cant_access_expenses_without_login() {
+        $response = $this->get('/expenses');
+        $response->assertStatus(302);
+    }
+
+    public function test_can_access_expenses_with_login() {
+        $this->login();
+
+        $response = $this->get('/expenses');
         $response->assertOk();
     }
 }
