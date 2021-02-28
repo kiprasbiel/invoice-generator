@@ -7,6 +7,7 @@ use App\Models\Taxes\SodraTaxes\PSD;
 use App\Models\Taxes\SodraTaxes\VSD;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -61,11 +62,15 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Invoice');
     }
 
+    public function expenses(): HasMany {
+        return $this->hasMany('App\Models\Expense');
+    }
+
     public function meta() {
         return $this->morphMany('App\Models\Meta', 'metable');
     }
 
-    public function getUserSettings($settings){
+    public function getUserSettings($settings) {
         return $this->meta()->where('name', $settings)->firstOr(function() use ($settings) {
             throw new Exception($settings . " settings don't exist.");
         });
