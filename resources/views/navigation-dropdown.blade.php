@@ -18,6 +18,9 @@
                     <x-jet-nav-link href="{{ route('invoice.index') }}" :active="request()->routeIs('invoice.index')">
                         {{ __('Sąskaitos') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('expenses.index') }}" :active="request()->routeIs('expenses.index')">
+                        {{ __('Išlaidos') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
