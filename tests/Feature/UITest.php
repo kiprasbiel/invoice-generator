@@ -46,7 +46,7 @@ class UITest extends TestCase
         $response->assertSee('Suma');
         $response->assertSee('Neturite sukūrę sąskaitų-faktūrų');
 
-        $invoice = $this->createInvoice();
+        $this->createInvoice();
 
         $response = $this->get('/invoice');
         $response->assertSee('Custom Name');
@@ -82,6 +82,12 @@ class UITest extends TestCase
         // Asserting default User information is prefilled
         $response->assertSee($this->user->name);
         $response->assertSee($this->user->email);
+    }
+
+    public function testCanSeeExpensesInHeader() {
+        $response = $this->get('/');
+
+        $response->assertSee('Išlaidos');
     }
 
     private function createInvoice() {
