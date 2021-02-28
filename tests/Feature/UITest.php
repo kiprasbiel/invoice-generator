@@ -90,6 +90,12 @@ class UITest extends TestCase
         $response->assertSee('Išlaidos');
     }
 
+    public function testCanSeeAddNewExpenseInExpensesPage() {
+        $response = $this->get('/expenses');
+
+        $response->assertSee('Pridėti išlaidas');
+    }
+
     private function createInvoice() {
         return Invoice::factory()
             ->hasInvoiceItems(1, [
