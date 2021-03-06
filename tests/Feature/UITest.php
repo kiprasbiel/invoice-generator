@@ -109,6 +109,15 @@ class UITest extends TestCase
         $response->assertSee('PVM kodas');
     }
 
+    public function testCanSeeExpensesList() {
+        $response = $this->get('/expenses');
+
+        $response->assertSee('Sąskaitos numeris');
+        $response->assertSee('Pardavėjas');
+        $response->assertSee('Data');
+        $response->assertSee('Suma');
+    }
+
     private function createInvoice() {
         return Invoice::factory()
             ->hasInvoiceItems(1, [
