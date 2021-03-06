@@ -1,4 +1,4 @@
-<div xmlns:wire="http://www.w3.org/1999/xhtml">
+<div>
     <form class="rounded w-full px-20" wire:submit.prevent="{{ $action }}">
         <div class="flex flex-wrap -mx-3 mb-5 mt-4">
             <div class="w-full px-3">
@@ -42,7 +42,7 @@
                 @error('companyAddress') <span class="text-red-600">{{ $message }}</span> @enderror
             </div>
             <div class="w-full md:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_vat">
+                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="pay_by">
                     Apmokėjimo iki
                 </label>
                 <input wire:model.defer="payBy"
