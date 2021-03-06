@@ -52,4 +52,21 @@ class ExpensesTest extends TestCase
         $someResponse->assertHasNoErrors();
         $this->assertTrue(Expense::whereSellerName('Topo Centras')->exists());
     }
+
+    public function testIfExpensesTableIsEmptyThenExplainWhy() {
+        $response = $this->get('/expenses');
+
+        $response->assertSee('Neturite sukūrę išlaidų');
+    }
+
+    public function testCanSeeCreatedExpensesInTable() {
+        // TODO: Papildyti
+        $this->createNewExpense();
+
+        $response = $this->get('/expenses');
+        $response->assertDontSee('Neturite sukūrę išlaidų');
+
+        $response->assertSee('SA125');
+        $response->assertSee('Topo Centras');
+    }
 }
