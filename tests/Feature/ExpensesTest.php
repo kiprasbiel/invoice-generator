@@ -30,8 +30,7 @@ class ExpensesTest extends TestCase
         $this->user = NULL;
     }
 
-    // Without expenses items
-    public function test_can_create_expense() {
+    protected function createNewExpense() {
         $someResponse = Livewire::test(Form::class)
             ->set('expenseNumber', 'SA125')
             ->set('date', Carbon::now()->sub(7, 'days')->format('Y-m-d'))
@@ -43,6 +42,12 @@ class ExpensesTest extends TestCase
             ->set('sellerVAT', 'LT159753789');
 
         $someResponse->call('create');
+        return $someResponse;
+    }
+
+    // Without expenses items
+    public function test_can_create_expense() {
+        $someResponse = $this->createNewExpense();
 
         $someResponse->assertHasNoErrors();
         $this->assertTrue(Expense::whereSellerName('Topo Centras')->exists());
