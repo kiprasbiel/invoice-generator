@@ -77,7 +77,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($invoiceItems as $item)
+        @foreach($items as $item)
             <tr>
                 <td class="border-bottom" style="width: 60%">{{ $item->name }}</td>
                 <td class="border-bottom text-align-center">{{ $item->quantity }}</td>

@@ -34,7 +34,7 @@ class InvoiceInfo extends Component
 
     // Used for listeners
     public function getInvoice($state){
-        $this->items = $this->invoice->invoiceItems;
+        $this->items = $this->invoice->items;
         $this->setDisplayState($state);
     }
 

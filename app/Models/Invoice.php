@@ -5,8 +5,6 @@ namespace App\Models;
 use App\Http\services\pdf\PdfGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\This;
 
 class Invoice extends Model
 {
@@ -43,7 +41,7 @@ class Invoice extends Model
     protected static function boot() {
         parent::boot();
         self::deleting(function($invoice){
-            $invoice->invoiceItems()->get()->map(function($item){
+            $invoice->items()->get()->map(function($item) {
                 $item->delete();
             });
         });
@@ -51,13 +49,11 @@ class Invoice extends Model
 
     // TODO Add default values: is_payed, is_sent
 
-    public function meta()
-    {
+    public function meta() {
         return $this->morphMany('App\Models\Meta', 'metable');
     }
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo('App\Models\User');
     }
 
@@ -65,10 +61,10 @@ class Invoice extends Model
         return $this->morphMany(Item::class, 'itemable');
     }
 
-    public function getTotalInvoicePrice(){
+    public function getTotalInvoicePrice() {
         $totalPrice = 0;
-        $this->invoiceItems->each(
-            function($item) use (&$totalPrice){
+        $this->items->each(
+            function($item) use (&$totalPrice) {
                 $totalPrice += $item->getTotalPrice();
             }
         );
@@ -77,7 +73,7 @@ class Invoice extends Model
     }
 
     public function downloadInvoice(){
-        $generator = new PdfGenerator($this, $this->invoiceItems);
+        $generator = new PdfGenerator($this, $this->items);
         return $generator->downloadPdf();
     }
 }

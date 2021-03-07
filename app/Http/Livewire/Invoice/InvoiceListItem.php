@@ -24,7 +24,6 @@ class InvoiceListItem extends Component
         return [$listenerName => 'removeRow'];
     }
 
-
     public function mount($invoice) {
         $this->invoice = $invoice;
         $this->display = false;

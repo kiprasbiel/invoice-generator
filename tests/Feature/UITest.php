@@ -120,7 +120,7 @@ class UITest extends TestCase
 
     private function createInvoice() {
         return Invoice::factory()
-            ->hasInvoiceItems(1, [
+            ->hasitems(1, [
                 'price' => 182,
                 'quantity' => 1
             ])

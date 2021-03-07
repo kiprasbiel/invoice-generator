@@ -58,7 +58,7 @@ class InvoiceForm extends Component
                 $this->payBy = $invoice->pay_by->format('Y-m-d');
             }
 
-            $itemCollection = $this->invoice->invoiceItems;
+            $itemCollection = $this->invoice->items;
             foreach($itemCollection as $item) {
                 $this->addProduct($item);
             }
@@ -96,7 +96,7 @@ class InvoiceForm extends Component
         $invoice = $user->invoices()->create($this->getCompanyDataArr($data));
 
         foreach($data['productList'] as $item) {
-            $invoiceItem[] = $invoice->invoiceItems()->create($this->getItemDataArr($item));
+            $invoiceItem[] = $invoice->items()->create($this->getItemDataArr($item));
         }
 
         $invoice->downloadInvoice();
@@ -112,11 +112,11 @@ class InvoiceForm extends Component
         $this->invoice->update($this->getCompanyDataArr($data));
 
         // Delete all items
-        $this->invoice->invoiceItems()->delete();
+        $this->invoice->items()->delete();
 
         // Create new items
         foreach($data['productList'] as $item) {
-            $invoiceItem[] = $this->invoice->invoiceItems()->create($this->getItemDataArr($item));
+            $invoiceItem[] = $this->invoice->items()->create($this->getItemDataArr($item));
         }
 
         $this->dispatchBrowserEvent('notify', $this->newNotification('Sąskaita sėkmingai atnaujinta'));

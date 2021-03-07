@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Http\Livewire\Invoice\InvoiceInfo;
 use App\Http\Livewire\InvoiceForm;
 use App\Models\Invoice;
-use App\Models\InvoiceItem;
+use App\Models\Item;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,7 +39,7 @@ class InvoiceGenTest extends TestCase
     }
 
     protected function create_invoice_and_invoice_item(){
-        return $this->invoice = Invoice::factory()->hasInvoiceItems(1, [
+        return $this->invoice = Invoice::factory()->hasItems(1, [
             'name' => 'Random item',
             'price' => 18,
             'quantity' => 14,
@@ -113,7 +113,7 @@ class InvoiceGenTest extends TestCase
 
         $this->invoice->delete();
         $this->assertFalse(Invoice::whereCompanyName('Company, UAB')->exists());
-        $this->assertFalse(InvoiceItem::whereName('Random item')->exists());
+        $this->assertFalse(Item::whereName('Random item')->exists());
     }
 
     public function test_invoice_number_increments() {
