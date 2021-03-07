@@ -100,4 +100,13 @@ class ExpensesTest extends TestCase
             ->assertSee('18')
             ->assertSee('14');
     }
+
+    public function testCanSeeCRUDInExpandedExpensesTable() {
+        $this->createNewExpenseAndItem();
+
+        Livewire::test(RowList::class, ['expense' => $this->expense])
+            ->call('getExpense', true)
+            ->assertSee('Redaguoti')
+            ->assertSee('Ištrinti');
+    }
 }
