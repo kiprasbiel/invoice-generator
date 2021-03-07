@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Livewire\Expenses\Form;
 use App\Models\Expense;
+use App\Models\Item;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,7 +40,13 @@ class ExpensesTest extends TestCase
             ->set('sellerAddress', 'Savanoriu pr.')
             ->set('sellerCountry', 'Lietuva')
             ->set('sellerCode', '159753789')
-            ->set('sellerVAT', 'LT159753789');
+            ->set('sellerVAT', 'LT159753789')
+            ->set('productList', [
+                ['product_name' => 'Produktas',
+                    'product_price' => 52,
+                    'product_pcs' => 3,
+                    'pcs_type' => '.vnt',]
+            ]);
 
         $someResponse->call('create');
         return $someResponse;
@@ -51,6 +58,7 @@ class ExpensesTest extends TestCase
 
         $someResponse->assertHasNoErrors();
         $this->assertTrue(Expense::whereSellerName('Topo Centras')->exists());
+        $this->assertTrue(Item::whereName('Produktas')->exists());
     }
 
     public function testIfExpensesTableIsEmptyThenExplainWhy() {
