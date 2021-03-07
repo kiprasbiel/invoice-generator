@@ -29,6 +29,8 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($expenses as $expense)
                         <livewire:expenses.row :expense="$expense" :key="'expense-' . $expense->id"/>
+
+                        <livewire:expenses.row-list :expense="$expense" :key="'expense-list-' . $expense->id"/>
                     @endforeach
 
                     </tbody>
