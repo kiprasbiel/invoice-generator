@@ -11,6 +11,10 @@ class Form extends Component
 
     public $expenseNumber, $date, $currency, $sellerName, $sellerAddress, $sellerCountry, $sellerCode, $sellerVAT;
 
+    public string $action;
+
+    public $expense;
+
     public array $productList = [];
 
     protected array $rules = [
@@ -29,8 +33,30 @@ class Form extends Component
         'productList.*.pcs_type' => 'string|required_with:productList.*.product_name',
     ];
 
-    public function mount() {
-        $this->addProduct();
+    public function mount($expense = null) {
+        // Editing existing expense
+        if($expense) {
+            $this->action = 'update';
+
+            $this->sellerName = $expense->seller_name;
+            $this->sellerCode = $expense->seller_code;
+            $this->sellerVAT = $expense->seller_vat;
+            $this->sellerAddress = $expense->seller_address;
+            $this->sellerCountry = $expense->seller_country;
+            $this->expenseNumber = $expense->number;
+            $this->currency = $expense->currency;
+            // TODO: neveikia
+            $this->date = $expense->date;
+
+            $itemCollection = $this->expense->items;
+            foreach($itemCollection as $item) {
+                $this->addProduct($item);
+            }
+        } // New expense
+        else {
+            $this->action = 'create';
+            $this->addProduct();
+        }
     }
 
     public function render() {
@@ -44,12 +70,28 @@ class Form extends Component
         $expense = $user->expenses()->create($this->getSellerDataArr($data));
 
         foreach($data['productList'] as $item) {
-            $invoiceItem[] = $expense->items()->create($this->getItemDataArr($item));
+            $expense->items()->create($this->getItemDataArr($item));
         }
 
         session()->flash('message', $this->newNotification('Išlaida sėkmingai pridėta'));
 
         return redirect()->to('/expenses');
+    }
+
+    public function update() {
+        $data = $this->validate();
+
+        $this->expense->update($this->getSellerDataArr($data));
+
+        // Delete all items
+        $this->expense->items()->delete();
+
+        // Create new items
+        foreach($data['productList'] as $item) {
+            $invoiceItem[] = $this->expense->items()->create($this->getItemDataArr($item));
+        }
+
+        $this->dispatchBrowserEvent('notify', $this->newNotification('Išlaida sėkmingai atnaujinta'));
     }
 
     public function addProduct($item = null) {
