@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\Expenses\Form;
+use App\Http\Livewire\Expenses\RowList;
 use App\Models\Expense;
 use App\Models\Item;
 use App\Models\User;
@@ -18,6 +19,7 @@ class ExpensesTest extends TestCase
     use WithFaker;
 
     protected $user;
+    protected Expense $expense;
 
     protected function setUp(): void {
         parent::setUp();
@@ -31,7 +33,7 @@ class ExpensesTest extends TestCase
         $this->user = NULL;
     }
 
-    protected function createNewExpense() {
+    protected function createNewExpenseWithLivewire() {
         $someResponse = Livewire::test(Form::class)
             ->set('expenseNumber', 'SA125')
             ->set('date', Carbon::now()->sub(7, 'days')->format('Y-m-d'))
@@ -52,9 +54,20 @@ class ExpensesTest extends TestCase
         return $someResponse;
     }
 
+    protected function createNewExpenseAndItem() {
+        $this->expense = Expense::factory()->hasItems(1, [
+            'name' => 'Random item',
+            'price' => 18,
+            'quantity' => 14,
+            'unit' => '.khd',
+        ])->create([
+            'user_id' => $this->user->id,
+        ]);
+    }
+
     // Without expenses items
     public function test_can_create_expense() {
-        $someResponse = $this->createNewExpense();
+        $someResponse = $this->createNewExpenseWithLivewire();
 
         $someResponse->assertHasNoErrors();
         $this->assertTrue(Expense::whereSellerName('Topo Centras')->exists());
@@ -69,12 +82,22 @@ class ExpensesTest extends TestCase
 
     public function testCanSeeCreatedExpensesInTable() {
         // TODO: Papildyti
-        $this->createNewExpense();
+        $this->createNewExpenseWithLivewire();
 
         $response = $this->get('/expenses');
         $response->assertDontSee('Neturite sukūrę išlaidų');
 
         $response->assertSee('SA125');
         $response->assertSee('Topo Centras');
+    }
+
+    public function testCanSeeExpenseItemInExpandedExpensesTable() {
+        $this->createNewExpenseAndItem();
+
+        Livewire::test(RowList::class, ['expense' => $this->expense])
+            ->call('getExpense', true)
+            ->assertSee('Random item')
+            ->assertSee('18')
+            ->assertSee('14');
     }
 }
