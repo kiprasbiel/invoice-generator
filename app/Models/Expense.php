@@ -33,7 +33,7 @@ class Expense extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function invoiceItems() {
-        return $this->hasMany('App\Models\InvoiceItem');
+    public function items() {
+        return $this->morphMany(Item::class, 'itemable');
     }
 }

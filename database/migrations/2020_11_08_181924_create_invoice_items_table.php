@@ -13,14 +13,15 @@ class CreateInvoiceItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_items', function (Blueprint $table) {
+        Schema::create('items', function(Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('unit');
             $table->integer('quantity');
             $table->unsignedBigInteger('price');
 
-            $table->integer('invoice_id');
+            $table->integer('itemable_id');
+            $table->string('itemable_type');
 
             $table->timestamps();
         });
@@ -33,6 +34,6 @@ class CreateInvoiceItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoice_items');
+        Schema::dropIfExists('items');
     }
 }

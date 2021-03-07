@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InvoiceItem extends Model
+class Item extends Model
 {
     use HasFactory;
 
@@ -21,11 +21,11 @@ class InvoiceItem extends Model
         'quantity' => 1
     ];
 
-    public function invoice(){
-        return $this->belongsTo('App\Models\Invoice');
+    public function itemable() {
+        return $this->morphTo();
     }
 
-    public function getTotalPrice(){
+    public function getTotalPrice() {
         return $this->quantity * $this->price;
     }
 }
