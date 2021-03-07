@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Expense;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
 
@@ -45,3 +46,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/expenses', function() {
 Route::middleware(['auth:sanctum', 'verified'])->get('/expenses/create', function() {
     return view('expenses.create');
 })->name('expenses.create');
+
+// TODO: Gali but kad su Gates kazka reiks padaryt
+Route::middleware(['auth:sanctum', 'verified'])->get('/expenses/edit/{expense}', function(Expense $expense) {
+    return view('expenses.edit')->with('expense', $expense);
+})->name('expenses.edit');
