@@ -47,7 +47,7 @@ class Form extends Component
             $invoiceItem[] = $expense->items()->create($this->getItemDataArr($item));
         }
 
-        session()->flash('message', $this->newNotification('Sąskaita sėkmingai sukurta'));
+        session()->flash('message', $this->newNotification('Išlaida sėkmingai pridėta'));
 
         return redirect()->to('/expenses');
     }
