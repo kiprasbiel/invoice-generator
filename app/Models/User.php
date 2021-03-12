@@ -103,7 +103,7 @@ class User extends Authenticatable
 
     public function getTotalIncome(): float {
         return $this->invoices()->with('items')->get()->map(function($invoice) {
-            return $invoice->getTotalInvoicePrice();
+            return $invoice->total_sum;
         })->sum();
     }
 

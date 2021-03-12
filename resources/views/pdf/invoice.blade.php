@@ -92,16 +92,16 @@
 </div>
 
 <div class="text-align-right">
-    <div><strong>Bendra suma</strong> {{$invoice->getTotalInvoicePrice()}} &euro;</div>
+    <div><strong>Bendra suma</strong> {{$invoice->total_sum}} &euro;</div>
 </div>
 
 {{--<div class="margin-top-normal">--}}
 {{--    Suma žodžiais:--}}
 {{--</div>--}}
 @if($activitySettings->full_name)
-<div class="margin-top-normal">
+    <div class="margin-top-normal">
         Sąskaitą išrašė: {{ $activitySettings->full_name }}
-</div>
+    </div>
 @endif
 </body>
 </html>

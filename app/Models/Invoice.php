@@ -22,15 +22,16 @@ class Invoice extends Model
         'pay_by' => 'datetime'
     ];
 
-    protected static function booted()
-    {
-        static::creating(function ($query) {
+    protected $appends = ['total_sum'];
+
+    protected static function booted() {
+        static::creating(function($query) {
             $query->sf_number = auth()->user()->getNextInvoiceNumber();
             $query->sf_code = self::generateSfCode();
         });
     }
 
-    private static function generateSfCode(){
+    private static function generateSfCode() {
         $user = auth()->user();
         $sFBeginning = $user->getSfCodeBeginning();
         $newNumber = $user->getNextInvoiceNumber();
@@ -61,9 +62,9 @@ class Invoice extends Model
         return $this->morphMany(Item::class, 'itemable');
     }
 
-    public function getTotalInvoicePrice(): float {
+    public function getTotalSumAttribute(): float {
         $totalPrice = 0;
-        $this->items->each(
+        $this->items()->each(
             function($item) use (&$totalPrice) {
                 $totalPrice += $item->total_sum;
             }

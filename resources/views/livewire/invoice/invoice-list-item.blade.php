@@ -9,8 +9,8 @@
 {{--    <td class="px-6 py-4 whitespace-nowrap">--}}
 {{--                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">--}}
 {{--                  Neįntegruota funkcija--}}
-{{--                </span>--}}
-{{--    </td>--}}
+    {{--                </span>--}}
+    {{--    </td>--}}
     <td class="px-6 py-4 whitespace-nowrap">
         <div class="text-sm text-gray-900">{{$invoice->sf_code}}</div>
     </td>
@@ -18,10 +18,10 @@
         {{$invoice->company_name}}
     </td>
     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {{$invoice->getTotalInvoicePrice()}} &euro;
+        {{$invoice->total_sum}} &euro;
     </td>
     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <button  wire:click="showInvoice({{ $invoice->id }})"
+        <button wire:click="showInvoice({{ $invoice->id }})"
                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path class="{{ $hamburger }}"
