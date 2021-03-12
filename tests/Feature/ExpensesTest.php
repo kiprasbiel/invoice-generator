@@ -97,7 +97,8 @@ class ExpensesTest extends TestCase
             ->call('getExpense', true)
             ->assertSee('Random item')
             ->assertSee('18')
-            ->assertSee('14');
+            ->assertSee('14')
+            ->assertSee('252');
     }
 
     public function testCanSeeCRUDInExpandedExpensesTable() {
