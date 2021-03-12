@@ -36,4 +36,15 @@ class Expense extends Model
     public function items() {
         return $this->morphMany(Item::class, 'itemable');
     }
+
+    public function getTotalExpenseSum(): int {
+        $totalPrice = 0;
+        $this->items->each(
+            function($item) use (&$totalPrice) {
+                $totalPrice += $item->getTotalPrice();
+            }
+        );
+
+        return $totalPrice;
+    }
 }

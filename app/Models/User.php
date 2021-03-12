@@ -97,7 +97,7 @@ class User extends Authenticatable
     }
 
     public function getNextInvoiceNumber(): int{
-        return (int) json_decode($this->getUserSettings('sfNumberSettings')->value)
+        return (int)json_decode($this->getUserSettings('sfNumberSettings')->value)
             ->sf_number;
     }
 
@@ -107,21 +107,18 @@ class User extends Authenticatable
         })->sum();
     }
 
-    // TODO: change the way expenses are handled
-    public function getTotalExpenses(){
-        $jsonMeta = $this->getUserSettings('totalExpenses');
-        if($jsonMeta) {
-            return json_decode($jsonMeta->value)->expenses;
-        }
-        return 0;
+    public function getTotalExpenses(): int {
+        return $this->expenses()->with('items')->get()->map(function($expense) {
+            return $expense->getTotalExpenseSum();
+        })->sum();
     }
 
-    public function getGPM(){
+    public function getGPM() {
         $gpm = new GPM($this->getTotalIncome(), $this->getTotalExpenses());
         return $gpm->getCalcGPM();
     }
 
-    public function getVSD(){
+    public function getVSD() {
         $vsd = new VSD($this->getTotalIncome(), $this->getTotalExpenses());
         return $vsd->getCalcVSD();
     }
