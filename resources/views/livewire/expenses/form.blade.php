@@ -3,7 +3,7 @@
         <div class="flex flex-wrap -mx-3 mb-5 mt-4">
             <div class="w-full px-3">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="seller_name">
-                    Pavadinimas
+                    Pardavėjo pavadinimas
                 </label>
                 <input wire:model.defer="sellerName"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -14,7 +14,7 @@
         <div class="flex flex-wrap -mx-3 mb-5">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="seller_code">
-                    Įmonės kodas
+                    Pardavėjo įmonės kodas
                 </label>
                 <input wire:model.defer="sellerCode"
                        class="appearance-none block w-full border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -23,7 +23,7 @@
             </div>
             <div class="w-full md:w-1/2 px-3">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="seller_vat">
-                    PVM kodas
+                    Pardavėjo PVM kodas
                 </label>
                 <input wire:model.defer="sellerVAT"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -34,7 +34,7 @@
         <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="seller_address">
-                    Adresas
+                    Pardavėjo adresas
                 </label>
                 <input wire:model.defer="sellerAddress"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -43,7 +43,7 @@
             </div>
             <div class="w-full md:w-1/2 px-3">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="date">
-                    Data
+                    Sąskaitos išrašymo data
                 </label>
                 <input wire:model.defer="date"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -55,7 +55,7 @@
         <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="seller_country">
-                    Šalis
+                    Pardavėjo šalis
                 </label>
                 <input wire:model.defer="sellerCountry"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -67,7 +67,7 @@
         <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="expense_number">
-                    Serijos nr.
+                    Sąskaitos Serijos nr.
                 </label>
                 <input wire:model.defer="expenseNumber"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -76,7 +76,7 @@
             </div>
             <div class="w-full md:w-1/2 px-3">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="currency">
-                    Valiuta
+                    Sąskaitos valiuta
                 </label>
                 <input wire:model.defer="currency"
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
