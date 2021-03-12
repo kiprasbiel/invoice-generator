@@ -53,11 +53,11 @@ class ExpensesTest extends TestCase
         return $someResponse;
     }
 
-    protected function createNewExpenseAndItem() {
+    protected function createNewExpenseAndItem($price = 18, $quantity = 14) {
         $this->expense = Expense::factory()->hasItems(1, [
             'name' => 'Random item',
-            'price' => 18,
-            'quantity' => 14,
+            'price' => $price,
+            'quantity' => $quantity,
             'unit' => '.khd',
         ])->create([
             'user_id' => $this->user->id,
@@ -107,5 +107,12 @@ class ExpensesTest extends TestCase
             ->call('getExpense', true)
             ->assertSee('Redaguoti')
             ->assertSee('Ištrinti');
+    }
+
+    public function testCanSeeDashBoardWithAddedExpenses() {
+        $this->createNewExpenseAndItem(25.3, 7);
+        $response = $this->get('/');
+        $response->assertSee('177.1');
+        $response->assertSee('Sąnaudų suma');
     }
 }
