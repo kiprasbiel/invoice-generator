@@ -29,12 +29,20 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($expenses as $expense)
-                        <livewire:expenses.row :expense="$expense" :key="'expense-' . $expense->id"/>
 
-                        <livewire:expenses.row-list :expense="$expense" :key="'expense-list-' . $expense->id"/>
-                    @endforeach
+                    @if(count($expenses) === 0)
 
+                        <tr class="bg-white shadow-none table-row">
+                            <td colspan="5" class="text-center pt-8">Neturite sukūrę išlaidų</td>
+                        </tr>
+
+                    @else
+                        @foreach($expenses as $expense)
+                            <livewire:expenses.row :expense="$expense" :key="'expense-' . $expense->id"/>
+
+                            <livewire:expenses.row-list :expense="$expense" :key="'expense-list-' . $expense->id"/>
+                        @endforeach
+                    @endif
                     </tbody>
 
                 </table>
@@ -47,8 +55,5 @@
             </div>
         </div>
     </div>
-    @if(count($expenses) === 0)
-        <div class="text-center py-3">Neturite sukūrę išlaidų</div>
-    @endif
 </div>
 

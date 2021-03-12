@@ -31,12 +31,20 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($invoices as $invoice)
-                        <livewire:invoice.invoice-list-item :invoice="$invoice" :key="'invoice-' . $invoice->id"/>
 
-                        <livewire:invoice.invoice-info :invoice="$invoice" :key="'invoice-info-' . $invoice->id"/>
-                    @endforeach
+                    @if(count($invoices) === 0)
 
+                        <tr class="bg-white shadow-none table-row">
+                            <td colspan="5" class="text-center pt-8">Neturite sukūrę sąskaitų-faktūrų</td>
+                        </tr>
+
+                    @else
+                        @foreach($invoices as $invoice)
+                            <livewire:invoice.invoice-list-item :invoice="$invoice" :key="'invoice-' . $invoice->id"/>
+
+                            <livewire:invoice.invoice-info :invoice="$invoice" :key="'invoice-info-' . $invoice->id"/>
+                        @endforeach
+                    @endif
                     </tbody>
 
                 </table>
@@ -49,8 +57,5 @@
             </div>
         </div>
     </div>
-    @if(count($invoices) === 0)
-        <div class="text-center py-3">Neturite sukūrę sąskaitų-faktūrų</div>
-    @endif
 </div>
 
