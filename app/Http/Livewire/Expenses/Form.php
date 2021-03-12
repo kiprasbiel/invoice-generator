@@ -108,7 +108,6 @@ class Form extends Component
     }
 
 
-    // TODO: Temporary total_price
     private function getSellerDataArr(array $data): array {
         return [
             'number' => $data['expenseNumber'],
@@ -118,7 +117,6 @@ class Form extends Component
             'seller_vat' => $data['sellerVAT'],
             'date' => $data['date'],
             'currency' => $data['currency'],
-            'total_price' => 210
         ];
     }
 

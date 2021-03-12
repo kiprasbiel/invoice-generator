@@ -16,8 +16,7 @@ class Expense extends Model
         'seller_name',
         'seller_code',
         'seller_address',
-        'seller_vat',
-        'total_price'
+        'seller_vat'
     ];
 
     protected $casts = [

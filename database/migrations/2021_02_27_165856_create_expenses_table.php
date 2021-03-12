@@ -16,7 +16,6 @@ class CreateExpensesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('number');
-            $table->integer('total_price');
             $table->datetime('date');
             $table->string('currency');
             $table->string('seller_name');

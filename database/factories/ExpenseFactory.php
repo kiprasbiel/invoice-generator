@@ -28,7 +28,6 @@ class ExpenseFactory extends Factory
             'number' => 'SUB' . $this->faker->randomNumber(8),
             'date' => $this->faker->dateTime(),
             'currency' => $this->faker->currencyCode,
-            'total_price' => $this->faker->randomNumber(3)
         ];
     }
 }
