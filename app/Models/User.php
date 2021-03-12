@@ -101,13 +101,13 @@ class User extends Authenticatable
             ->sf_number;
     }
 
-    public function getTotalIncome() {
+    public function getTotalIncome(): float {
         return $this->invoices()->with('items')->get()->map(function($invoice) {
             return $invoice->getTotalInvoicePrice();
         })->sum();
     }
 
-    public function getTotalExpenses(): int {
+    public function getTotalExpenses(): float {
         return $this->expenses()->with('items')->get()->map(function($expense) {
             return $expense->total_sum;
         })->sum();

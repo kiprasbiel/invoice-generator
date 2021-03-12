@@ -18,7 +18,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->string('name');
             $table->string('unit');
             $table->integer('quantity');
-            $table->unsignedBigInteger('price');
+            $table->decimal('price', 12);
 
             $table->integer('itemable_id');
             $table->string('itemable_type');

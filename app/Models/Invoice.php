@@ -61,7 +61,7 @@ class Invoice extends Model
         return $this->morphMany(Item::class, 'itemable');
     }
 
-    public function getTotalInvoicePrice(): int {
+    public function getTotalInvoicePrice(): float {
         $totalPrice = 0;
         $this->items->each(
             function($item) use (&$totalPrice) {

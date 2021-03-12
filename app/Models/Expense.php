@@ -37,7 +37,7 @@ class Expense extends Model
         return $this->morphMany(Item::class, 'itemable');
     }
 
-    public function getTotalSumAttribute(): int {
+    public function getTotalSumAttribute(): float {
         $totalPrice = 0;
         $this->items()->each(
             function($item) use (&$totalPrice) {
