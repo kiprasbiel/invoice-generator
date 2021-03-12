@@ -9,7 +9,7 @@ class Form extends Component
 {
     use Notifications;
 
-    public $expenseNumber, $date, $currency, $sellerName, $sellerAddress, $sellerCountry, $sellerCode, $sellerVAT;
+    public $expenseNumber, $date, $currency, $sellerName, $sellerAddress, $sellerCode, $sellerVAT;
 
     public string $action;
 
@@ -25,7 +25,6 @@ class Form extends Component
         'date' => 'date_format:Y-m-d',
         'sellerCode' => 'numeric',
         'sellerVAT' => 'alpha_num|nullable',
-        'sellerCountry' => 'string|nullable',
         'productList' => 'array',
         'productList.*.product_name' => 'required',
         'productList.*.product_price' => 'numeric|required_with:productList.*.product_name',
@@ -42,7 +41,6 @@ class Form extends Component
             $this->sellerCode = $expense->seller_code;
             $this->sellerVAT = $expense->seller_vat;
             $this->sellerAddress = $expense->seller_address;
-            $this->sellerCountry = $expense->seller_country;
             $this->expenseNumber = $expense->number;
             $this->currency = $expense->currency;
             // TODO: neveikia
@@ -119,7 +117,6 @@ class Form extends Component
             'seller_address' => $data['sellerAddress'],
             'seller_vat' => $data['sellerVAT'],
             'date' => $data['date'],
-            'seller_country' => $data['sellerCountry'],
             'currency' => $data['currency'],
             'total_price' => 210
         ];

@@ -17,7 +17,6 @@ class Expense extends Model
         'seller_code',
         'seller_address',
         'seller_vat',
-        'seller_country',
         'total_price'
     ];
 

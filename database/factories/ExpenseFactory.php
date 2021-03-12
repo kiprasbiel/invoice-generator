@@ -25,7 +25,6 @@ class ExpenseFactory extends Factory
             'seller_code' => $this->faker->randomNumber(8),
             'seller_address' => $this->faker->address,
             'seller_vat' => 'LT' . $this->faker->randomNumber(8),
-            'seller_country' => $this->faker->country,
             'number' => 'SUB' . $this->faker->randomNumber(8),
             'date' => $this->faker->dateTime(),
             'currency' => $this->faker->currencyCode,

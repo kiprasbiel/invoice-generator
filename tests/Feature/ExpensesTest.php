@@ -40,7 +40,6 @@ class ExpensesTest extends TestCase
             ->set('currency', 'Eur')
             ->set('sellerName', 'Topo Centras')
             ->set('sellerAddress', 'Savanoriu pr.')
-            ->set('sellerCountry', 'Lietuva')
             ->set('sellerCode', '159753789')
             ->set('sellerVAT', 'LT159753789')
             ->set('productList', [

@@ -54,18 +54,6 @@
 
         <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="seller_country">
-                    Pardavėjo šalis
-                </label>
-                <input wire:model.defer="sellerCountry"
-                       class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                       id="seller_country" type="text" placeholder="Lietuva">
-                @error('sellerCountry') <span class="text-red-600">{{ $message }}</span> @enderror
-            </div>
-        </div>
-
-        <div class="flex flex-wrap -mx-3">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="expense_number">
                     Sąskaitos Serijos nr.
                 </label>

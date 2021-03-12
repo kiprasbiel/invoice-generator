@@ -23,7 +23,6 @@ class CreateExpensesTable extends Migration
             $table->string('seller_code');
             $table->string('seller_address')->nullable();
             $table->string('seller_vat')->nullable();
-            $table->string('seller_country')->nullable();
             $table->timestamps();
         });
     }
