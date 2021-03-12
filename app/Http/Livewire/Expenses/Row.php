@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Expenses;
 
+use App\Http\services\Notifications\Notifications;
 use App\Models\Expense;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
 class Row extends Component
 {
+    use Notifications;
+
     public Model $expense;
     public $display;
     public $backgroundColor;
