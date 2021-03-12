@@ -22,7 +22,9 @@
                             Suma
                         </th>
                         <th scope="col" class="px-6 py-3 bg-gray-50">
-                            <span class="sr-only">Edit</span>
+                            <a class="bg-transparent hover:bg-green-500 text-green-400 hover:text-white font-bold py-2 px-4 border border-green-400 hover:border-transparent rounded"
+                               type="submit"
+                               href="{{route('expenses.create')}}">Pridėti išlaidas</a>
                         </th>
                     </tr>
                     </thead>
