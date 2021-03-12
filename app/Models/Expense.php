@@ -23,6 +23,8 @@ class Expense extends Model
         'date' => 'datetime'
     ];
 
+    protected $appends = ['total_sum'];
+
     public function meta() {
         return $this->morphMany('App\Models\Meta', 'metable');
     }
@@ -35,9 +37,9 @@ class Expense extends Model
         return $this->morphMany(Item::class, 'itemable');
     }
 
-    public function getTotalExpenseSum(): int {
+    public function getTotalSumAttribute(): int {
         $totalPrice = 0;
-        $this->items->each(
+        $this->items()->each(
             function($item) use (&$totalPrice) {
                 $totalPrice += $item->getTotalPrice();
             }

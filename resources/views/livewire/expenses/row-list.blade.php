@@ -46,7 +46,7 @@
                                 <div class="text-sm text-gray-900">{{$item->price}} &euro;</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{$item->total_price}} &euro;</div>
+                                <div class="text-sm text-gray-900">{{$item->total_sum}} &euro;</div>
                             </td>
                         </tr>
                     @endforeach

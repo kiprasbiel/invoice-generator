@@ -13,7 +13,7 @@
         {{$expense->seller_name}}
     </td>
     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {{$expense->total_price}} &euro;
+        {{$expense->total_sum}} &euro;
     </td>
     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <button wire:click="showExpense({{ $expense->id }})"

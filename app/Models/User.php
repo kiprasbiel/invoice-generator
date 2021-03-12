@@ -109,7 +109,7 @@ class User extends Authenticatable
 
     public function getTotalExpenses(): int {
         return $this->expenses()->with('items')->get()->map(function($expense) {
-            return $expense->getTotalExpenseSum();
+            return $expense->total_sum;
         })->sum();
     }
 
