@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Models\Meta;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class CreateUserDefaultSettings
 {
@@ -33,9 +31,6 @@ class CreateUserDefaultSettings
         $this->setSfCodeSettings($event);
 
         $this->setPrivilegesSettings($event);
-
-        // TODO: Temporary
-        $this->setExpensesSettings($event);
 
         // TODO: Notify the user himself to go and change these default settings
     }
@@ -80,17 +75,6 @@ class CreateUserDefaultSettings
         $event->user->meta()->create([
             'name' => 'privilegesSettings',
             'value' => json_encode(array_merge($PrivilegesData, ['additionalPension' => 'pens0']))
-        ]);
-    }
-
-    /**
-     * @param object $event
-     */
-    private function setExpensesSettings(object $event): void {
-        $ExpensesData = Meta::getFieldsForValidation('Expenses', null);
-        $event->user->meta()->create([
-            'name' => 'totalExpenses',
-            'value' => json_encode(array_merge($ExpensesData, ['expenses' => '0']))
         ]);
     }
 }

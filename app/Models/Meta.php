@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use phpDocumentor\Reflection\Types\This;
 
 class Meta extends Model
 {
@@ -51,13 +50,6 @@ class Meta extends Model
             'isPensioner',
             'additionalPension',
             'isFreeMarketActivity'
-        ];
-    }
-
-    // TODO: Temporary
-    public static function getExpensesSettingsFields(){
-        return [
-            'expenses'
         ];
     }
 

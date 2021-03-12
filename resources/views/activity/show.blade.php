@@ -17,9 +17,6 @@
 
             @livewire('settings.privileges')
 
-            <x-jet-section-border />
-
-            @livewire('settings.expenses-input')
         </div>
     </div>
 </x-app-layout>
