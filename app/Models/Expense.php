@@ -41,7 +41,7 @@ class Expense extends Model
         $totalPrice = 0;
         $this->items()->each(
             function($item) use (&$totalPrice) {
-                $totalPrice += $item->getTotalPrice();
+                $totalPrice += $item->total_sum;
             }
         );
 

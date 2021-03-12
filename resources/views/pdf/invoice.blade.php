@@ -1,6 +1,7 @@
-<html>
+<html lang="">
 <head>
     <link rel="stylesheet" href="{{ asset('css/pdf.css') }}">
+    <title></title>
 </head>
 <body>
 <div>
@@ -83,7 +84,7 @@
                 <td class="border-bottom text-align-center">{{ $item->quantity }}</td>
                 <td class="border-bottom text-align-center">{{ $item->unit }}</td>
                 <td class="border-bottom text-align-center">{{ $item->price }} &euro;</td>
-                <td class="border-bottom text-align-center">{{ $item->getTotalPrice() }} &euro;</td>
+                <td class="border-bottom text-align-center">{{ $item->total_sum }} &euro;</td>
             </tr>
         @endforeach
         </tbody>

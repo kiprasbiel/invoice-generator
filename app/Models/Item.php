@@ -21,11 +21,13 @@ class Item extends Model
         'quantity' => 1
     ];
 
+    protected $appends = ['total_sum'];
+
     public function itemable() {
         return $this->morphTo();
     }
 
-    public function getTotalPrice() {
+    public function getTotalSumAttribute() {
         return $this->quantity * $this->price;
     }
 }
