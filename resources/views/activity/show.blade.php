@@ -9,13 +9,17 @@
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             @livewire('settings.iv-personal-info')
 
-            <x-jet-section-border />
+            <x-jet-section-border/>
 
             @livewire('settings.sf-number-settings')
 
-            <x-jet-section-border />
+            <x-jet-section-border/>
 
             @livewire('settings.privileges')
+
+            <x-jet-section-border/>
+
+            <livewire:settings.invoice-import/>
 
         </div>
     </div>
