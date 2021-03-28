@@ -1,5 +1,5 @@
 <form wire:submit.prevent="startImport({{$importId}})">
-    <x-jet-dialog-modal wire:model="show">
+    <x-jet-dialog-modal wire:model="show" maxWidth="7xl">>
 
         <x-slot name="title">
             <h3>Importas</h3>
@@ -46,6 +46,7 @@
         </x-slot>
 
         <x-slot name="footer">
+            {{--            TODO: prideti atsaukti mygtuka --}}
             <x-jet-danger-button class="ml-2" type="submit" wire:loading.attr="disabled">
                 Pradėti importą
             </x-jet-danger-button>
