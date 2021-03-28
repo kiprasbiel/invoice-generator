@@ -12,8 +12,7 @@ class InvoiceInfo extends Component
     public $display;
 
 
-    protected function getListeners()
-    {
+    protected function getListeners(): array {
         $listenerName = 'getInvoice-' . $this->invoice->id;
         return [$listenerName => 'getInvoice'];
     }
