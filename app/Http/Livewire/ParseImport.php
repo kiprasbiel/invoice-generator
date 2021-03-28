@@ -36,7 +36,6 @@ class ParseImport extends Component
         $this->show = false;
         $this->csvData = [];
         $this->dbColNames = ['null'];
-        $this->maxWidth = 'sm';
     }
 
     // TODO: Rasant ataskaita reikes butinai kaip saltini paminet

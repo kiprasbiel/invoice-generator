@@ -2,10 +2,13 @@
     <x-jet-dialog-modal wire:model="show" maxWidth="7xl">>
 
         <x-slot name="title">
-            <h3>Importas</h3>
+            <h2>Importas</h2>
         </x-slot>
 
         <x-slot name="content">
+            <div class="pb-5">
+                <h4>Nurodykite, kurie importuojamo failo stulpeliai atitinka duomenų bazės stulpelius</h4>
+            </div>
             <div>
                 <div class="flex flex-col">
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -46,7 +49,10 @@
         </x-slot>
 
         <x-slot name="footer">
-            {{--            TODO: prideti atsaukti mygtuka --}}
+            <x-jet-secondary-button wire:click="$toggle('show')" wire:loading.attr="disabled">
+                Atšaukti
+            </x-jet-secondary-button>
+
             <x-jet-danger-button class="ml-2" type="submit" wire:loading.attr="disabled">
                 Pradėti importą
             </x-jet-danger-button>
