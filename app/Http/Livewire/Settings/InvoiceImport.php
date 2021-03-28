@@ -11,17 +11,20 @@ class InvoiceImport extends Component
     use WithFileUploads, Notifications;
 
     public $file;
+    public $hasHeader;
 
     public function render() {
         return view('livewire.settings.invoice-import');
     }
 
-    public function submit() {
-        $this->validate([
-            'file' => 'file|max:1024',
+    public function parse() {
+        $data = $this->validate([
+            'file' => 'file|max:1024|mimes:csv,txt',
+            'hasHeader' => 'nullable|boolean'
         ]);
 
-        $this->file->storeAs('/', 'testas.csv', $disk = 'invoices');
-        $this->dispatchBrowserEvent('notify', $this->newNotification('Failas sėkmingai įkeltas'));
+        $fileName = $this->file->store('/', $disk = 'invoices');
+
+        $this->emit('modelImport', $fileName, $data['hasHeader']);
     }
 }
