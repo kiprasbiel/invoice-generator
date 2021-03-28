@@ -20,6 +20,7 @@
             <x-jet-section-border/>
 
             <livewire:settings.invoice-import/>
+            <livewire:parse-import/>
 
         </div>
     </div>
