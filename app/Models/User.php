@@ -66,6 +66,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Expense');
     }
 
+    public function clients(): HasMany {
+        return $this->hasMany('App\Models\Client');
+    }
+
+    public function importData(): HasMany {
+        return $this->hasMany('App\Models\ImportData');
+    }
+
     public function meta() {
         return $this->morphMany('App\Models\Meta', 'metable');
     }
