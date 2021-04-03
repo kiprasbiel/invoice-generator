@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Http\services\Clients\ClientImportService;
 use App\Http\services\Invoice\InvoiceImportService;
+use App\Models\ImportData;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,7 +16,6 @@ class InvoiceImportProcessor implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public string $file;
-    private string $type;
     private array $data;
 
     /**
@@ -23,12 +23,10 @@ class InvoiceImportProcessor implements ShouldQueue
      *
      * @param string $file
      * @param array $data
-     * @param string $type
      */
 
-    public function __construct(string $file, array $data, string $type) {
+    public function __construct(string $file, array $data) {
         $this->file = $file;
-        $this->type = $type;
         $this->data = $data;
     }
 
@@ -38,12 +36,14 @@ class InvoiceImportProcessor implements ShouldQueue
      * @return void
      */
     public function handle() {
-        if($this->type === 'clients') {
+        $importData = ImportData::find($this->file);
+
+        if($importData->type === 'Client') {
             $service = new ClientImportService();
-            $service->import($this->file, $this->data);
-        } else if($this->type === 'invoices') {
+            $service->import($importData, $this->data);
+        } else if($importData->type === 'Invoice') {
             $service = new InvoiceImportService();
-            $service->import($this->file);
+            $service->import($importData, $this->data);
         }
     }
 }
