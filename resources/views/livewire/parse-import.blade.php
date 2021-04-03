@@ -30,7 +30,7 @@
                                             @foreach ($csvData[0] as $key => $value)
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <select wire:model.defer="fields.{{$key}}" name="fields[{{ $key }}]"
-                                                            class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                            class="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                         <option value="null">Neimportuoti</option>
                                                         @foreach ($dbColNames as $db_field)
                                                             <option value="{{ $db_field }}">{{ $db_field }}</option>
