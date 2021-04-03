@@ -30,7 +30,7 @@ class InvoiceImportService
         $sf_number = 0;
         foreach($parsedData as $invoice) {
             $sf_number++;
-            $invoice_id = DB::table('invoices')->insertGetId([
+            $invoiceArr = [
                 'user_id' => $invoice['user_id'],
                 'sf_code' => $invoice['sf_code'],
                 'sf_number' => (isset($invoice['sf_number'])) ? $invoice['sf_number'] : $sf_number,
@@ -40,7 +40,9 @@ class InvoiceImportService
                 'company_vat' => (isset($invoice['company_vat'])) ? $invoice['company_vat'] : null,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
-            ]);
+            ];
+            $invoice_id = DB::table('invoices')->insertGetId($invoiceArr);
+
 
             DB::table('items')->insert([
                 'name' => (isset($invoice['name'])) ? $invoice['name'] : '',
