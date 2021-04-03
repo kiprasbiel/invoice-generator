@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Http\services\Notifications\Notifications;
 use App\Jobs\InvoiceImportProcessor;
-use App\Models\Client;
+use App\Models\Item;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
@@ -22,10 +22,10 @@ class ParseImport extends Component
     public array $csvData;
     public bool $show;
     public array $dbColNames;
-    public string $maxWidth;
     public array $fields = [];
 
     public int $importId;
+    public string $type;
 
     public function render() {
         // TODO: Parasyt paaiskinima, kokie field'ai gali buti uzpildomi
@@ -35,21 +35,28 @@ class ParseImport extends Component
     public function mount() {
         $this->show = false;
         $this->csvData = [];
-        $this->dbColNames = ['null'];
+        $this->dbColNames = [];
+        $this->type = 'Invoice';
     }
 
     // TODO: Rasant ataskaita reikes butinai kaip saltini paminet
-    public function modelImport($fileName, $hasHeader) {
+    public function modelImport($fileName, $hasHeader, $type) {
         $user = auth()->user();
-
-        $client = new Client();
+        $className = 'App\Models\\' . $type;
+        $client = new $className;
         $this->dbColNames = array_merge($this->dbColNames, $client->getFillable());
+
+        if($type === 'Invoice') {
+            $item = new Item;
+            $this->dbColNames = array_merge($this->dbColNames, $item->getFillable());
+        }
 
         // TODO: gal net cia geriau saugot i db
         $filePath = Storage::disk('invoices')->path($fileName);
 
         $savedData = $user->importData()->create([
-            'csv_filename' => $filePath
+            'csv_filename' => $filePath,
+            'type' => $type,
         ]);
 
         $this->importId = $savedData->id;
@@ -73,7 +80,7 @@ class ParseImport extends Component
             unset($data[$key]);
         }
 
-        InvoiceImportProcessor::dispatch($id, $data, 'clients');
+        InvoiceImportProcessor::dispatch($id, $data);
         $this->dispatchBrowserEvent('notify', $this->newNotification('Importas pradėtas'));
     }
 }
