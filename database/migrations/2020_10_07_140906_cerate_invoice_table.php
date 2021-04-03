@@ -16,7 +16,7 @@ class CerateInvoiceTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('sf_code')->unique();
+            $table->string('sf_code');
             $table->integer('sf_number');
             $table->string('company_name');
             $table->string('company_code');
