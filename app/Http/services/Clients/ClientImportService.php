@@ -1,19 +1,15 @@
 <?php
 
-
 namespace App\Http\services\Clients;
 
-
 use App\Models\Client;
-use App\Models\ImportData;
 use Illuminate\Support\Facades\Log;
 
 class ClientImportService
 {
-    public function import($id, $format): void {
+    public function import($importData, $format): void {
         Log::channel('slack')->debug('Start import');
 
-        $importData = ImportData::find($id);
         $userId = $importData->user_id;
 
         $data = array_map(
