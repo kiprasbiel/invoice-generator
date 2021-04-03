@@ -38,7 +38,7 @@ class InvoiceImportService
                 'company_code' => $invoice['company_code'],
                 'company_address' => (isset($invoice['company_address'])) ? $invoice['company_address'] : '',
                 'company_vat' => (isset($invoice['company_vat'])) ? $invoice['company_vat'] : null,
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => (isset($invoice['created_at'])) ? $invoice['created_at'] : date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ];
             $invoice_id = DB::table('invoices')->insertGetId($invoiceArr);
@@ -51,7 +51,7 @@ class InvoiceImportService
                 'quantity' => 1,
                 'itemable_id' => $invoice_id,
                 'itemable_type' => 'App\Models\Invoice',
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_at' => (isset($invoice['created_at'])) ? $invoice['created_at'] : date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
         }
