@@ -18,6 +18,7 @@ class CreateImportDataTable extends Migration
             $table->string('csv_filename');
             $table->boolean('csv_header')->default(0);
             $table->longText('csv_data')->nullable();
+            $table->string('type');
             $table->boolean('is_imported')->default(false);
             $table->timestamps();
         });

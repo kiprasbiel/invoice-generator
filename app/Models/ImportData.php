@@ -13,6 +13,7 @@ class ImportData extends Model
         'csv_filename',
         'csv_header',
         'csv_data',
+        'type',
     ];
 
     public function user() {
