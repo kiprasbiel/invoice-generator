@@ -48,7 +48,7 @@ class InvoiceImportService
                 'name' => (isset($invoice['name'])) ? $invoice['name'] : '',
                 'unit' => (isset($invoice['unit'])) ? $invoice['unit'] : '',
                 'price' => $invoice['price'],
-                'quantity' => 1,
+                'quantity' => (isset($invoice['quantity'])) ? $invoice['quantity'] : 1,
                 'itemable_id' => $invoice_id,
                 'itemable_type' => 'App\Models\Invoice',
                 'created_at' => (isset($invoice['created_at'])) ? $invoice['created_at'] : date('Y-m-d H:i:s'),
