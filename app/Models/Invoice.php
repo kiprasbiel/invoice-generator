@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Http\services\pdf\PdfGenerator;
+use App\Http\Traits\Importable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
     use HasFactory;
+    use Importable;
 
     protected $fillable = [
         'company_name',
@@ -16,6 +18,11 @@ class Invoice extends Model
         'company_address',
         'company_vat',
         'pay_by',
+    ];
+
+    protected $importFillable = [
+        'created_at',
+        'sf_code',
     ];
 
     protected $casts = [

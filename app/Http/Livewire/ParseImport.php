@@ -15,6 +15,7 @@ class ParseImport extends Component
     protected $listeners = ['modelImport'];
 
     // TODO: write a custom validation
+    // Cant be two fields with the same value.
     protected $rules = [
         'fields' => 'array',
     ];
@@ -40,15 +41,16 @@ class ParseImport extends Component
     }
 
     // TODO: Rasant ataskaita reikes butinai kaip saltini paminet
+    // Headerio dar nehandlinam
     public function modelImport($fileName, $hasHeader, $type) {
         $user = auth()->user();
         $className = 'App\Models\\' . $type;
-        $client = new $className;
-        $this->dbColNames = array_merge($this->dbColNames, $client->getFillable());
+        $model = new $className;
+        $this->dbColNames = array_merge($this->dbColNames, $model->getFillableForImport());
 
         if($type === 'Invoice') {
             $item = new Item;
-            $this->dbColNames = array_merge($this->dbColNames, $item->getFillable());
+            $this->dbColNames = array_merge($this->dbColNames, $item->getFillableForImport());
         }
 
         // TODO: gal net cia geriau saugot i db
