@@ -14,6 +14,8 @@ class InvoiceImport extends Component
     public $hasHeader;
     public $type;
 
+    public string $fileName;
+
     public function render() {
         return view('livewire.settings.invoice-import');
     }
@@ -29,8 +31,7 @@ class InvoiceImport extends Component
             'type' => 'string'
         ]);
 
-        $fileName = $this->file->store('/', $disk = 'invoices');
-
-        $this->emit('modelImport', $fileName, $data['hasHeader'], $data['type']);
+        $this->fileName = $this->file->store('/', $disk = 'invoices');
+        $this->emit('modelImport', $this->fileName, $data['hasHeader'], $data['type']);
     }
 }

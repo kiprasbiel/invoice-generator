@@ -11,15 +11,19 @@ use Tests\TestCase;
 class IvoiceImportTest extends TestCase
 {
     public function testCanUploadInvoiceFile() {
+        $this->withoutExceptionHandling();
         Storage::fake('invoices');
 
         $file = UploadedFile::fake()->createWithContent('testas.csv', 'Labas vakaras, mieli kolegos');
 
-        Livewire::test(InvoiceImport::class)
+        $fileName = Livewire::test(InvoiceImport::class)
             ->set('file', $file)
-            ->call('submit', 'testas.csv');
+            ->set('hasHeader', false)
+            ->set('type', 'Invoice')
+            ->call('parse')
+            ->get('fileName');
 
-        Storage::disk('invoices')->assertExists('testas.csv');
+        Storage::disk('invoices')->assertExists($fileName);
     }
 
 }
