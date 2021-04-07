@@ -4,11 +4,11 @@
 namespace App\Http\services\Invoice;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class InvoiceImportService
 {
     public function import($importData, $format): void {
+        // TODO: refactorint i parent klase
         $userId = $importData->user_id;
 
         $data = array_map(
@@ -17,10 +17,10 @@ class InvoiceImportService
             },
             file($importData->csv_filename)
         );
+        ksort($format['fields']);
 
         $parsedData = array_map(function($row) use ($format, $userId) {
-            $tempArr = array_intersect_key($row, $format['fields']);
-            $combinedArr = array_combine($format['fields'], $tempArr);
+            $combinedArr = array_combine($format['fields'], $row);
             $combinedArr['user_id'] = $userId;
             return $combinedArr;
         }, $data);
@@ -40,7 +40,6 @@ class InvoiceImportService
                 'updated_at' => date('Y-m-d H:i:s')
             ];
             $invoice_id = DB::table('invoices')->insertGetId($invoiceArr);
-
 
             DB::table('items')->insert([
                 'name' => (isset($invoice['name'])) ? $invoice['name'] : '',
