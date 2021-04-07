@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use App\Http\Livewire\ParseImport;
 use App\Http\Livewire\Settings\InvoiceImport;
+use App\Http\services\Invoice\InvoiceImportService;
 use App\Jobs\InvoiceImportProcessor;
+use App\Models\ImportData;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class InvoiceImportTest extends TestCase
+class ImportTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
@@ -34,19 +36,19 @@ class InvoiceImportTest extends TestCase
     }
 
     private function getCSVData(): string {
-        return 'Test;Test2;Test3
-Test4;Test5;Test6';
+        return 'SF70;UAB Rimta įmonė;55115511;LT123456798;Vaižganto g.;100
+SF71;UAB RimtaS įmonė;55115511;LT123456798;Vaižganto g.;101';
     }
 
     private function getFields(): array {
         return [
             "fields" => [
-                10 => "price",
-                5 => "created_at",
-                4 => "company_name",
+                5 => "price",
+                4 => "company_address",
+                1 => "company_name",
                 2 => "company_code",
-                1 => "company_vat",
-                0 => "company_code",
+                3 => "company_vat",
+                0 => "sf_code",
             ]
         ];
     }
@@ -103,6 +105,30 @@ Test4;Test5;Test6';
             ->call('startImport', 1);
 
         Bus::assertDispatched(InvoiceImportProcessor::class);
+    }
+
+    public function testCanImportInvoices() {
+        Storage::fake('invoices');
+        $file = UploadedFile::fake()->createWithContent('testas.csv', $this->getCSVData());
+
+        $fileName = Livewire::test(InvoiceImport::class)
+            ->set('file', $file)
+            ->set('hasHeader', false)
+            ->set('type', 'Invoice')
+            ->call('parse')
+            ->get('fileName');
+
+        $importId = Livewire::test(ParseImport::class)
+            ->call('modelImport', $fileName, 'false', 'Invoice')
+            ->get('importId');
+
+        $importData = ImportData::find($importId);
+
+        $iis = new InvoiceImportService();
+        $iis->import($importData, $this->getFields());
+
+        $this->assertDatabaseCount('invoices', 2);
+        $this->assertDatabaseCount('items', 2);
     }
 
 }
