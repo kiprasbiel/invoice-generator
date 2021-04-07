@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\ParseImport;
 use App\Http\Livewire\Settings\InvoiceImport;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -30,11 +31,15 @@ class InvoiceImportTest extends TestCase
         $this->user = NULL;
     }
 
+    private function getCSVData(): string {
+        return 'Test;Test2;Test3
+Test4;Test5;Test6';
+    }
+
     public function testCanUploadInvoiceFile() {
-        $this->withoutExceptionHandling();
         Storage::fake('invoices');
 
-        $file = UploadedFile::fake()->createWithContent('testas.csv', 'Labas vakaras, mieli kolegos');
+        $file = UploadedFile::fake()->createWithContent('testas.csv', $this->getCSVData());
 
         $fileName = Livewire::test(InvoiceImport::class)
             ->set('file', $file)
@@ -47,12 +52,32 @@ class InvoiceImportTest extends TestCase
         Storage::disk('invoices')->assertExists($fileName);
     }
 
-    function test_activity_page_contains_parse_import_component() {
+    public function test_activity_page_contains_parse_import_component() {
         $this->get('/activity')->assertSeeLivewire('parse-import');
     }
 
-    function test_activity_page_contains_invoice_import_component() {
+    public function test_activity_page_contains_invoice_import_component() {
         $this->get('/activity')->assertSeeLivewire('settings.invoice-import');
+    }
+
+    public function testModalShowsTwoFirstRows() {
+        $this->assertDatabaseCount('import_data', 0);
+
+        Storage::fake('invoices');
+        $file = UploadedFile::fake()->createWithContent('testas.csv', $this->getCSVData());
+
+        $fileName = Livewire::test(InvoiceImport::class)
+            ->set('file', $file)
+            ->set('hasHeader', false)
+            ->set('type', 'Invoice')
+            ->call('parse')
+            ->get('fileName');
+
+        $csvData = Livewire::test(ParseImport::class)
+            ->call('modelImport', $fileName, 'false', 'Invoice')
+            ->get('csvData');
+        $this->assertCount(2, $csvData);
+        $this->assertDatabaseCount('import_data', 1);
     }
 
 }
