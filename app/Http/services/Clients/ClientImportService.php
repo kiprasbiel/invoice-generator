@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Log;
 class ClientImportService
 {
     public function import($importData, $format): void {
-        Log::channel('slack')->debug('Start import');
-
         $userId = $importData->user_id;
 
         $data = array_map(

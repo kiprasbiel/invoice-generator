@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Log;
 class InvoiceImportService
 {
     public function import($importData, $format): void {
-        Log::channel('slack')->debug('Start Invoice import');
-
         $userId = $importData->user_id;
 
         $data = array_map(
