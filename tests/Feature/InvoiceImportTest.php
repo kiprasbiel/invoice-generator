@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class IvoiceImportTest extends TestCase
+class InvoiceImportTest extends TestCase
 {
     public function testCanUploadInvoiceFile() {
         $this->withoutExceptionHandling();
