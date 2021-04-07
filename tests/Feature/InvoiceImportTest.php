@@ -41,6 +41,7 @@ class InvoiceImportTest extends TestCase
             ->set('hasHeader', false)
             ->set('type', 'Invoice')
             ->call('parse')
+            ->assertEmitted('modelImport')
             ->get('fileName');
 
         Storage::disk('invoices')->assertExists($fileName);
