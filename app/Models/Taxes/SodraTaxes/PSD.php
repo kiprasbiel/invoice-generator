@@ -14,7 +14,7 @@ class PSD extends SodraTax
         parent::__construct($income, $expenses);
         $this->rate = 0.0698; // TODO: perkelti i DB
 
-        $this->minimalWage = 607; // TODO: perkelti i DB
+        $this->minimalWage = 642; // TODO: perkelti i DB
     }
 
     private function getPrivilege(){
