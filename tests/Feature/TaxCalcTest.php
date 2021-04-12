@@ -12,6 +12,10 @@ use Tests\TestCase;
 /*
  * Duomenys tikrinti Sodra skaiciuokleje:
  * 2021-01-19
+ *
+ * TODO: blogai veikia islaidu iskaiciavimas
+ * TODO: Perrasyt GPM formules ivertinant visas 3 pakopas
+ * TODO: Perrasyt PSD formules. Neveikia nuo 100k
  */
 
 class TaxCalcTest extends TestCase
@@ -27,6 +31,8 @@ class TaxCalcTest extends TestCase
     /*
      * Duomenys tikrinti Sodra skaiciuokleje:
      * 2021-04-12
+     *
+     * Naujos GPM formules: https://auditors.lt/gpm-formule-2018m/
      */
     public function testGPMCalc() {
         $gpm = new GPM(10000, 100);
@@ -51,27 +57,31 @@ class TaxCalcTest extends TestCase
         $this->assertEquals(21000.00, $gpm->getCalcGPM());
     }
 
+    /*
+     * Duomenys tikrinti Sodra skaiciuokleje:
+     * 2021-04-12
+     */
     public function testPSDCalc() {
         $psd = new PSD(10000, 100);
-        $this->assertEquals(508.44, $psd->getCalcPSD());
+        $this->assertEquals(537.72, $psd->getCalcPSD());
 
-//        $psd = new PSD(10000, 4000);
-//        $this->assertEquals(508.44, $psd->getCalcPSD());
-//
-//        $psd = new PSD(24000, 0);
-//        $this->assertEquals(1055.38, $psd->getCalcPSD());
-//
-//        $psd = new PSD(30000, 0);
-//        $this->assertEquals(1319.22, $psd->getCalcPSD());
-//
-//        $psd = new PSD(60000, 0);
-//        $this->assertEquals(2638.44, $psd->getCalcPSD());
-//
-//        $psd = new PSD(100000, 0);
-//        $this->assertEquals(3725.94, $psd->getCalcPSD());
-//
-//        $psd = new PSD(200000, 0);
-//        $this->assertEquals(3725.94, $psd->getCalcPSD());
+        $psd = new PSD(10000, 4000);
+        $this->assertEquals(537.72, $psd->getCalcPSD());
+
+        $psd = new PSD(24000, 0);
+        $this->assertEquals(1055.38, $psd->getCalcPSD());
+
+        $psd = new PSD(30000, 0);
+        $this->assertEquals(1319.22, $psd->getCalcPSD());
+
+        $psd = new PSD(60000, 0);
+        $this->assertEquals(2638.44, $psd->getCalcPSD());
+
+        $psd = new PSD(100000, 0);
+        $this->assertEquals(4059.99, $psd->getCalcPSD());
+
+        $psd = new PSD(200000, 0);
+        $this->assertEquals(4059.99, $psd->getCalcPSD());
     }
 
     public function testVSDCalc() {
