@@ -6,8 +6,6 @@ use App\Models\Taxes\GPM;
 use App\Models\Taxes\SodraTaxes\PSD;
 use App\Models\Taxes\SodraTaxes\VSD;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 
@@ -26,28 +24,31 @@ class TaxCalcTest extends TestCase
         $this->actingAs($this->user);
     }
 
+    /*
+     * Duomenys tikrinti Sodra skaiciuokleje:
+     * 2021-04-12
+     */
     public function testGPMCalc() {
         $gpm = new GPM(10000, 100);
         $this->assertEquals(350, $gpm->getCalcGPM());
 
-//        $gpm = new GPM(10000, 4000);
-//        $this->assertEquals(240.77, $gpm->getCalcGPM());
-//
-//
-//        $gpm = new GPM(24000, 0);
-//        $this->assertEquals(840.00, $gpm->getCalcGPM());
-//
-//        $gpm = new GPM(30000, 0);
-//        $this->assertEquals(1190.00, $gpm->getCalcGPM());
-//
-//        $gpm = new GPM(60000, 0);
-//        $this->assertEquals(6300.00, $gpm->getCalcGPM());
-//
-//        $gpm = new GPM(100000, 0);
-//        $this->assertEquals(10500.00, $gpm->getCalcGPM());
-//
-//        $gpm = new GPM(200000, 0);
-//        $this->assertEquals(21000.00, $gpm->getCalcGPM());
+        $gpm = new GPM(10000, 4000);
+        $this->assertEquals(239.31, $gpm->getCalcGPM());
+
+        $gpm = new GPM(24000, 0);
+        $this->assertEquals(840.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(30000, 0);
+        $this->assertEquals(1190.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(60000, 0);
+        $this->assertEquals(6300.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(100000, 0);
+        $this->assertEquals(10500.00, $gpm->getCalcGPM());
+
+        $gpm = new GPM(200000, 0);
+        $this->assertEquals(21000.00, $gpm->getCalcGPM());
     }
 
     public function testPSDCalc() {
