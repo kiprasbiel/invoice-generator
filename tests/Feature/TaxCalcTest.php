@@ -101,10 +101,10 @@ class TaxCalcTest extends TestCase
         $this->assertEquals(4732.56, $vsd->getCalcVSD());
 
         $vsd = new VSD(100000, 0);
-        $this->assertEquals(6683.20, $vsd->getCalcVSD());
+        $this->assertEquals(7282.40, $vsd->getCalcVSD());
 
         $vsd = new VSD(200000, 0);
-        $this->assertEquals(6683.20, $vsd->getCalcVSD());
+        $this->assertEquals(7282.40, $vsd->getCalcVSD());
     }
 
     protected function tearDown(): void {
