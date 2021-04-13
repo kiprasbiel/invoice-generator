@@ -20,7 +20,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->integer('quantity');
             $table->decimal('price', 12);
 
-            $table->integer('itemable_id');
+            $table->unsignedBigInteger('itemable_id');
             $table->string('itemable_type');
 
             $table->timestamps();
