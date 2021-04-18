@@ -9,12 +9,15 @@ class PSD extends SodraTax
 {
     protected $rate;
     protected $minimalWage;
+    protected $maxPSD;
 
     function __construct($income, $expenses) {
         parent::__construct($income, $expenses);
         $this->rate = 0.0698; // TODO: perkelti i DB
 
         $this->minimalWage = 642; // TODO: perkelti i DB
+
+        $this->maxPSD = 4059.99;
     }
 
     private function getPrivilege(){
@@ -40,8 +43,7 @@ class PSD extends SodraTax
 
     public function getCalcPSD() {
         if($this->calcStandardPSD() >= $this->calcMinimalPSD() || $this->getPrivilege()) {
-
-            return round($this->calcStandardPSD(), 2);
+            return min(round($this->calcStandardPSD(), 2), $this->maxPSD);
         } else {
             return round($this->calcMinimalPSD(), 2);
         }
