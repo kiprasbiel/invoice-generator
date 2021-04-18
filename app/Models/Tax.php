@@ -13,7 +13,7 @@ class Tax
         $this->expenses = $expenses;
     }
 
-    private function calcDefaultExpenses(){
+    protected function calcDefaultExpenses() {
         return round($this->income * 0.3, 2); // TODO: Perkelt i DB
     }
 
