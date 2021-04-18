@@ -29,13 +29,14 @@ class GPM extends Tax
         }
     }
 
-    // TODO: itin didelese sumuose Sodra automatiskai skaiciuoja 15 proc.
     private function setGPMRate() {
         $isFreeMarket = $this->user->getPrivilege('isFreeMarketActivity');
-        if($isFreeMarket === 'yes') {
-            $this->rate = 0.15; // TODO: perkelti i DB. Gali buti 15% arba 5%
-        } else {
+        if($isFreeMarket === 'yes' || $this->getPayableWage() > 35000) {
+            $this->rate = 0.15;
+        } elseif($this->getPayableWage() <= 20000) {
             $this->rate = 0.05;
+        } elseif($this->getPayableWage() > 20000 && $this->getPayableWage() <= 35000) {
+            $this->rate = 0.15 - (0.1 - 2 / 300000 * ($this->getPayableWage() - 20000));
         }
     }
 
