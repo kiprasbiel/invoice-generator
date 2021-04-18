@@ -34,25 +34,37 @@ class TaxCalcTest extends TestCase
      *
      * Naujos GPM formules: https://auditors.lt/gpm-formule-2018m/
      */
-    public function testGPMCalc() {
+    public function testGPMCalc10000_100() {
         $gpm = new GPM(10000, 100);
         $this->assertEquals(350, $gpm->getCalcGPM());
+    }
 
+    public function testGPMCalc10000_4000() {
         $gpm = new GPM(10000, 4000);
         $this->assertEquals(239.31, $gpm->getCalcGPM());
+    }
 
+    public function testGPMCalc24000_0() {
         $gpm = new GPM(24000, 0);
         $this->assertEquals(840.00, $gpm->getCalcGPM());
+    }
 
+    public function testGPMCalc30000_0() {
         $gpm = new GPM(30000, 0);
         $this->assertEquals(1190.00, $gpm->getCalcGPM());
+    }
 
+    public function testGPMCalc60000_0() {
         $gpm = new GPM(60000, 0);
         $this->assertEquals(6300.00, $gpm->getCalcGPM());
+    }
 
+    public function testGPMCalc100000_0() {
         $gpm = new GPM(100000, 0);
         $this->assertEquals(10500.00, $gpm->getCalcGPM());
+    }
 
+    public function testGPMCalc200000_0() {
         $gpm = new GPM(200000, 0);
         $this->assertEquals(21000.00, $gpm->getCalcGPM());
     }
@@ -61,48 +73,72 @@ class TaxCalcTest extends TestCase
      * Duomenys tikrinti Sodra skaiciuokleje:
      * 2021-04-12
      */
-    public function testPSDCalc() {
+    public function testPSDCalc10000_100() {
         $psd = new PSD(10000, 100);
         $this->assertEquals(537.72, $psd->getCalcPSD());
+    }
 
+    public function testPSDCalc10000_4000() {
         $psd = new PSD(10000, 4000);
         $this->assertEquals(537.72, $psd->getCalcPSD());
+    }
 
+    public function testPSDCalc24000_0() {
         $psd = new PSD(24000, 0);
         $this->assertEquals(1055.38, $psd->getCalcPSD());
+    }
 
+    public function testPSDCalc30000_0() {
         $psd = new PSD(30000, 0);
         $this->assertEquals(1319.22, $psd->getCalcPSD());
+    }
 
+    public function testPSDCalc60000_0() {
         $psd = new PSD(60000, 0);
         $this->assertEquals(2638.44, $psd->getCalcPSD());
+    }
 
+    public function testPSDCalc100000_0() {
         $psd = new PSD(100000, 0);
         $this->assertEquals(4059.99, $psd->getCalcPSD());
+    }
 
+    public function testPSDCalc200000_0() {
         $psd = new PSD(200000, 0);
         $this->assertEquals(4059.99, $psd->getCalcPSD());
     }
 
-    public function testVSDCalc() {
+    public function testVSDCalc10000_100() {
         $vsd = new VSD(10000, 100);
         $this->assertEquals(788.76, $vsd->getCalcVSD());
+    }
 
+    public function testVSDCalc10000_4000() {
         $vsd = new VSD(10000, 4000);
         $this->assertEquals(676.08, $vsd->getCalcVSD());
+    }
 
+    public function testVSDCalc24000_0() {
         $vsd = new VSD(24000, 0);
         $this->assertEquals(1893.02, $vsd->getCalcVSD());
+    }
 
+    public function testVSDCalc30000_0() {
         $vsd = new VSD(30000, 0);
         $this->assertEquals(2366.28, $vsd->getCalcVSD());
+    }
 
+    public function testVSDCalc60000_0() {
         $vsd = new VSD(60000, 0);
         $this->assertEquals(4732.56, $vsd->getCalcVSD());
+    }
 
+    public function testVSDCalc100000_0() {
         $vsd = new VSD(100000, 0);
         $this->assertEquals(7282.40, $vsd->getCalcVSD());
+    }
 
+    public function testVSDCalc200000_0() {
         $vsd = new VSD(200000, 0);
         $this->assertEquals(7282.40, $vsd->getCalcVSD());
     }
