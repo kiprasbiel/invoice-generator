@@ -21,7 +21,7 @@ class VSD extends SodraTax
 
         $this->firstTimer = $firstTimer;
 
-        $this->maximumPayableTax = 7282.4; // TODO: Perkelti i DB. Gali buti 7282.4, 8678.38, 9027.38
+//        $this->maximumPayableTax = 7282.4; // TODO: Perkelti i DB. Gali buti 7282.4, 8678.38, 9027.38
 
         $this->user = auth()->user();
     }
@@ -31,10 +31,13 @@ class VSD extends SodraTax
         $rate = $this->user->getPrivilege('additionalPension');
         switch($rate){
             case 'pens21':
+                $this->maximumPayableTax = 8678.38;
                 return 0.024;
             case 'pens3':
+                $this->maximumPayableTax = 9027.38;
                 return 0.03;
             default:
+                $this->maximumPayableTax = 7282.4;
                 return 0;
         }
     }
