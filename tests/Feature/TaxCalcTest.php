@@ -13,10 +13,6 @@ use Tests\TestCase;
 /*
  * Duomenys tikrinti Sodra skaiciuokleje:
  * 2021-01-19
- *
- * TODO: blogai veikia islaidu iskaiciavimas
- * TODO: Perrasyt GPM formules ivertinant visas 3 pakopas
- * TODO: Perrasyt PSD formules. Neveikia nuo 100k
  */
 
 class TaxCalcTest extends TestCase
@@ -221,6 +217,56 @@ class TaxCalcTest extends TestCase
         $this->setUserPrivileges('low');
         $vsd = new VSD(200000, 0);
         $this->assertEquals(8678.38, $vsd->getCalcVSD());
+    }
+
+    /*
+     * VSD with high privilege
+     *
+     * Duomenys tikrinti Sodra skaiciuokleje:
+     * 2021-04-21
+     *
+     */
+
+    public function testVSDCalc10000_100_high_privilege() {
+        $this->setUserPrivileges('high');
+        $vsd = new VSD(10000, 100);
+        $this->assertEquals(977.76, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc10000_4000_high_privilege() {
+        $this->setUserPrivileges('high');
+        $vsd = new VSD(10000, 4000);
+        $this->assertEquals(838.08, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc24000_0_high_privilege() {
+        $this->setUserPrivileges('high');
+        $vsd = new VSD(24000, 0);
+        $this->assertEquals(2346.62, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc30000_0_high_privilege() {
+        $this->setUserPrivileges('high');
+        $vsd = new VSD(30000, 0);
+        $this->assertEquals(2933.28, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc60000_0_high_privilege() {
+        $this->setUserPrivileges('high');
+        $vsd = new VSD(60000, 0);
+        $this->assertEquals(5866.56, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc100000_0_high_privilege() {
+        $this->setUserPrivileges('high');
+        $vsd = new VSD(100000, 0);
+        $this->assertEquals(9027.38, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc200000_0_high_privilege() {
+        $this->setUserPrivileges('high');
+        $vsd = new VSD(200000, 0);
+        $this->assertEquals(9027.38, $vsd->getCalcVSD());
     }
 
     protected function tearDown(): void {
