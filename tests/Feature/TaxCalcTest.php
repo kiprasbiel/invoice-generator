@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Meta;
 use App\Models\Taxes\GPM;
 use App\Models\Taxes\SodraTaxes\PSD;
 use App\Models\Taxes\SodraTaxes\VSD;
@@ -28,7 +29,30 @@ class TaxCalcTest extends TestCase
         $this->actingAs($this->user);
     }
 
+    protected function setUserPrivileges(string $pri): void {
+        switch ($pri) {
+            case 'low':
+                $value = '{"isStudent":null,"isFirstTimer":null,"isPensioner":null,"additionalPension":"pens21","isFreeMarketActivity":null}';
+                break;
+            case 'high':
+                $value = '{"isStudent":null,"isFirstTimer":null,"isPensioner":null,"additionalPension":"pens3","isFreeMarketActivity":null}';
+                break;
+            default:
+                $value = '{"isStudent":null,"isFirstTimer":null,"isPensioner":null,"additionalPension":"pens0","isFreeMarketActivity":null}';
+                break;
+        }
+
+        Meta::where('name', 'privilegesSettings')
+            ->where('metable_type', 'App\Models\User')
+            ->where('metable_id', $this->user->id)
+            ->update([
+                'value' => $value
+            ]);
+    }
+
     /*
+     * GPM
+     *
      * Duomenys tikrinti Sodra skaiciuokleje:
      * 2021-04-12
      *
@@ -70,6 +94,8 @@ class TaxCalcTest extends TestCase
     }
 
     /*
+     * PSD
+     *
      * Duomenys tikrinti Sodra skaiciuokleje:
      * 2021-04-12
      */
@@ -108,6 +134,10 @@ class TaxCalcTest extends TestCase
         $this->assertEquals(4059.99, $psd->getCalcPSD());
     }
 
+    /*
+     * VSD
+     */
+
     public function testVSDCalc10000_100() {
         $vsd = new VSD(10000, 100);
         $this->assertEquals(788.76, $vsd->getCalcVSD());
@@ -141,6 +171,56 @@ class TaxCalcTest extends TestCase
     public function testVSDCalc200000_0() {
         $vsd = new VSD(200000, 0);
         $this->assertEquals(7282.40, $vsd->getCalcVSD());
+    }
+
+    /*
+     * VSD with low privilege
+     *
+     * Duomenys tikrinti Sodra skaiciuokleje:
+     * 2021-04-21
+     *
+     */
+
+    public function testVSDCalc10000_100_low_privilege() {
+        $this->setUserPrivileges('low');
+        $vsd = new VSD(10000, 100);
+        $this->assertEquals(939.96, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc10000_4000_low_privilege() {
+        $this->setUserPrivileges('low');
+        $vsd = new VSD(10000, 4000);
+        $this->assertEquals(805.68, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc24000_0_low_privilege() {
+        $this->setUserPrivileges('low');
+        $vsd = new VSD(24000, 0);
+        $this->assertEquals(2255.90, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc30000_0_low_privilege() {
+        $this->setUserPrivileges('low');
+        $vsd = new VSD(30000, 0);
+        $this->assertEquals(2819.88, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc60000_0_low_privilege() {
+        $this->setUserPrivileges('low');
+        $vsd = new VSD(60000, 0);
+        $this->assertEquals(5639.76, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc100000_0_low_privilege() {
+        $this->setUserPrivileges('low');
+        $vsd = new VSD(100000, 0);
+        $this->assertEquals(8678.38, $vsd->getCalcVSD());
+    }
+
+    public function testVSDCalc200000_0_low_privilege() {
+        $this->setUserPrivileges('low');
+        $vsd = new VSD(200000, 0);
+        $this->assertEquals(8678.38, $vsd->getCalcVSD());
     }
 
     protected function tearDown(): void {
