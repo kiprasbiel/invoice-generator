@@ -61,11 +61,11 @@ class VSD extends SodraTax
 
     public function getCalcVSD()
     {
+        $actualVSD = $this->calcVSD();
         if ($this->isFirstTimer()) {
             return 0;
         }
-        // Aiskiau issiaiskinti, kokios tos VSD lengvatos
-        elseif ($this->maximumPayableTax >= $this->calcVSD()) {
+        elseif ($this->maximumPayableTax > $actualVSD) {
             return $this->calcVSD();
         }
         else {
