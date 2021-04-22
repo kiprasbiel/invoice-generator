@@ -49,6 +49,8 @@
 
                 </table>
 
+                <livewire:invoice.invoice-send-modal/>
+
                 <div class="p-5">
                     {{ $invoices->links('vendor.pagination.tailwind') }}
                 </div>

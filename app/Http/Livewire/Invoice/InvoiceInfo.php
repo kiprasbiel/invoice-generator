@@ -46,4 +46,8 @@ class InvoiceInfo extends Component
         return $this->invoice->downloadInvoice();
     }
 
+    public function send() {
+        $this->emit('sendInvoice', $this->invoice);
+    }
+
 }
