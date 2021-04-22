@@ -15,6 +15,8 @@ use Tests\TestCase;
  * 2021-01-19
  */
 
+// TODO: dar reikia parasyt testus visom lengvatom
+
 class TaxCalcTest extends TestCase
 {
     protected $user;
@@ -100,6 +102,11 @@ class TaxCalcTest extends TestCase
      * Duomenys tikrinti Sodra skaiciuokleje:
      * 2021-04-12
      */
+    public function testPSDCalc0() {
+        $psd = new PSD(0, 0);
+        $this->assertEquals(537.72, $psd->getCalcPSD());
+    }
+
     public function testPSDCalc10000_100() {
         $psd = new PSD(10000, 100);
         $this->assertEquals(537.72, $psd->getCalcPSD());
@@ -138,6 +145,11 @@ class TaxCalcTest extends TestCase
     /*
      * VSD
      */
+
+    public function testVSDCalc0() {
+        $vsd = new VSD(0, 0);
+        $this->assertEquals(0, $vsd->getCalcVSD());
+    }
 
     public function testVSDCalc10000_100() {
         $vsd = new VSD(10000, 100);
