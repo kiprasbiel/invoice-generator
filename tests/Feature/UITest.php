@@ -58,7 +58,7 @@ class UITest extends TestCase
         $response->assertSee('Įmonės pavadinimas');
         $response->assertSee('Paslaugos pavadinimas');
         $response->assertSee('Pašalinti');
-        $response->assertSee('Išsaugoti ir atsisiųsti');
+        $response->assertSee('Išsaugoti');
     }
 
     public function testCanSeeProfile(){
