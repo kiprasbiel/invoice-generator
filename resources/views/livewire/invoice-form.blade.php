@@ -107,7 +107,7 @@
         </div>
 
         <div class="float-right mb-4">
-            <input class="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded" type="submit" value="Išsaugoti ir atsisiųsti">
+            <input class="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded" type="submit" value="Išsaugoti">
         </div>
     </form>
 </div>
