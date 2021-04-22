@@ -43,6 +43,6 @@ class GPM extends Tax
     public function getCalcGPM(): float {
         $this->setGPMRate();
 
-        return round($this->getPayableWage() * $this->rate, 2);
+        return max(round($this->getPayableWage() * $this->rate, 2), 0);
     }
 }

@@ -54,6 +54,11 @@ class TaxCalcTest extends TestCase
      *
      * Naujos GPM formules: https://auditors.lt/gpm-formule-2018m/
      */
+    public function testGPMCalc0() {
+        $gpm = new GPM(0, 0);
+        $this->assertEquals(0, $gpm->getCalcGPM());
+    }
+
     public function testGPMCalc10000_100() {
         $gpm = new GPM(10000, 100);
         $this->assertEquals(350, $gpm->getCalcGPM());
