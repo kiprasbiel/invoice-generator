@@ -21,7 +21,7 @@ class Meta extends Model
         return $this->morphTo();
     }
 
-    public static function getIvSettingsFields(){
+    public static function getIvSettingsFields(): array {
         return [
             'full_name',
             'iv_code',
@@ -36,14 +36,14 @@ class Meta extends Model
         ];
     }
 
-    public static function getSfCodeSettingsFields(){
+    public static function getSfCodeSettingsFields(): array {
         return [
             'sf_code',
             'sf_number',
         ];
     }
 
-    public static function getPrivilegesSettingsFields(){
+    public static function getPrivilegesSettingsFields(): array {
         return [
             'isStudent',
             'isFirstTimer',
@@ -53,7 +53,7 @@ class Meta extends Model
         ];
     }
 
-    public static function getFieldsForValidation($fields, $fill = 'nullable'){
+    public static function getFieldsForValidation($fields, $fill = 'nullable'): array {
         $methodName = 'get' . $fields . 'SettingsFields';
         $actualFields = self::$methodName();
         return array_fill_keys($actualFields, $fill);
