@@ -84,6 +84,11 @@ class User extends Authenticatable
         });
     }
 
+    public function getDecodedUserSettings($settings, $field = null) {
+        $json = $this->getUserSettings($settings);
+        return ($field) ? json_decode($json->value)->$field : json_decode($json->value);
+    }
+
     public function getPrivilege($privilege){
         $settings = $this->getUserSettings('privilegesSettings');
         if($settings){
