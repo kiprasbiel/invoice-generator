@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Invoice;
 
+use App\Mail\InvoiceMail;
+use App\Models\Invoice;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class InvoiceSendModal extends Component
@@ -44,5 +47,8 @@ class InvoiceSendModal extends Component
 
     public function send() {
         $data = $this->validate();
+        $data['username'] = auth()->user()->name;
+        $invoiceModel = Invoice::find($this->invoice['id']);
+        Mail::to($data['receiver'])->send(new InvoiceMail($data, $invoiceModel));
     }
 }

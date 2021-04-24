@@ -24,7 +24,7 @@ class PdfGenerator
         $this->activityInfo = json_decode($invoice->user->getUserSettings('userActivitySettings')->value);
     }
 
-    public function downloadPdf($view = 'pdf.invoice') {
+    private function generatePDF($view) {
         $html = view($view, ['invoice' => $this->invoice, 'items' => $this->items, 'activitySettings' => $this->activityInfo])->render();
         $mpdf = new Mpdf([
             'tempDir' => storage_path() . '/temp',
@@ -34,10 +34,24 @@ class PdfGenerator
 
         $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
         $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
+        return $mpdf;
+    }
+
+    public function downloadPdf($view = 'pdf.invoice') {
+        $mpdf = $this->generatePDF($view);
 
         return response()->streamDownload(function() use ($mpdf) {
             $mpdf->Output();
         }, $this->getFileName());
+    }
+
+    public function getPDF($view = 'pdf.invoice'): array {
+        $mpdf = $this->generatePDF($view);
+
+        return [
+            'pdf-data' => $mpdf->Output('', 'S'),
+            'pdf-name' => $this->getFileName(),
+        ];
     }
 
     private function getFileName(): string {

@@ -84,4 +84,9 @@ class Invoice extends Model
         $generator = new PdfGenerator($this, $this->items);
         return $generator->downloadPdf();
     }
+
+    public function getInvoice() {
+        $generator = new PdfGenerator($this, $this->items);
+        return $generator->getPDF();
+    }
 }
