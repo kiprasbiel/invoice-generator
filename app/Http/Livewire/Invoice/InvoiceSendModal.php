@@ -10,7 +10,7 @@ class InvoiceSendModal extends Component
     public array $invoice;
     public $receiver, $headline, $messageBody;
 
-    protected $listeners = ['sendInvoice'];
+    protected $listeners = ['sendInvoice' => 'openModal'];
 
     protected array $rules = [
         'receiver' => 'email|required',
@@ -37,7 +37,7 @@ class InvoiceSendModal extends Component
         return view('livewire.invoice.invoice-send-modal');
     }
 
-    public function sendInvoice(array $invoice) {
+    public function openModal(array $invoice) {
         $this->show = true;
         $this->invoice = $invoice;
     }
