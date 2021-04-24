@@ -47,7 +47,7 @@ class InvoiceSendModal extends Component
 
     public function send() {
         $data = $this->validate();
-        $data['username'] = auth()->user()->name;
+        $data['username'] = auth()->user()->getDecodedUserSettings('userActivitySettings', 'full_name');
         $invoiceModel = Invoice::find($this->invoice['id']);
         Mail::to($data['receiver'])->send(new InvoiceMail($data, $invoiceModel));
     }
