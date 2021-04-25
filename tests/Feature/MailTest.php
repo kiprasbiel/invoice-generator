@@ -35,7 +35,7 @@ class MailTest extends TestCase
         return [
             'headline' => 'Labas vakaras',
             'messageBody' => 'Kaip gyvenate?',
-            'username' => $this->user->name,
+            'username' => 'Kipras Bielinskas',
         ];
     }
 
