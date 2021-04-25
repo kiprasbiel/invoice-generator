@@ -3,11 +3,9 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\Invoice\InvoiceSendModal;
-use App\Jobs\InvoiceEmailProcessor;
 use App\Mail\InvoiceMail;
 use App\Models\Invoice;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Mail;
@@ -84,17 +82,6 @@ class MailTest extends TestCase
             ->set('messageBody', $data['messageBody'])
             ->call('send');
 
-        Mail::assertSent(InvoiceMail::class);
-    }
-
-    public function testMailJobSentEmails() {
-        Mail::fake();
-        $this->getInvoice([
-            'pay_by' => Carbon::now()->format('Y-m-d'),
-        ]);
-
-        $job = new InvoiceEmailProcessor();
-        $job->handle();
         Mail::assertSent(InvoiceMail::class);
     }
 }

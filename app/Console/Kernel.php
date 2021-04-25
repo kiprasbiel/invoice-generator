@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use App\Mail\InvoiceMail;
+use App\Models\InvoiceEmail;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Mail;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +28,20 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function() {
+            // TODO: Pridet galimybe nustatymuose susikurt Email info
+            InvoiceEmail::where('due_date', Carbon::now()->format('Y-m-d'))->get()
+                ->map(function($time) {
+                    $invoiceModel = $time->invoice;
+                    $data = [
+                        'headline' => 'Defaultinis headlinas!',
+                        'messageBody' => 'Defaultinis bodis!',
+                        'username' => $invoiceModel->user->name,
+                    ];
+                    Mail::to('veliau-pakeist@svarbu.labai')->send(new InvoiceMail($data, $invoiceModel));
+                    $time->delete();
+                });
+        })->everyMinute();
     }
 
     /**
