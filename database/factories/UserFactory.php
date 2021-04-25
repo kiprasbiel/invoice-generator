@@ -52,8 +52,8 @@ class UserFactory extends Factory
                 'metable_id' => $user->id,
             ]);
             Meta::factory()->create([
-                'name' => 'totalExpenses',
-                'value' => '{"expenses":"0"}',
+                'name' => 'mailSettings',
+                'value' => '{"sender":null,"headline":null,"messageBody":null}',
                 'metable_id' => $user->id,
             ]);
         });

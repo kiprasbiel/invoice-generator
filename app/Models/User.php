@@ -109,6 +109,14 @@ class User extends Authenticatable
         }
     }
 
+    public function getMailSettings() {
+        $jsonMeta = $this->getUserSettings('mailSettings');
+        if($jsonMeta) {
+            return json_decode($jsonMeta->value);
+        }
+        return false;
+    }
+
     public function getNextInvoiceNumber(): int{
         return (int)json_decode($this->getUserSettings('sfNumberSettings')->value)
             ->sf_number;

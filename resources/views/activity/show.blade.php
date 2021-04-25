@@ -15,6 +15,10 @@
 
             <x-jet-section-border/>
 
+            <livewire:settings.mail />
+
+            <x-jet-section-border/>
+
             @livewire('settings.privileges')
 
             <x-jet-section-border/>

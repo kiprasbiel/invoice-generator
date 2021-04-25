@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Livewire\Settings\Mail;
 use App\Http\Livewire\Settings\SfNumberSettings;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -51,5 +52,18 @@ class SettingsTest extends TestCase
 
         $meta = $this->user->meta()->where('name', 'sfNumberSettings')->get();
         $this->assertEquals('43', json_decode($meta[0]->value)->sf_number);
+    }
+
+    public function test_can_set_mail_settings() {
+        $response = Livewire::test(Mail::class)
+            ->set('sender', 'info@kipras.lt')
+            ->set('headline', 'Labas vakaras')
+            ->set('messageBody', 'This is a body')
+            ->call('submit');
+        $response->assertHasNoErrors();
+        $meta = $this->user->meta()->where('name', 'mailSettings')->get();
+        $this->assertEquals('info@kipras.lt', json_decode($meta[0]->value)->sender);
+        $this->assertEquals('Labas vakaras', json_decode($meta[0]->value)->headline);
+        $this->assertEquals('This is a body', json_decode($meta[0]->value)->messageBody);
     }
 }

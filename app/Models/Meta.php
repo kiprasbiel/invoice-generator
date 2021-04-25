@@ -53,6 +53,14 @@ class Meta extends Model
         ];
     }
 
+    public static function getMailSettingsFields(): array {
+        return [
+            'sender',
+            'headline',
+            'messageBody',
+        ];
+    }
+
     public static function getFieldsForValidation($fields, $fill = 'nullable'): array {
         $methodName = 'get' . $fields . 'SettingsFields';
         $actualFields = self::$methodName();

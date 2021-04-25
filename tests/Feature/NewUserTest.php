@@ -48,8 +48,8 @@ class NewUserTest extends TestCase
         $this->assertEquals('pens0', $setting->additionalPension);
     }
 
-    public function test_if_totalExpenses_are_created(){
-        $setting = $this->getSettingsArray('totalExpenses');
-        $this->assertEquals(0, $setting->expenses);
+    public function test_if_mail_settings_are_created() {
+        $setting = $this->getSettingsArray('mailSettings');
+        $this->assertEquals(null, $setting->sender);
     }
 }

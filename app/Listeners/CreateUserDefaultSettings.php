@@ -32,6 +32,8 @@ class CreateUserDefaultSettings
 
         $this->setPrivilegesSettings($event);
 
+        $this->setMailSettings($event);
+
         // TODO: Notify the user himself to go and change these default settings
     }
 
@@ -75,6 +77,14 @@ class CreateUserDefaultSettings
         $event->user->meta()->create([
             'name' => 'privilegesSettings',
             'value' => json_encode(array_merge($PrivilegesData, ['additionalPension' => 'pens0']))
+        ]);
+    }
+
+    private function setMailSettings(object $event): void {
+        $mailData = Meta::getFieldsForValidation('Mail', null);
+        $event->user->meta()->create([
+            'name' => 'mailSettings',
+            'value' => json_encode($mailData)
         ]);
     }
 }
