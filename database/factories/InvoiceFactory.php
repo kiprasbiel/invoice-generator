@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Invoice;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceFactory extends Factory
@@ -26,6 +27,7 @@ class InvoiceFactory extends Factory
             'company_code' => $this->faker->randomNumber(8),
             'company_address' => $this->faker->address,
             'company_vat' => 'LT' . $this->faker->randomNumber(8),
+            'pay_by' => Carbon::now()->format('Y-m-d'),
         ];
     }
 }
