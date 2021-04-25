@@ -26,7 +26,7 @@ class RegisterNewInvoiceEmail
     public function handle(InvoiceCreated $event)
     {
         $pay_by = $event->invoice->pay_by;
-        if($pay_by && $pay_by->greaterThan(Carbon::now())) {
+        if($pay_by && $pay_by->greaterThanOrEqualTo(Carbon::now()->format('Y-m-d'))) {
             $event->invoice->email()->create([
                 'due_date' => $pay_by->format('Y-m-d'),
             ]);
