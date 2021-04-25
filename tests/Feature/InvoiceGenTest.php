@@ -30,7 +30,7 @@ class InvoiceGenTest extends TestCase
     }
 
     protected function get_form_data(){
-        return $array = [
+        return [
             'companyName' => $this->faker->name . ', UAB',
             'companyCode' => $this->faker->randomNumber(9),
             'companyVat' => 'LT' . $this->faker->randomNumber(9),
@@ -130,6 +130,13 @@ class InvoiceGenTest extends TestCase
         $this->assertEquals(1, $response->sf_number);
         $response = $this->create_invoice_and_invoice_item();
         $this->assertEquals(2, $response->sf_number);
+    }
+
+    public function test_can_register_new_email_after_invoice_is_created() {
+        $pay_by = Carbon::now()->addDays(10);
+        $invoice = $this->create_invoice_and_invoice_item(['pay_by' => $pay_by->format('Y-m-d')]);
+
+        $this->assertTrue($invoice->email()->exists());
     }
 
     protected function tearDown(): void {

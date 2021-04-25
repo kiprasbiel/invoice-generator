@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\InvoiceCreated;
 use App\Listeners\CreateUserDefaultSettings;
 use App\Listeners\IncrementInvoiceNumber;
+use App\Listeners\RegisterNewInvoiceEmail;
 use App\Models\Invoice;
 use App\Observers\InvoiceObserver;
 use Illuminate\Auth\Events\Registered;
@@ -25,6 +26,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         InvoiceCreated::class => [
             IncrementInvoiceNumber::class,
+            RegisterNewInvoiceEmail::class,
         ],
     ];
 
