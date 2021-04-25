@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InvoiceEmail extends Model
 {
@@ -18,7 +18,7 @@ class InvoiceEmail extends Model
         'due_date' => 'datetime'
     ];
 
-    public function invoice(): HasOne {
-        return $this->hasOne('App\Models\Invoice');
+    public function invoice(): BelongsTo {
+        return $this->belongsTo('App\Models\Invoice');
     }
 }
