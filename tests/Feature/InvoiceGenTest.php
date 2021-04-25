@@ -38,16 +38,25 @@ class InvoiceGenTest extends TestCase
         ];
     }
 
-    protected function create_invoice_and_invoice_item(){
-        return $this->invoice = Invoice::factory()->hasItems(1, [
+    protected function create_invoice_and_invoice_item(array $newInvoiceData = [], array $newItemData = []){
+        $invoiceData = [
+            'company_name' => 'Company, UAB',
+            'user_id' => $this->user->id,
+        ];
+
+        $itemData = [
             'name' => 'Random item',
             'price' => 18,
             'quantity' => 14,
             'unit' => '.khd',
-        ])->create([
-            'company_name' => 'Company, UAB',
-            'user_id' => $this->user->id,
-        ]);
+        ];
+
+        $invoiceData = array_merge($invoiceData, $newInvoiceData);
+        $itemData = array_merge($itemData, $newItemData);
+
+        return $this->invoice = Invoice::factory()
+            ->hasItems(1, $itemData)
+            ->create($invoiceData);
     }
 
     public function test_can_open_invoice_create_page(){
