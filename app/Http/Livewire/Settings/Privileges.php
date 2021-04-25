@@ -47,7 +47,7 @@ class Privileges extends Component
 
         $this->pensionsTypes = [
             'pens0' => 'Nekaupiu',
-            'pens21' => '2,1 proc.',
+            'pens21' => '2,4 proc.',
             'pens3' => '3 proc.',
         ];
     }
