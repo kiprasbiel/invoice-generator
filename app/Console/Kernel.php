@@ -29,14 +29,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function() {
-            // TODO: Pridet galimybe nustatymuose susikurt Email info
             InvoiceEmail::where('due_date', Carbon::now()->format('Y-m-d'))->get()
                 ->map(function($time) {
                     $invoiceModel = $time->invoice;
+                    $mailData = $invoiceModel->user->getMailSettings();
                     $data = [
-                        'headline' => 'Defaultinis headlinas!',
-                        'messageBody' => 'Defaultinis bodis!',
-                        'username' => $invoiceModel->user->name,
+                        'headline' => $mailData->headline,
+                        'messageBody' => $mailData->messageBody,
+                        'username' => $invoiceModel->user->getDecodedUserSettings('userActivitySettings', 'full_name'),
                     ];
                     Mail::to('veliau-pakeist@svarbu.labai')->send(new InvoiceMail($data, $invoiceModel));
                     $time->delete();
