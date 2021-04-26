@@ -33,6 +33,9 @@ class Kernel extends ConsoleKernel
                 ->map(function($time) {
                     $invoiceModel = $time->invoice;
                     $mailData = $invoiceModel->user->getMailSettings();
+                    if (!$mailData->autoSend) {
+                        return;
+                    }
                     $data = [
                         'headline' => $mailData->headline,
                         'messageBody' => $mailData->messageBody,
@@ -42,6 +45,8 @@ class Kernel extends ConsoleKernel
                     $time->delete();
                 });
         })->everyMinute();
+
+        // TODO: padaryt automatini senu irasu trinima
     }
 
     /**
