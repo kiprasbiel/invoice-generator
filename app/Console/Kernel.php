@@ -38,7 +38,7 @@ class Kernel extends ConsoleKernel
                         'messageBody' => $mailData->messageBody,
                         'username' => $invoiceModel->user->getDecodedUserSettings('userActivitySettings', 'full_name'),
                     ];
-                    Mail::to('veliau-pakeist@svarbu.labai')->send(new InvoiceMail($data, $invoiceModel));
+                    Mail::to($invoiceModel->email)->send(new InvoiceMail($data, $invoiceModel));
                     $time->delete();
                 });
         })->everyMinute();
