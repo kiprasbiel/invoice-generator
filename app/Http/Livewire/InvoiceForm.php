@@ -9,7 +9,7 @@ class InvoiceForm extends Component
 {
     use Notifications;
 
-    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action, $payBy, $email;
+    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action, $payBy, $email, $user;
 
     public $productList = [];
 
@@ -47,6 +47,7 @@ class InvoiceForm extends Component
 
     public function mount(object $invoice = null) {
         $this->invoice = $invoice;
+        $this->user = auth()->user()->getDecodedUserSettings('userActivitySettings', null, true);
 
         // Editing existing invoice
         if($this->invoice) {
