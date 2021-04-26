@@ -87,6 +87,15 @@
                         </td>
                     </tr>
                 @endif
+                @if($invoice->email)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">El. paštas</div>
+                        </td><td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ $invoice->email}}</div>
+                        </td>
+                    </tr>
+                @endif
                 @if($invoice->company_address)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
