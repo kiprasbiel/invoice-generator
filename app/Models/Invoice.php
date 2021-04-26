@@ -22,6 +22,7 @@ class Invoice extends Model
         'company_address',
         'company_vat',
         'pay_by',
+        'email',
     ];
 
     protected $importFillable = [

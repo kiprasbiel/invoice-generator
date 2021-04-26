@@ -28,6 +28,7 @@ class InvoiceFactory extends Factory
             'company_address' => $this->faker->address,
             'company_vat' => 'LT' . $this->faker->randomNumber(8),
             'pay_by' => Carbon::now()->format('Y-m-d'),
+            'email' => $this->faker->email,
         ];
     }
 }

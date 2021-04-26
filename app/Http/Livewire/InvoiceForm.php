@@ -9,7 +9,7 @@ class InvoiceForm extends Component
 {
     use Notifications;
 
-    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action, $payBy;
+    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action, $payBy, $email;
 
     public $productList = [];
 
@@ -19,6 +19,7 @@ class InvoiceForm extends Component
         'companyVat' => 'alpha_num|nullable',
         'companyAddress' => 'nullable',
         'payBy' => 'nullable|date_format:Y-m-d',
+        'email' => 'nullable|email',
         'productList' => 'array',
         'productList.*.product_name' => 'required',
         'productList.*.product_price' => 'numeric|required_with:productList.*.product_name',
@@ -33,6 +34,7 @@ class InvoiceForm extends Component
         'companyCode.numeric' => 'Įmonės kodas privalo būti sudarytas iš skaičių.',
         'companyVat.alpha_num' => 'PVM kodas gali būti sudarytas iš raidžių ir skaičių.',
         'payBy.date_format' => 'Netinkamas datos formatas',
+        'email.email' => 'Įvestas el. pašto adresas neteisingas',
 
         'productList.*.product_name.required' => 'Produkto pavadinimas yra privalomas.',
         'productList.*.product_price.numeric' => 'Produkto kaina privalo būti sudaryta iš skaičių.',
@@ -57,6 +59,7 @@ class InvoiceForm extends Component
             if($invoice->pay_by){
                 $this->payBy = $invoice->pay_by->format('Y-m-d');
             }
+            $this->email = $invoice->email;
 
             $itemCollection = $this->invoice->items;
             foreach($itemCollection as $item) {
@@ -135,6 +138,7 @@ class InvoiceForm extends Component
             'company_address' => $data['companyAddress'],
             'company_vat' => $data['companyVat'],
             'pay_by' => $data['payBy'],
+            'email' => $data['email'],
         ];
     }
 

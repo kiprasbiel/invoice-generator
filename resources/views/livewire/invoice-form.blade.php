@@ -1,7 +1,7 @@
 <div>
     <form class="rounded w-full px-20" wire:submit.prevent="{{ $action }}">
         <div class="flex flex-wrap -mx-3 mb-5 mt-4">
-            <div class="w-full px-3">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="company_name">
                     Įmonės pavadinimas
                 </label>
@@ -9,6 +9,15 @@
                        class="appearance-none block w-full border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                        id="company_name" type="text" placeholder="Testas, UAB">
                 @error('companyName') <span class="text-red-600">{{ $message }}</span> @enderror
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="email">
+                    Įmonės el. paštas
+                </label>
+                <input wire:model.defer="email"
+                       class="appearance-none block w-full border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                       id="email" type="text" placeholder="info@domenas.lt">
+                @error('email') <span class="text-red-600">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-5">
