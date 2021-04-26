@@ -9,6 +9,19 @@
 
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-6">
+            <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    <input name="autoSend" id="autoSend" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" wire:model.defer="autoSend">
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="autoSend" class="font-medium text-gray-700">{{ __('Siųsti el. paštu automatinius sąskaitų apmokėjimo priminimus') }}</label>
+                </div>
+            </div>
+
+            <x-jet-input-error for="autoSend" class="mt-2"/>
+        </div>
+
+        <div class="col-span-6 sm:col-span-6">
             <x-jet-label for="sender" value="{{ __('El. paštas kurį matys laiško gavėjas') }}"/>
             <x-jet-input id="sender" type="text" class="mt-1 block w-full" wire:model.defer="sender"/>
             <x-jet-input-error for="sender" class="mt-2"/>

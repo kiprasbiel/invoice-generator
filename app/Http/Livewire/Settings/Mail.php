@@ -13,12 +13,14 @@ class Mail extends Component
     public $sender;
     public $headline;
     public $messageBody;
+    public $autoSend;
 
     protected array $rules = [];
 
     public function __construct($id = null) {
         parent::__construct($id);
         $this->rules = array_merge(Meta::getFieldsForValidation('Mail'), [
+            'autoSend' => 'boolean|required',
             'sender' => 'email|required',
             'headline' => 'string|required',
             'messageBody' => 'string|required',
@@ -34,6 +36,7 @@ class Mail extends Component
 
         $meta = $user->getMailSettings();
         if ($meta) {
+            $this->autoSend = $meta->autoSend;
             $this->sender = $meta->sender;
             $this->headline = $meta->headline;
             $this->messageBody = $meta->messageBody;

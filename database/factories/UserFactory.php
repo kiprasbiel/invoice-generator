@@ -53,7 +53,7 @@ class UserFactory extends Factory
             ]);
             Meta::factory()->create([
                 'name' => 'mailSettings',
-                'value' => '{"sender":null,"headline":null,"messageBody":null}',
+                'value' => '{"sender":null,"headline":null,"messageBody":null, "autoSend": false}',
                 'metable_id' => $user->id,
             ]);
         });

@@ -84,7 +84,7 @@ class CreateUserDefaultSettings
         $mailData = Meta::getFieldsForValidation('Mail', null);
         $event->user->meta()->create([
             'name' => 'mailSettings',
-            'value' => json_encode($mailData)
+            'value' => json_encode(array_merge($mailData, ['autoSend' => false])),
         ]);
     }
 }

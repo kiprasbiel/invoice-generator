@@ -55,6 +55,7 @@ class Meta extends Model
 
     public static function getMailSettingsFields(): array {
         return [
+            'autoSend',
             'sender',
             'headline',
             'messageBody',
