@@ -3,13 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Http\services\Notifications\Notifications;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class InvoiceForm extends Component
 {
     use Notifications;
 
-    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action, $payBy, $email, $user;
+    public $companyName, $companyCode, $companyVat, $companyAddress, $invoice, $action, $payBy, $email, $userSettings, $sf_code, $invoiceDate;
 
     public $productList = [];
 
@@ -47,12 +48,16 @@ class InvoiceForm extends Component
 
     public function mount(object $invoice = null) {
         $this->invoice = $invoice;
-        $this->user = auth()->user()->getDecodedUserSettings('userActivitySettings', null, true);
+        $user = auth()->user();
+        $this->userSettings = $user->getDecodedUserSettings('userActivitySettings', null, true);
+
 
         // Editing existing invoice
         if($this->invoice) {
             $this->action = 'update';
 
+            $this->sf_code = $invoice->sf_code;
+            $this->invoiceDate = $invoice->created_at->format('Y-m-d');
             $this->companyName = $invoice->company_name;
             $this->companyCode = $invoice->company_code;
             $this->companyVat = $invoice->company_vat;
@@ -68,10 +73,11 @@ class InvoiceForm extends Component
             }
         } // New invoice
         else {
+            $this->sf_code = $user->getSfCode();
+            $this->invoiceDate = Carbon::now()->format('Y-m-d');
             $this->action = 'create';
             $this->addProduct();
         }
-
     }
 
     public function render() {

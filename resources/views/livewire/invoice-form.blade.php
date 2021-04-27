@@ -5,10 +5,10 @@
                 Sąskaita faktūra
             </div>
             <div class="w-full px-3 mb-6 md:mb-0 text-center font-bold">
-                Serija ir Nr. {{-- SERIJOS NR --}}
+                Serija ir Nr. {{ $sf_code }}
             </div>
             <div class="w-full px-3 mb-6 md:mb-0 text-center font-bold">
-                Sąskaitos data  {{-- SĄSKAITOS IŠRAŠYMO DATA --}}
+                Sąskaitos data  {{ $invoiceDate }}
             </div>
             <div class="flex justify-center w-full px-3 mb-6 mt-3 md:mb-0 items-center">
                 <div class="font-bold text-center">
@@ -26,32 +26,32 @@
         <div class="flex flex-wrap mx-3 mb-5 mt-4">
             <div class="w-full md:w-1/2 mb-6 md:mb-0">
                 <p class="font-bold">Pardavėjas</p>
-                @if($user['full_name'])
-                    <div>{{ $user['full_name'] }}</div>
+                @if($userSettings['full_name'])
+                    <div>{{ $userSettings['full_name'] }}</div>
                 @endif
-                @if($user['iv_code'])
-                    <div>Individualios veiklos pažymos nr. {{$user['iv_code']}}</div>
+                @if($userSettings['iv_code'])
+                    <div>Individualios veiklos pažymos nr. {{$userSettings['iv_code']}}</div>
                 @endif
-                @if($user['vat'])
-                    <div>PVM mokėtojo kodas {{$user['vat']}}</div>
+                @if($userSettings['vat'])
+                    <div>PVM mokėtojo kodas {{$userSettings['vat']}}</div>
                 @endif
-                @if($user['personal_code'])
-                    <div>Asmens kodas {{$user['personal_code']}}</div>
+                @if($userSettings['personal_code'])
+                    <div>Asmens kodas {{$userSettings['personal_code']}}</div>
                 @endif
-                @if($user['address'])
-                    <div>{{$user['address']}}</div>
+                @if($userSettings['address'])
+                    <div>{{$userSettings['address']}}</div>
                 @endif
-                @if($user['phone'])
-                    <div>{{$user['phone']}}</div>
+                @if($userSettings['phone'])
+                    <div>{{$userSettings['phone']}}</div>
                 @endif
-                @if($user['email'])
-                    <div>{{$user['email']}}</div>
+                @if($userSettings['email'])
+                    <div>{{$userSettings['email']}}</div>
                 @endif
-                @if($user['additional_info'])
-                    <div>{{$user['additional_info']}}</div>
+                @if($userSettings['additional_info'])
+                    <div>{{$userSettings['additional_info']}}</div>
                 @endif
-                @if($user['bank_name'] && $user['bank_account_num'])
-                    <div>{{$user['bank_name']}} — {{$user['bank_account_num']}}</div>
+                @if($userSettings['bank_name'] && $userSettings['bank_account_num'])
+                    <div>{{$userSettings['bank_name']}} — {{$userSettings['bank_account_num']}}</div>
                 @endif
             </div>
 
