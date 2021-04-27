@@ -122,6 +122,10 @@ class User extends Authenticatable
             ->sf_number;
     }
 
+    public function getSfCode(): string {
+        return $this->getSfCodeBeginning() . ' ' . $this->getNextInvoiceNumber();
+    }
+
     public function getTotalIncome(): float {
         return $this->invoices()->with('items')->get()->map(function($invoice) {
             return $invoice->total_sum;
