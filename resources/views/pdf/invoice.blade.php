@@ -95,6 +95,7 @@
     <div><strong>Bendra suma</strong> {{$invoice->total_sum}} &euro;</div>
 </div>
 
+{{-- TODO: pridet suma zodziais --}}
 {{--<div class="margin-top-normal">--}}
 {{--    Suma žodžiais:--}}
 {{--</div>--}}
