@@ -10,6 +10,7 @@ class InvoiceInfo extends Component
     public $items;
 
     public $display;
+    public $is_payed;
 
 
     protected function getListeners(): array {
@@ -24,6 +25,7 @@ class InvoiceInfo extends Component
     public function mount($invoice){
         $this->display = 'hidden';
         $this->invoice = $invoice;
+        $this->is_payed = $invoice->is_payed;
     }
 
     public function render()
@@ -48,6 +50,10 @@ class InvoiceInfo extends Component
 
     public function send() {
         $this->emit('sendInvoice', $this->invoice);
+    }
+
+    public function updatedIsPayed($value) {
+        $this->invoice->update(['is_payed' => (bool)$value]);
     }
 
 }

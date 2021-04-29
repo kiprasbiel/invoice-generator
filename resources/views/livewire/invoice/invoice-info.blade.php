@@ -116,15 +116,14 @@
         <div>
             <div class="flex justify-between">
                 <div class="flex p-4 space-x-4">
-                    <button class="bg-transparent font-semibold hover:text-white py-2 px-4 border  hover:border-transparent rounded
-                    @if($invoice->is_payed)
+                    <button wire:click="$toggle('is_payed')" class="bg-transparent font-semibold hover:text-white py-2 px-4 border  hover:border-transparent rounded
+                    @if($is_payed)
                         hover:bg-green-500 text-green-700 border-green-500
                     @else
                         hover:bg-red-500 text-red-700 border-red-500
                     @endif
                         ">
-
-                        @if($invoice->is_payed)
+                        @if($is_payed)
                             Apmokėta
                         @else
                             Neapmokėta
