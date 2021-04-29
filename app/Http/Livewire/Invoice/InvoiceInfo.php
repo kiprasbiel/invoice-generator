@@ -54,6 +54,7 @@ class InvoiceInfo extends Component
 
     public function updatedIsPayed($value) {
         $this->invoice->update(['is_payed' => (bool)$value]);
+        $this->emit("toggleIsPayed-{$this->invoice->id}", $value);
     }
 
 }

@@ -15,13 +15,19 @@ class InvoiceListItem extends Component
     public $backgroundColor;
     public $shadow;
     public $displayH;
+    public $is_payed;
 
     public $hamburger;
     public $closeSection;
 
     protected function getListeners() {
         $listenerName = 'delete-' . $this->invoice->id;
-        return [$listenerName => 'removeRow'];
+        $toggleListener = "toggleIsPayed-{$this->invoice->id}";
+
+        return [
+            $listenerName => 'removeRow',
+            $toggleListener => 'toggleIsPayed',
+        ];
     }
 
     public function mount($invoice) {
@@ -32,6 +38,7 @@ class InvoiceListItem extends Component
         $this->hamburger = 'inline-flex';
         $this->closeSection = 'hidden';
         $this->displayH = 'table-row';
+        $this->is_payed = $invoice->is_payed;
     }
 
     public function render() {
@@ -67,5 +74,9 @@ class InvoiceListItem extends Component
         $this->invoice->delete();
 
         $this->dispatchBrowserEvent('notify', $this->newNotification('Sąskaita sėkmingai pašalinta'));
+    }
+
+    public function toggleIsPayed($value) {
+        $this->is_payed = $value;
     }
 }

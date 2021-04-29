@@ -7,8 +7,8 @@
         </div>
     </td>
     <td class="px-6 py-4 whitespace-nowrap">
-        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if($invoice->is_payed) bg-green-100 text-green-800 @else bg-red-100 text-red-800 @endif">
-            @if($invoice->is_payed)
+        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if($is_payed) bg-green-100 text-green-800 @else bg-red-100 text-red-800 @endif">
+            @if($is_payed)
                 Apmokėta
             @else
                 Neapmokėta
