@@ -25,8 +25,8 @@ class ItemFactory extends Factory
         return [
             'name' => $this->faker->name,
             'unit' => '.' . Str::random(3),
-            'quantity' => $this->faker->randomFloat(2),
-            'price' => $this->faker->randomFloat(5),
+            'quantity' => $this->faker->randomFloat(0, 1, 10),
+            'price' => $this->faker->randomFloat(2, 1, 10000),
         ];
     }
 }
