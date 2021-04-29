@@ -64,7 +64,8 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">Pavadinimas</div>
-                        </td><td class="px-6 py-4 whitespace-nowrap">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ $invoice->company_name}}</div>
                         </td>
                     </tr>
@@ -73,7 +74,8 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">Įmonės kodas</div>
-                        </td><td class="px-6 py-4 whitespace-nowrap">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ $invoice->company_code}}</div>
                         </td>
                     </tr>
@@ -82,7 +84,8 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">PVM kodas</div>
-                        </td><td class="px-6 py-4 whitespace-nowrap">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ $invoice->company_vat}}</div>
                         </td>
                     </tr>
@@ -91,7 +94,8 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">El. paštas</div>
-                        </td><td class="px-6 py-4 whitespace-nowrap">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ $invoice->email}}</div>
                         </td>
                     </tr>
@@ -100,7 +104,8 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">Adresas</div>
-                        </td><td class="px-6 py-4 whitespace-nowrap">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ $invoice->company_address}}</div>
                         </td>
                     </tr>
@@ -109,14 +114,37 @@
             </table>
         </div>
         <div>
-            <div class="flex flex-row-reverse p-4 space-x-4 space-x-reverse">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" wire:click="send">Siųsti</button>
-                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                   wire:click="delete">Ištrinti</button>
-                <a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded" type="submit"
-                   href="{{route('invoice.edit', [$invoice->id])}}">Redaguoti</a>
-                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                        wire:click="download">Atsisiųsti PDF</button>
+            <div class="flex justify-between">
+                <div class="flex p-4 space-x-4">
+                    <button class="bg-transparent font-semibold hover:text-white py-2 px-4 border  hover:border-transparent rounded
+                    @if($invoice->is_payed)
+                        hover:bg-green-500 text-green-700 border-green-500
+                    @else
+                        hover:bg-red-500 text-red-700 border-red-500
+                    @endif
+                        ">
+
+                        @if($invoice->is_payed)
+                            Apmokėta
+                        @else
+                            Neapmokėta
+                        @endif
+                    </button>
+                </div>
+                <div class="flex p-4 space-x-4">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                            wire:click="download">Atsisiųsti PDF
+                    </button>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                            wire:click="send">
+                        Siųsti El. laišką
+                    </button>
+                    <a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded" type="submit"
+                       href="{{route('invoice.edit', [$invoice->id])}}">Redaguoti</a>
+                    <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            wire:click="delete">Ištrinti
+                    </button>
+                </div>
             </div>
         </div>
     </td>
