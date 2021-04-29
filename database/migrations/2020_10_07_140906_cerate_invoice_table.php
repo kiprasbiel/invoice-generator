@@ -24,6 +24,7 @@ class CerateInvoiceTable extends Migration
             $table->string('company_vat')->nullable();
             $table->string('company_address')->nullable();
             $table->date('pay_by')->nullable();
+            $table->boolean('is_payed');
             $table->timestamps();
         });
     }

@@ -146,6 +146,7 @@ class InvoiceForm extends Component
             'company_vat' => $data['companyVat'],
             'pay_by' => $data['payBy'],
             'email' => $data['email'],
+            'is_payed' => false,
         ];
     }
 

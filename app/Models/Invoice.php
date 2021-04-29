@@ -23,15 +23,18 @@ class Invoice extends Model
         'company_vat',
         'pay_by',
         'email',
+        'is_payed',
     ];
 
+    // Used for CSV imports
     protected $importFillable = [
         'created_at',
         'sf_code',
     ];
 
     protected $casts = [
-        'pay_by' => 'datetime'
+        'pay_by' => 'datetime',
+        'is_payed' => 'boolean',
     ];
 
     protected $appends = ['total_sum'];
