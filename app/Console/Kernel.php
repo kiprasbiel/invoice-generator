@@ -33,7 +33,8 @@ class Kernel extends ConsoleKernel
                 ->map(function($time) {
                     $invoiceModel = $time->invoice;
                     $mailData = $invoiceModel->user->getMailSettings();
-                    if (!$mailData->autoSend) {
+                    if (!$mailData->autoSend || $invoiceModel->is_payed) {
+                        $time->delete();
                         return;
                     }
                     $data = [
