@@ -14,15 +14,10 @@ class VSD extends SodraTax
 
     protected $user;
 
-    function __construct($income, $expenses, $firstTimer = false)
+    function __construct($income, $expenses)
     {
         parent::__construct($income, $expenses);
         $this->rate = 0.1252; // TODO: perkelti i DB
-
-        $this->firstTimer = $firstTimer;
-
-//        $this->maximumPayableTax = 7282.4; // TODO: Perkelti i DB. Gali buti 7282.4, 8678.38, 9027.38
-
         $this->user = auth()->user();
     }
 
