@@ -22,7 +22,6 @@ class VSD extends SodraTax
     }
 
     private function getRetirementRate(){
-//        $user = auth()->user();
         $rate = $this->user->getPrivilege('additionalPension');
         switch($rate){
             case 'pens21':
