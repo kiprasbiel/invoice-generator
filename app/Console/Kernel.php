@@ -45,7 +45,7 @@ class Kernel extends ConsoleKernel
                     Mail::to($invoiceModel->email)->send(new InvoiceMail($data, $invoiceModel));
                     $time->delete();
                 });
-        })->everyMinute();
+        })->dailyAt('10:00');
 
         // TODO: padaryt automatini senu irasu trinima
     }
