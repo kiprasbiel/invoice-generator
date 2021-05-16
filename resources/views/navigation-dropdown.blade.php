@@ -63,9 +63,9 @@
                             {{ __('Paskyros valdymas') }}
                         </div>
 
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __('Profilis') }}
-                        </x-jet-dropdown-link>
+{{--                        <x-jet-dropdown-link href="{{ route('profile.show') }}">--}}
+{{--                            {{ __('Profilis') }}--}}
+{{--                        </x-jet-dropdown-link>--}}
 
                         <x-jet-dropdown-link href="{{ route('activity.show') }}">
                             {{ __('Veiklos nustatymai') }}
