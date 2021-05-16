@@ -28,4 +28,22 @@
 
         </div>
     </div>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+        tippy('#firstTimer_label', {
+            content: 'Pirmus metus vykdydami individualią veiklą, galite pasirinkti nemokėti metinės VSD įmokos. Daugiau informacijos rasite <a style="color: #3f83f8" href="https://www.sodra.lt/lt/situacijos/vykdau-individualia-veikla?el_id=2045">čia.</a>',
+            placement: 'right',
+            allowHTML: true,
+            interactive: true,
+        });
+        tippy('#freeActivity', {
+            allowHTML: true,
+            content: 'Asmenys užsiimantys laisvąją profesija moka 15% GPM. Daugiau informacijos rasite <a style="color: #3f83f8" href="https://www.vmi.lt/cms/gyventoju-pajamu-mokestis9">čia.</a>',
+            placement: 'right',
+            interactive: true,
+        });
+    </script>
+
 </x-app-layout>
